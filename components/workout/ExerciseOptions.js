@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import bodyData from './body'
+import Splits from './Splits'
 
 const ExerciseOptions = () => {
     // Allow the user to select the body parts that they are going to train
@@ -31,11 +32,7 @@ const ExerciseOptions = () => {
           <Button onPress={(e)=> pressHandler(e,'common')} name='common' title="common"/>
           <Button onPress={(e)=> pressHandler(e,'specific')} name='specific' title="specific"/>
           <Button title="Skip"/>
-            <View>
-                {body.map(split=>{
-                    return <Text>{split}</Text>
-                })}
-            </View>
+          <Splits body={body} />
           
         </View>
     );
