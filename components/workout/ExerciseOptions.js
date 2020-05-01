@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import bodyData from './body'
 
 const ExerciseOptions = () => {
     // Allow the user to select the body parts that they are going to train
@@ -9,6 +10,8 @@ const ExerciseOptions = () => {
     const [options, setOptions] = useState({
         simple: true, common: false, specific: false 
     })
+    const [body, setBody] = useState(bodyData['simple'])
+    console.log("this is body", body)
 
     const pressHandler = (e, name) =>{
         setOptions(()=>{
@@ -18,17 +21,21 @@ const ExerciseOptions = () => {
             })
             return {...newOptions, [name]: true}
         })
+        setBody(bodyData[name])
     }
-    console.log(options)
 
     return (
         <View>
           <Text>What are we working on Today, select all that apply</Text>
-          <Text>Advanced Options</Text>
           <Button onPress={(e)=> pressHandler(e,'simple')} name='simple' title="simple"/>
           <Button onPress={(e)=> pressHandler(e,'common')} name='common' title="common"/>
           <Button onPress={(e)=> pressHandler(e,'specific')} name='specific' title="specific"/>
           <Button title="Skip"/>
+            <View>
+                {body.map(split=>{
+                    return <Text>{split}</Text>
+                })}
+            </View>
           
         </View>
     );
