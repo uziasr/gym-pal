@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 
 const Splits = ({ body }) => {
     const [splits, setSplits] = useState(()=>{
-        newSplit= {}
-        Object.keys(body).forEach(split=>{
-            newSplit[split] = false
+        newSplit= {}    
+        body.forEach(bodySplit=>{
+            newSplit[bodySplit] = false
         })
         return newSplit
     })
@@ -15,11 +15,13 @@ const Splits = ({ body }) => {
         setSplits({...splits, [split]:!splits[split]})
     }
 
+    console.log(splits)
+
     return (
         <View style={{display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
-            {body.map(split=>{
+            {body.map((split, index)=>{
             return (
-            <View>
+            <View key={index}>
                  <Text
                  style={splits[split]? {color: 'green'}: {color:'blue'}} 
                  onPress={()=>updateSplit(split)}>{split}</Text>

@@ -12,7 +12,6 @@ const ExerciseOptions = () => {
         simple: true, common: false, specific: false 
     })
     const [body, setBody] = useState(bodyData['simple'])
-    console.log("this is body", body)
 
     const pressHandler = (e, name) =>{
         setOptions(()=>{
