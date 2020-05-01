@@ -27,10 +27,12 @@ const ExerciseOptions = () => {
     return (
         <View>
           <Text>What are we working on Today, select all that apply</Text>
-          <Button onPress={(e)=> pressHandler(e,'simple')} name='simple' title="simple"/>
-          <Button onPress={(e)=> pressHandler(e,'common')} name='common' title="common"/>
-          <Button onPress={(e)=> pressHandler(e,'specific')} name='specific' title="specific"/>
-          <Button title="Skip"/>
+         <View style={{display:'flex', flexDirection:'row'}}>
+              <Button onPress={(e)=> pressHandler(e,'simple')} name='simple' title="simple"/>
+              <Button onPress={(e)=> pressHandler(e,'common')} name='common' title="common"/>
+              <Button onPress={(e)=> pressHandler(e,'specific')} name='specific' title="specific"/>
+              <Button title="Skip"/>
+         </View>
           <Splits body={body} />
           
         </View>
