@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
 
 const Splits = ({ body }) => {
@@ -8,6 +8,7 @@ const Splits = ({ body }) => {
 
     useEffect(() => {
         setSplits(() => {
+            setSelected(false)
             newSplit = {}
             body.forEach(split => {
                 newSplit[split] = false
@@ -16,9 +17,49 @@ const Splits = ({ body }) => {
         })
     }, [body])
 
+    const styles = StyleSheet.create({
+        bodyWrap: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            flexWrap: 'wrap',
+            alignContent: 'center',
+            alignItems: 'center'
+        },
+        bodyText: {
+            // padding:70,
+            padding: 30,
+            margin: 5,
+            alignSelf: 'center',
+            color: 'white',
+            fontWeight: 'bold'
+        },
+        bodyView: {
+            margin: 10,
+            width: "45%",
+        },
+        buttonView: {
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'space-evenly'
+        },
+        skipButton: {
+            backgroundColor: 'dodgerblue',
+            padding: 10,
+            borderRadius: 10,
+            color: 'white'
 
-    const updateSplit = async (split) => {
-        await setSplits(() => {
+        },
+        submitButton: {
+            padding: 10,
+            borderRadius: 10
+        }
+
+    })
+
+    const updateSplit = (split) => {
+        setSplits(() => {
             const newSplit = { ...splits, [split]: !splits[split] }
             setSelected(() => {
                 let select = false
@@ -31,32 +72,33 @@ const Splits = ({ body }) => {
             })
             return { ...splits, [split]: !splits[split] }
         })
-
-        // setSelected((isSelected)=>{
-        // let select = false
-        // Object.keys(splits).forEach(split=>{
-        //     console.log(split, splits[split])
-        //     if(splits[split]){
-        //         select = true
-        //     }  
-        // })
-        // return select
-        // })
-        console.log('this is isSelected', isSelected)
     }
 
     return (
-        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
-            {body.map((split, index) => {
-                return (
-                    <View key={index}>
-                        <Text
-                            style={splits[split] ? { color: 'green' } : { color: 'blue' }}
-                            onPress={() => updateSplit(split)}>{split}</Text>
-                    </View>)
-            })}
-            <Button title='Start Workout' disabled={!isSelected} />
-        </View>
+        <>
+            <View style={styles.bodyWrap}>
+                {body.map((split, index) => {
+                    return (
+                        <View style={splits[split] ? { ...styles.bodyView, backgroundColor: 'green' } : { ...styles.bodyView, backgroundColor: 'blue' }} key={index}>
+                            <Text
+                                style={styles.bodyText}
+                                onPress={() => updateSplit(split)}>{split.toUpperCase()}</Text>
+                        </View>)
+                })}
+            </View>
+            <View style={styles.buttonView}>
+                <TouchableOpacity
+                    style={styles.skipButton}
+                ><Text>Skip</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                style={isSelected ? {...styles.submitButton, backgroundColor:'green'} : {...styles.submitButton}}
+                disabled={!isSelected}
+                >
+                    <Text>Start Workout</Text>
+                </TouchableOpacity>
+            </View>
+        </>
     );
 };
 
