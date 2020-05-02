@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import bodyData from './body'
 import Splits from './Splits'
 
-const ExerciseOptions = () => {
+const ExerciseOptions = ({ navigation }) => {
     // Allow the user to select the body parts that they are going to train
     // the simple options --> chest, back, legs, arms, shoulders
     // option type --> push/pull/legs
@@ -66,7 +66,7 @@ const ExerciseOptions = () => {
 
                 <TouchableOpacity style={styles.button}><Text>Skip</Text></TouchableOpacity>
             </View>
-            <Splits body={body} />
+            <Splits body={body} navigation={navigation} />
 
         </View>
     );

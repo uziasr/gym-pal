@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
 
-const Splits = ({ body }) => {
+const Splits = ({ body, navigation }) => {
     const [splits, setSplits] = useState({})
     const [isSelected, setSelected] = useState(false)
 
@@ -74,6 +74,11 @@ const Splits = ({ body }) => {
         })
     }
 
+    const pressNavigation = () =>{
+        navigation.navigate('Exercise')
+
+    }
+
     return (
         <>
             <View style={styles.bodyWrap}>
@@ -91,9 +96,11 @@ const Splits = ({ body }) => {
                     style={styles.skipButton}
                 ><Text>Skip</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity 
                 style={isSelected ? {...styles.submitButton, backgroundColor:'green'} : {...styles.submitButton}}
                 disabled={!isSelected}
+                onPress={()=>{pressNavigation()}}
                 >
                     <Text>Start Workout</Text>
                 </TouchableOpacity>
