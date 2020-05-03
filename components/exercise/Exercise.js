@@ -33,17 +33,21 @@ const Exercise = () => {
                 :
                 <Workout exercise={exercise} setWorkout={setWorkout} workout={workout} />
             }
-
-
+                        {workout[exercise] ?
+                workout[exercise].map(set => {
+                    <View style={{
+                        display: 'flex', 
+                        flexDirection: 'row', 
+                        justifyContent: 'space-evenly'
+                    }}>
+                        <Text>{set[0]}</Text>
+                        <Text>X</Text>
+                        <Text>{set[1]}</Text>
+                    </View>
+                })
+                : null}
         </View>
     );
 };
 
 export default Exercise;
-
-
-// {deadlift:[(weight x reps)]}
-// 
-// 
-// 
-// 
