@@ -15,7 +15,10 @@ const ExerciseOptions = ({ navigation }) => {
            display:'flex',
            flexDirection: 'row',
            justifyContent: 'space-evenly',
-           fontFamily: "'Open Sans', sans-serif"
+           fontFamily: "'Open Sans', sans-serif",
+           backgroundColor: '#bdd4e7',
+        //    backgroundImage: 'linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%)'
+
         },
         button: {
             backgroundColor: 'transparent',

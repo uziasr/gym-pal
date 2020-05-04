@@ -16,7 +16,7 @@ const Exercise = () => {
             return { ...workout, [exercise]: [] }
         })
     }
-
+    console.log('this is workout in Exercise.js', workout)
     return (
         <View>
             {Object.keys(workout).map((anExercise, index) => <Text key={index}>{anExercise}</Text>)}

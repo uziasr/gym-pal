@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { gymButton } from '../../common-components/commons'
 
 
 const Splits = ({ body, navigation }) => {
@@ -18,6 +19,10 @@ const Splits = ({ body, navigation }) => {
     }, [body])
 
     const styles = StyleSheet.create({
+        root:{
+            backgroundColor:'#2d2d2d',
+            height: '100%'
+        },
         bodyWrap: {
             display: 'flex',
             flexDirection: 'row',
@@ -28,15 +33,16 @@ const Splits = ({ body, navigation }) => {
         },
         bodyText: {
             // padding:70,
-            padding: 30,
+            padding: 15,
             margin: 5,
-            alignSelf: 'center',
+            alignSelf: 'flex-start',
             color: 'white',
             fontWeight: 'bold'
         },
         bodyView: {
             margin: 10,
-            width: "45%",
+            width: "98%",
+            borderRadius: 15
         },
         buttonView: {
             display: 'flex',
@@ -49,7 +55,6 @@ const Splits = ({ body, navigation }) => {
             padding: 10,
             borderRadius: 10,
             color: 'white'
-
         },
         submitButton: {
             padding: 10,
@@ -80,14 +85,16 @@ const Splits = ({ body, navigation }) => {
     }
 
     return (
-        <>
+        <View style={styles.root}>
             <View style={styles.bodyWrap}>
                 {body.map((split, index) => {
                     return (
                         <View style={splits[split] ? { ...styles.bodyView, backgroundColor: 'green' } : { ...styles.bodyView, backgroundColor: 'blue' }} key={index}>
-                            <Text
-                                style={styles.bodyText}
-                                onPress={() => updateSplit(split)}>{split.toUpperCase()}</Text>
+                            <TouchableOpacity onPress={() => updateSplit(split)}>
+                                <Text
+                                    style={styles.bodyText}
+                                    >{split.toUpperCase()}</Text>
+                            </TouchableOpacity>
                         </View>)
                 })}
             </View>
@@ -97,15 +104,15 @@ const Splits = ({ body, navigation }) => {
                 ><Text>Skip</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity 
+                {isSelected? <TouchableOpacity 
                 style={isSelected ? {...styles.submitButton, backgroundColor:'green'} : {...styles.submitButton}}
                 disabled={!isSelected}
                 onPress={()=>{pressNavigation()}}
                 >
                     <Text>Start Workout</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> : null }
             </View>
-        </>
+        </View>
     );
 };
 
