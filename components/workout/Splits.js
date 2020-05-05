@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native';
 import { gymButton } from '../../common-components/commons'
+import ArrowIcon from './Arrow'
 
 
 const Splits = ({ body, navigation }) => {
@@ -19,10 +20,10 @@ const Splits = ({ body, navigation }) => {
     }, [body])
 
     const styles = StyleSheet.create({
-        root:{
-            backgroundColor:'#2d2d2d',
-            height: '100%'
-        },
+        // root:{
+        //     backgroundColor:'#2d2d2d',
+        //     height: '100%'
+        // },
         bodyWrap: {
             display: 'flex',
             flexDirection: 'row',
@@ -33,14 +34,13 @@ const Splits = ({ body, navigation }) => {
         },
         bodyText: {
             // padding:70,
-            padding: 15,
-            margin: 5,
             alignSelf: 'flex-start',
             color: 'white',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            color: 'black'
         },
         bodyView: {
-            margin: 10,
+            margin: 5,
             width: "98%",
             borderRadius: 15
         },
@@ -89,11 +89,14 @@ const Splits = ({ body, navigation }) => {
             <View style={styles.bodyWrap}>
                 {body.map((split, index) => {
                     return (
-                        <View style={splits[split] ? { ...styles.bodyView, backgroundColor: 'green' } : { ...styles.bodyView, backgroundColor: 'blue' }} key={index}>
+                        <View style={splits[split] ? { ...styles.bodyView, backgroundColor: 'green' } : { ...styles.bodyView, backgroundColor: '#E8E9ED' }} key={index}>
                             <TouchableOpacity onPress={() => updateSplit(split)}>
-                                <Text
-                                    style={styles.bodyText}
-                                    >{split.toUpperCase()}</Text>
+                                <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', alignContent: 'center', padding: 15, margin: 5,}}>
+                                    <Text
+                                        style={styles.bodyText}
+                                        >{split.toUpperCase()}</Text>
+                                    <ArrowIcon />
+                                </View>
                             </TouchableOpacity>
                         </View>)
                 })}

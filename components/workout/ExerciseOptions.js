@@ -31,19 +31,19 @@ export default function ExerciseOptions({ navigation }) {
 
     const FirstRoute = () => {
         return <View style={[{ flex: 1 }, { backgroundColor: '#673ab7' }]}>
-            <Splits body={body} navigation={navigation} />
+            <Splits body={bodyData['simple']} navigation={navigation} />
         </View>
     };
 
     const SecondRoute = () => {
         return <View style={[{ flex: 1 }, { backgroundColor: '#673ab7' }]}>
-            <Splits body={body} navigation={navigation} />
+            <Splits body={bodyData['common']} navigation={navigation} />
         </View>
     };
 
     const ThirdRoute = () => {
         return <View style={[{ flex: 1 }, { backgroundColor: '#673ab7' }]}>
-            <Splits body={body} navigation={navigation} />
+            <Splits body={bodyData['specific']} navigation={navigation} />
         </View>
     };
 
@@ -52,14 +52,14 @@ export default function ExerciseOptions({ navigation }) {
     })
     const [index, setIndex] = useState(0)
     const [routes] = useState([
-        { key: 'first', title: 'Simple' },
-        { key: 'second', title: 'Common' },
-        { key: 'third', title:'specific'}
+        { key: 'simple', title: 'Simple' },
+        { key: 'common', title: 'Common' },
+        { key: 'specific', title:'Specific'}
     ]);
     const renderScene = SceneMap({
-        first: FirstRoute,
-        second: SecondRoute,
-        third: ThirdRoute
+        simple: FirstRoute,
+        common: SecondRoute,
+        specific: ThirdRoute
     });
 
     const initialLayout = { width: Dimensions.get('window').width };
@@ -79,7 +79,6 @@ export default function ExerciseOptions({ navigation }) {
     }
 
     return (
-        // <View>
         <>
             <TabView
                 navigationState={{ index, routes }}
