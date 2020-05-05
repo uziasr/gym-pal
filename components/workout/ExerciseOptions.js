@@ -1,40 +1,73 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Dimensions } from 'react-native';
 import bodyData from './body'
 import Splits from './Splits'
+import { TabView, SceneMap } from 'react-native-tab-view';
 
-const ExerciseOptions = ({ navigation }) => {
+export default function ExerciseOptions({ navigation }) {
     // Allow the user to select the body parts that they are going to train
     // the simple options --> chest, back, legs, arms, shoulders
     // option type --> push/pull/legs
     // option type full-body
     const styles = StyleSheet.create({
         rootWrap: {
-           width: '100%',
-           marginHorizontal: 'auto',
-           display:'flex',
-           flexDirection: 'row',
-           justifyContent: 'space-evenly',
-           fontFamily: "'Open Sans', sans-serif",
-           backgroundColor: '#bdd4e7',
-        //    backgroundImage: 'linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%)'
+            width: '100%',
+            marginHorizontal: 'auto',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            fontFamily: "'Open Sans', sans-serif",
+            //    backgroundColor: '#bdd4e7',
+            //    backgroundImage: 'linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%)'
 
         },
         button: {
             backgroundColor: 'transparent',
             color: 'black',
-            paddingVertical:15,
+            paddingVertical: 15,
             alignSelf: 'center'
         },
     });
 
+    const FirstRoute = () => {
+        return <View style={[{ flex: 1 }, { backgroundColor: '#673ab7' }]}>
+            <Splits body={body} navigation={navigation} />
+        </View>
+    };
+
+    const SecondRoute = () => {
+        return <View style={[{ flex: 1 }, { backgroundColor: '#673ab7' }]}>
+            <Splits body={body} navigation={navigation} />
+        </View>
+    };
+
+    const ThirdRoute = () => {
+        return <View style={[{ flex: 1 }, { backgroundColor: '#673ab7' }]}>
+            <Splits body={body} navigation={navigation} />
+        </View>
+    };
 
     const [options, setOptions] = useState({
         simple: true, common: false, specific: false
     })
+    const [index, setIndex] = useState(0)
+    const [routes] = useState([
+        { key: 'first', title: 'Simple' },
+        { key: 'second', title: 'Common' },
+        { key: 'third', title:'specific'}
+    ]);
+    const renderScene = SceneMap({
+        first: FirstRoute,
+        second: SecondRoute,
+        third: ThirdRoute
+    });
+
+    const initialLayout = { width: Dimensions.get('window').width };
+
+
     const [body, setBody] = useState(bodyData['simple'])
 
-    const pressHandler = (e, name) => {
+    const switchHandler = (name) => {
         setOptions(() => {
             let newOptions = {}
             Object.keys(options).forEach((key) => {
@@ -46,33 +79,16 @@ const ExerciseOptions = ({ navigation }) => {
     }
 
     return (
-        <View>
-            <View style={styles.rootWrap}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={(e) => pressHandler(e, 'simple')}
-                >
-                    <Text>Simple</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={(e) => pressHandler(e, 'common')}
-                >
-                    <Text>Common</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={(e) => pressHandler(e, 'specific')}
-                >
-                    <Text>Specific</Text>
-                </TouchableOpacity>
+        // <View>
+        <>
+            <TabView
+                navigationState={{ index, routes }}
+                renderScene={renderScene}
+                onIndexChange={setIndex}
+                initialLayout={initialLayout}
+            />
+        </>
 
-                <TouchableOpacity style={styles.button}><Text>Skip</Text></TouchableOpacity>
-            </View>
-            <Splits body={body} navigation={navigation} />
-
-        </View>
     );
 };
 
-export default ExerciseOptions;
