@@ -4374,6 +4374,16 @@ react-native-screens@~2.2.0:
   dependencies:
     debounce "^1.2.0"
 
+react-native-svg@9.9.2:
+  version "9.9.2"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.9.2.tgz#33085e2b6da7a540311f5a39acb0a1366d3ee020"
+  integrity sha512-vA1m7FjqUJd+tjrwt0qIFunfbGMUqc+l7RP4ZNGsYxrJDXJnVA/8CAwsFvxOxtNI/V4xk+Fhv+I3Gd12CWIt/A==
+
+react-native-tab-view@^2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.14.0.tgz#dd801f82fdb8e92fce9688b78d13923f3a5a2b3f"
+  integrity sha512-Z7XAM3NsMB96c17e9EAveunk7SUgilXWwVUTmWI1u/+p2SeOMUOB87z+//UXrcVlD1e9BPweR73q7dq7krTzTg==
+
 react-native-view-shot@3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/react-native-view-shot/-/react-native-view-shot-3.1.2.tgz#8c8e84c67a4bc8b603e697dbbd59dbc9b4f84825"
