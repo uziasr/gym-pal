@@ -20,10 +20,10 @@ const Splits = ({ body, navigation }) => {
     }, [body])
 
     const styles = StyleSheet.create({
-        // root:{
-        //     backgroundColor:'#2d2d2d',
-        //     height: '100%'
-        // },
+        root:{
+            backgroundColor:'#2d2d2d',
+            height: '100%'
+        },
         bodyWrap: {
             display: 'flex',
             flexDirection: 'row',
@@ -89,7 +89,7 @@ const Splits = ({ body, navigation }) => {
             <View style={styles.bodyWrap}>
                 {body.map((split, index) => {
                     return (
-                        <View style={splits[split] ? { ...styles.bodyView, backgroundColor: 'green' } : { ...styles.bodyView, backgroundColor: '#E8E9ED' }} key={index}>
+                        <View style={splits[split] ? { ...styles.bodyView, backgroundColor: '#607196' } : { ...styles.bodyView, backgroundColor: '#E8E9ED' }} key={index}>
                             <TouchableOpacity onPress={() => updateSplit(split)}>
                                 <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', alignContent: 'center', padding: 15, margin: 5,}}>
                                     <Text

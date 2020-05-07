@@ -85,6 +85,8 @@ export default function ExerciseOptions({ navigation }) {
                 renderScene={renderScene}
                 onIndexChange={setIndex}
                 initialLayout={initialLayout}
+                indicatorStyle={{ backgroundColor: 'blue', height: 2 }}
+                style={{background: 'black'}}
             />
         </>
 
