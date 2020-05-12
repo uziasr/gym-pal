@@ -1,7 +1,7 @@
 import { createStackNavigator }  from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
-import ExerciseOptions from '../components/workout/ExerciseOptions';
-import Exercise from '../components/exercise/Exercise'
+import ExerciseOptions from '../screens/workout/ExerciseOptions';
+import Exercise from '../screens/exercise/Exercise'
 
 const screens = {
     Body:{

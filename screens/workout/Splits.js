@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { gymButton } from '../../common-components/commons'
 import ArrowIcon from './Arrow'
 
@@ -86,35 +86,37 @@ const Splits = ({ body, navigation }) => {
 
     return (
         <View style={styles.root}>
-            <View style={styles.bodyWrap}>
-                {body.map((split, index) => {
-                    return (
-                        <View style={splits[split] ? { ...styles.bodyView, backgroundColor: '#607196' } : { ...styles.bodyView, backgroundColor: '#E8E9ED' }} key={index}>
-                            <TouchableOpacity onPress={() => updateSplit(split)}>
-                                <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', alignContent: 'center', padding: 15, margin: 5,}}>
-                                    <Text
-                                        style={styles.bodyText}
-                                        >{split.toUpperCase()}</Text>
-                                    <ArrowIcon />
-                                </View>
-                            </TouchableOpacity>
-                        </View>)
-                })}
-            </View>
-            <View style={styles.buttonView}>
-                <TouchableOpacity
-                    style={styles.skipButton}
-                ><Text>Skip</Text>
-                </TouchableOpacity>
-
-                {isSelected? <TouchableOpacity 
-                style={isSelected ? {...styles.submitButton, backgroundColor:'green'} : {...styles.submitButton}}
-                disabled={!isSelected}
-                onPress={()=>{pressNavigation()}}
-                >
-                    <Text>Start Workout</Text>
-                </TouchableOpacity> : null }
-            </View>
+            <ScrollView>
+                <View style={styles.bodyWrap}>
+                    {body.map((split, index) => {
+                        return (
+                            <View style={splits[split] ? { ...styles.bodyView, backgroundColor: '#607196' } : { ...styles.bodyView, backgroundColor: '#E8E9ED' }} key={index}>
+                                <TouchableOpacity onPress={() => updateSplit(split)}>
+                                    <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', alignContent: 'center', padding: 15, margin: 5,}}>
+                                        <Text
+                                            style={styles.bodyText}
+                                            >{split.toUpperCase()}</Text>
+                                        <ArrowIcon />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>)
+                    })}
+                </View>
+                <View style={styles.buttonView}>
+                    <TouchableOpacity
+                        style={styles.skipButton}
+                    ><Text>Skip</Text>
+                    </TouchableOpacity>
+    
+                    {isSelected? <TouchableOpacity 
+                    style={isSelected ? {...styles.submitButton, backgroundColor:'green'} : {...styles.submitButton}}
+                    disabled={!isSelected}
+                    onPress={()=>{pressNavigation()}}
+                    >
+                        <Text>Start Workout</Text>
+                    </TouchableOpacity> : null }
+                </View>
+            </ScrollView>
         </View>
     );
 };

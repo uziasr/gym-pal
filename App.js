@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Landing from './components/landing/Landing'
-import ExerciseOptions from './components/workout/ExerciseOptions'
+import Landing from './screens/landing/Landing'
+import ExerciseOptions from './screens/workout/ExerciseOptions'
 import Navigator from './routes/homeStack'
 
 export default function App() {
