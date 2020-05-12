@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { gymButton } from '../../common-components/commons'
+import axios from 'axios'
 import ArrowIcon from './Arrow'
 
 
 const Splits = ({ body, navigation }) => {
     const [splits, setSplits] = useState({})
     const [isSelected, setSelected] = useState(false)
+    const [splitList, setSplitList] = useState([])
 
     useEffect(() => {
         setSplits(() => {
@@ -62,7 +64,7 @@ const Splits = ({ body, navigation }) => {
         }
 
     })
-
+    navigation.navigate('Exercise')
     const updateSplit = (split) => {
         setSplits(() => {
             const newSplit = { ...splits, [split]: !splits[split] }
@@ -74,14 +76,21 @@ const Splits = ({ body, navigation }) => {
                     }
                 })
                 return select
-            })
+            })  
             return { ...splits, [split]: !splits[split] }
         })
     }
 
     const pressNavigation = () =>{
-        navigation.navigate('Exercise')
+        const exercises = Object.keys(splits).filter(split=>splits[split])
 
+        axios.post("http://192.168.1.6:5000/workout/1", {muscles: exercises})
+        .then(res=>{
+            console.log(res)
+        })
+        .catch(err=>{
+            console.log("there was an error",err)
+        })
     }
 
     return (
