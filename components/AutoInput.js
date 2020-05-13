@@ -4,21 +4,14 @@ import { Input, ListItem } from 'react-native-elements';
 import { Ionicons, FontAwesome, AntDesign } from '@expo/vector-icons';
 
 
-const AutoInput = ({ data, listLimit }) => {
-
+const AutoInput = ({ data, listLimit, pressHandler }) => {
     const [query, setQuery] = useState('')
     const filteredData =  data.filter(exercise => {
         return (RegExp(new RegExp(query.toLowerCase())).test(exercise.toLowerCase()))
     }) //: data
 
     return (
-        <View style={{
-            // justifyContent: 'flex-start',
-            // alignItems: 'center',
-            // alignContent: 'center',
-            // marginHorizontal: 'auto',
-        }}>
-
+        <View>
             <Input
                 style={{ paddingBottom: 0, flex: 1, marginHorizontal: 'auto' }}
                 value={query}
@@ -38,6 +31,7 @@ const AutoInput = ({ data, listLimit }) => {
                             backgroundColor: '#E6E6E6',
                         }}
                         key={index}
+                        onPress={()=>pressHandler(exercise)}
                         >
                             <Text key={index} style={{paddingHorizontal:4}}>{exercise}</Text>
                             {/* <AntDesign name="right" size={18} color="black" /> */}
