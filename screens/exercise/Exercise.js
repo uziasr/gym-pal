@@ -3,20 +3,21 @@ import { View, TextInput, TouchableOpacity, Text, Button } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input'
 import axios from 'axios'
 import Workout from './Workout'
+import AutoInput from '../../components/AutoInput'
 
 const Exercise = () => {
 
-    const [exercise, setExercise] = useState({name:'h'})
-    const [exerciseList, setExerciseList] =useState([])
+    const [exercise, setExercise] = useState({ name: 'h' })
+    const [exerciseList, setExerciseList] = useState([])
     const [workout, setWorkout] = useState({})
     const [isSelected, setSelected] = useState({})
     const [isActive, setActive] = useState(false)
 
-    useEffect(()=>{
+    useEffect(() => {
         axios.get("http://192.168.1.6:5000//workout/exercise")
-        .then(res=>setExerciseList(res.data))
-        .catch(err=>console.log(err))
-    },[])
+            .then(res => setExerciseList(res.data))
+            .catch(err => console.log(err))
+    }, [])
 
     const addExercise = () => {
         //this should check for the validity of an exercise => autocomplete and exercise
@@ -31,37 +32,12 @@ const Exercise = () => {
             {Object.keys(workout).map((anExercise, index) => <Text key={index}>{anExercise}</Text>)}
             {!isActive ?
                 <>
-                    {/* <TextInput
-                        editable
-                        placeholder='Add Exercise'
-                        value={exercise}
-                        onChangeText={text => setExercise(text)}
-                    /> */}
-                    <View style={{
-                        flex: 1,
-                        left: 0,
-                        position: 'absolute',
-                        right: 0,
-                        top: 0,
-                        zIndex: 1
-                    }}>
-                        <Autocomplete
-                            data={["hello", 'bye']}
-                            onChangeText={text => setExercise({name:text})}
-                            defaultValue={exercise.name}
-                            placeholder="Enter Exercise"
-                            value={exercise.name}
-                            renderItem={({ item, i }) => (
-                                <TouchableOpacity onPress={() =>        setExercise({name:item})}>
-                                    <Text>{item}</Text>
-                                </TouchableOpacity>
-                            )}
-                        />
-                    </View>
+
+                    <AutoInput data={exerciseList} listLimit={10} />
                     {/* <Button onPress={() => addExercise()} title='Go!' /> */}
                 </>
                 :
-                <Workout exercise={exercise} setWorkout={setWorkout} workout={workout} />
+                <Workout exercise={exercise} setWorkout={setWorkout} workout={workout}/>
             }
             {workout[exercise] ?
                 workout[exercise].map(set => {
