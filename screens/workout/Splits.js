@@ -84,7 +84,7 @@ const Splits = ({ body, navigation }) => {
     const pressNavigation = () =>{
         const exercises = Object.keys(splits).filter(split=>splits[split])
 
-        axios.post("http://192.168.1.6:5000/workout/1", {muscles: exercises})
+        axios.post("http://192.168.1.3:5000/workout/1", {muscles: exercises})
         .then(res=>{
             console.log(res)
         })

@@ -14,7 +14,7 @@ const Exercise = ({ navigation }) => {
     const [isActive, setActive] = useState(false)
 
     useEffect(() => {
-        axios.get("http://192.168.1.6:5000//workout/exercise")
+        axios.get("http://192.168.1.3:5000/workout/exercise")
             .then(res => setExerciseList(res.data))
             .catch(err => console.log(err))
     }, [])
