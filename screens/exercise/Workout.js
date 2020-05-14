@@ -4,7 +4,7 @@ import { View, TextInput, Text, Button, StyleSheet } from 'react-native';
 
 const Workout = ({ exercise, setWorkout, workout }) => {
 
-
+    console.log(exercise, setWorkout, workout)
     const styles = StyleSheet.create({
         setView: {
             display: 'flex', 
