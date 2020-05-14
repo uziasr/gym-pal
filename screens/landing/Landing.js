@@ -9,10 +9,6 @@ const landingStyles = StyleSheet.create({
     }
 })
 
-// const touchHandler = () =>{
-
-// }
-
 const Landing = () => {
     const [text, setText] = useState(false)
     return (

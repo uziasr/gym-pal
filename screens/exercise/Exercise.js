@@ -5,7 +5,7 @@ import axios from 'axios'
 import Workout from './Workout'
 import AutoInput from '../../components/AutoInput'
 
-const Exercise = () => {
+const Exercise = ({ navigation }) => {
 
     const [exercise, setExercise] = useState('')
     const [exerciseList, setExerciseList] = useState([])
@@ -26,33 +26,16 @@ const Exercise = () => {
             return { ...workout, [new_exercise]: [] }
         })
         setExercise(new_exercise)
+        console.log("hello there")
+        navigation.navigate('ExerciseSet',{exercise:new_exercise})
+
     }
+
     console.log('this is workout in Exercise.js', workout)
+
     return (
         <View>
-            {Object.keys(workout).map((anExercise, index) => <Text key={index}>{anExercise}</Text>)}
-            {!isActive ?
-                <>
-
-                    <AutoInput data={exerciseList} listLimit={10} pressHandler={addExercise}/>
-                    {/* <Button onPress={() => addExercise()} title='Go!' /> */}
-                </>
-                :
-                <Workout exercise={exercise} setWorkout={setWorkout} workout={workout}/>
-            }
-            {workout[exercise] ?
-                workout[exercise].map(set => {
-                    <View style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-evenly'
-                    }}>
-                        <Text>{set[0]}</Text>
-                        <Text>X</Text>
-                        <Text>{set[1]}</Text>
-                    </View>
-                })
-                : null}
+            <AutoInput data={exerciseList} listLimit={10} pressHandler={addExercise} />
         </View>
     );
 };
