@@ -8,8 +8,7 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
     const [query, setQuery] = useState('')
     const filteredData =  data.filter(exercise => {
         return (RegExp(new RegExp(query.toLowerCase())).test(exercise.toLowerCase()))
-    }) //: data
-
+    }) 
     return (
         <View>
             <Input
