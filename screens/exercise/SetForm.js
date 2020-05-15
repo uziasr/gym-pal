@@ -35,7 +35,7 @@ const SetForm = ({ addSet }) => {
                     <TouchableOpacity onPress={() => {
                         console.log(currentSet)
                         addSet(currentSet)}}>
-                        <AntDesign name="pluscircle" size={30} color="#40826d" />
+                        <AntDesign name="pluscircle" size={35} color="#18A558" />
                     </TouchableOpacity></View>
             </View>
         </View>
