@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, Keyboard } from 'react-native';
-import { Input, ListItem, Button } from 'react-native-elements';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { View,TouchableOpacity, Keyboard } from 'react-native';
+import { Input } from 'react-native-elements';
+import { AntDesign } from '@expo/vector-icons';
 
 const SetForm = ({ addSet }) => {
     const [currentSet, setCurrentSet] = useState({ weight: 0, reps: 0 })

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, TouchableOpacity, Text, Button } from 'react-native';
-import Autocomplete from 'react-native-autocomplete-input'
+import { View } from 'react-native';
 import axios from 'axios'
-import Workout from './Workout'
 import AutoInput from '../../components/AutoInput'
 
 const Exercise = ({ navigation }) => {
