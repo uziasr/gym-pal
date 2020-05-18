@@ -1,13 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Landing from './screens/landing/Landing'
-import ExerciseOptions from './screens/workout/ExerciseOptions'
-import Navigator from './routes/homeStack'
+// import Navigator from './routes/Navigator'
+// import MyTabs from './routes/TabNavigator'
+import  Navigator from './routes/homeStack'
+// import Navigator from './routes/homeStack'
+
+
+import { createStackNavigator } from '@react-navigation/stack';
 
 export default function App() {
   return (
     <>
-      <Navigator/>
+    <Navigator/>
+    {/* <MyTabs/> */}
+    {/* <Tabs/> */}
     </>
   );
 }

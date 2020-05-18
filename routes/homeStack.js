@@ -1,21 +1,50 @@
-import { createStackNavigator }  from 'react-navigation-stack'
+import { createStackNavigator } from 'react-navigation-stack'
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createAppContainer } from 'react-navigation'
 import ExerciseOptions from '../screens/workout/ExerciseOptions';
 import Exercise from '../screens/exercise/Exercise'
 import ExerciseSet from '../screens/exercise/ExerciseSet'
+import Workout from '../screens/workout/Workout'
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 const screens = {
-    Body:{
+    Body: {
         screen: ExerciseOptions
     },
-    Exercise:{
+    Exercise: {
         screen: Exercise
     },
-    ExerciseSet:{
+    ExerciseSet: {
         screen: ExerciseSet
+    },
+    Workout: {
+        screen: Workout
     }
-    
-}
-const HomeStack = createStackNavigator(screens);
 
-export default createAppContainer(HomeStack)
+}
+
+const WorkoutStack = createStackNavigator(screens);
+
+const DashboardTabScreen = createBottomTabNavigator(
+    {
+        Workout: {
+            screen: WorkoutStack
+        }
+
+    },
+    {
+        tabBarOptions: {
+            inactiveTintColor: 'dodgerblue',
+            activeTintColor: 'green',
+            // activeBackgroundColor:'black',
+            style: {
+                fontSize:32
+            }
+        }
+    }
+);
+
+
+
+
+export default createAppContainer(DashboardTabScreen)

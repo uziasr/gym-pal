@@ -26,12 +26,9 @@ const Exercise = ({ navigation }) => {
             return { ...workout, [new_exercise]: [] }
         })
         setExercise(new_exercise)
-        console.log("hello there")
         navigation.navigate('ExerciseSet',{exercise:new_exercise})
 
     }
-
-    console.log('this is workout in Exercise.js', workout)
 
     return (
         <View>

@@ -7,7 +7,6 @@ const SetForm = ({ addSet }) => {
     const [currentSet, setCurrentSet] = useState({ weight: 0, reps: 0 })
 
     const inputChangeHandler = (name, text) => {
-        console.log(name, text)
         setCurrentSet({ ...currentSet, [name]: text })
     }
 
@@ -33,7 +32,6 @@ const SetForm = ({ addSet }) => {
                 </View>
                 <View style={{ width: '25%', paddingBottom: 15, paddingLeft: 30 }}>
                     <TouchableOpacity onPress={() => {
-                        console.log(currentSet)
                         addSet(currentSet)}}>
                         <AntDesign name="pluscircle" size={35} color="#18A558" />
                     </TouchableOpacity></View>

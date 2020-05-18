@@ -16,7 +16,6 @@ export const gymButton = (buttonColor='dodgerblue', buttonPadding=10, condition=
         backgroundColor: buttonColor
     }
     if (condition){
-        console.log('hey there')
         return condition[0] ? {...buttonStyles, ...condition[1]} : {...buttonStyles, ...condition[2]}
     }
     return buttonStyles

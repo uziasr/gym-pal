@@ -4,7 +4,6 @@ import { View, TextInput, Text, Button, StyleSheet } from 'react-native';
 
 const Workout = ({ exercise, setWorkout, workout }) => {
 
-    console.log(exercise, setWorkout, workout)
     const styles = StyleSheet.create({
         setView: {
             display: 'flex', 
@@ -46,11 +45,7 @@ const Workout = ({ exercise, setWorkout, workout }) => {
                 [exercise]: [...workout[exercise], [set.weight, set.repetition]]
             }
         })
-        console.log('this is',exercise)
-        console.log('this is workout', workout)
     }
-
-    console.log("this is the exercise", exercise, 'this is the workout', workout, set)
 
     return (
         <>
@@ -60,6 +55,7 @@ const Workout = ({ exercise, setWorkout, workout }) => {
             <View style={styles.setView}>
                 <TextInput
                     editable
+                    keyboardType="numeric"
                     placeholder='weight'
                     value={set.weight}
                     numericValue
@@ -68,6 +64,7 @@ const Workout = ({ exercise, setWorkout, workout }) => {
                 <Text>X</Text>
                 <TextInput
                     editable
+                    keyboardType="numeric"
                     placeholder='reps'
                     value={set.repetition}
                     numericValue

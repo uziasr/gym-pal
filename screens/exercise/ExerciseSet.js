@@ -5,9 +5,9 @@ import Switches from 'react-native-switches'
 import SetForm from './SetForm'
 import Sets from './Sets'
 
-const ExerciseSet = (props) => {
-    // console.log(props.navigation.state.params.exercise)
-    const currentExercise = props.navigation.state.params.exercise
+const ExerciseSet = ({ navigation }) => {
+
+    const currentExercise = navigation.state.params.exercise
     const [switchValue, setUnit] = useState(true)
     const [exerciseSet, setExerciseSet] = useState({ [currentExercise]: [] })
 
@@ -39,10 +39,9 @@ const ExerciseSet = (props) => {
                 </ScrollView>
             </View>
             <View>
-                <Button title='Complete' buttonStyle={{backgroundColor:'#18A558'}}/>
+                <Button title='Complete' onPress={()=>{ navigation.navigate('Workout', exerciseSet)}} buttonStyle={{backgroundColor:'#18A558'}}/>
             </View>
         </View>
     );
 };
-
 export default ExerciseSet;
