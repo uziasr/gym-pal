@@ -55,19 +55,19 @@ const Workout = ({ exercise, setWorkout, workout }) => {
             <View style={styles.setView}>
                 <TextInput
                     editable
-                    keyboardType="numeric"
+                    keyboardType="number-pad"
                     placeholder='weight'
-                    value={set.weight}
-                    numericValue
+                    // value={(set.weight).toString()}
+                    // numericValue
                     onChangeText={text => changeHandler('weight', text)}
                 />
                 <Text>X</Text>
                 <TextInput
                     editable
-                    keyboardType="numeric"
+                    keyboardType='number-pad'
                     placeholder='reps'
-                    value={set.repetition}
-                    numericValue
+                    // value={(set.repetition).toString()}
+                    // numericValue
                     onChangeText={text => changeHandler('repetition', text)}
                 />
             </View>
