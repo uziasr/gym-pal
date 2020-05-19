@@ -11,7 +11,7 @@ import {
 } from "react-native-chart-kit";
 
 
-const Dashboard = () => {
+const Dashboard = ({ navigation }) => {
 
     const [dashData, setDashData] = useState({})
 
@@ -38,6 +38,10 @@ const Dashboard = () => {
         return
     }
 
+    const pressHandler = (exercise) =>{
+        navigation.navigate('ExerciseStats',  exercise)
+    }
+
     return (
         <>
             <View style={{ flex: 1, justifyContent: 'flex-start', marginTop: 50, alignContent: 'center', alignItems: 'center' }}>
@@ -55,7 +59,7 @@ const Dashboard = () => {
                 <View>
                     <Text>Your Exercises, Analyze Them Further</Text>
                     {dashData.exercises ? dashData.exercises.map(exercise => (
-                        <TouchableOpacity key={exercise.id}>
+                        <TouchableOpacity onPress={()=> pressHandler(exercise)} key={exercise.id}>
                             <Text>{exercise.name}</Text>
                         </TouchableOpacity>
                     )) : null}
