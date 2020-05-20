@@ -13,7 +13,11 @@ import {
 
 const Dashboard = ({ navigation }) => {
 
-    const [dashData, setDashData] = useState({})
+    const [dashData, setDashData] = useState({
+        dates:[],
+        exercise:[],
+        total_workouts:0
+    })
 
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
@@ -34,21 +38,29 @@ const Dashboard = ({ navigation }) => {
             .catch(err => console.log(err))
     }, [])
 
-    const getExerciseFrequencyByDate = (dataArray) => {
-        return
+    const getExerciseFrequencyByDate = (dateArray) => {
+        dateDict = {}
+        dateList = []
+        dateArray.forEach(date=>{
+            dateDict[date] = dateDict[date] ? dateDict[date] + 1 : 1 
+        })
+        Object.keys(dateDict).forEach(date=>{
+            dateList.push({date:date, count:dateDict[date]})
+        })
+        return dateList
+
     }
 
     const pressHandler = (exercise) =>{
         navigation.navigate('ExerciseStats',  exercise)
     }
 
-    console.log(dashData)
     return (
         <>
             <View style={{ flex: 1, justifyContent: 'flex-start', marginTop: 50, alignContent: 'center', alignItems: 'center' }}>
                 <Text>{dashData.total_workouts} workouts to date!</Text>
                 <ContributionGraph
-                    values={[{ date: "2020-01-01", count: 0 }, { date: "2020-05-11", count: 1 }, { date: "2020-05-12", count: 1 }]}
+                    values={[{date:'2020-01-01', count:0},...getExerciseFrequencyByDate(dashData.dates)]}
                     endDate={new Date()}
                     numDays={105}
                     height={220}
