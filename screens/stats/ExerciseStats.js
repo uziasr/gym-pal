@@ -16,7 +16,10 @@ const ExerciseStats = ({navigation}) => {
 
     return Object.keys(exerciseData).length > 0? (
         <View>
-            <Text>{exerciseData.total_sets} {exerciseData.average_reps} {exerciseData.average_weight}</Text>
+            <Text>Total Sets {exerciseData.total_sets} Average Reps {exerciseData.average_reps} Average Weight{exerciseData.average_weight}</Text>
+            <Text>Max Reps: {exerciseData.max_reps.repetition} at {exerciseData.max_reps.weight}</Text>
+            <Text>Max Weight: {exerciseData.max_weight.weight} at {exerciseData.max_weight.repetition}</Text>
+            <Text>Projected One Rep Max: {exerciseData.projected_one_rep.max_weight} from lifting {exerciseData.projected_one_rep.weight} for {exerciseData.projected_one_rep.reps} reps </Text>
         </View>
     ):<View><Text>Loading...</Text></View>;
     // return <View></View>

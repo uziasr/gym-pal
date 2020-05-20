@@ -42,6 +42,7 @@ const Dashboard = ({ navigation }) => {
         navigation.navigate('ExerciseStats',  exercise)
     }
 
+    console.log(dashData)
     return (
         <>
             <View style={{ flex: 1, justifyContent: 'flex-start', marginTop: 50, alignContent: 'center', alignItems: 'center' }}>
