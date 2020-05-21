@@ -26,10 +26,10 @@ const screens = {
 }
 
 const UserStats = {
-    OverallStats:{
+    "Overall Stats":{
         screen:Dashboard
     },
-    ExerciseStats:{
+    "Exercise Stats":{
         screen:ExerciseStats
     }
 }

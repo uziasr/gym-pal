@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios'
 import {
     // LineChart,
@@ -14,10 +14,38 @@ import {
 const Dashboard = ({ navigation }) => {
 
     const [dashData, setDashData] = useState({
-        dates:[],
-        exercise:[],
-        total_workouts:0
+        dates: [],
+        exercise: [],
+        total_workouts: 0
     })
+
+    const styles = StyleSheet.create({
+        title: {
+            fontSize: 24,
+            color:'white',
+            textAlign:'center'
+        },
+        rootView: {
+            backgroundColor: 'grey',
+            flexDirection: 'column',
+            // justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+            backgroundColor: '#2d2d2d'
+        },
+        exercisesView: {
+            width: '98%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingVertical: 20,
+            paddingHorizontal: 10,
+            borderRadius: 15,
+            marginVertical: 5,
+            backgroundColor: 'white'
+        }
+    })
+
 
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
@@ -41,26 +69,26 @@ const Dashboard = ({ navigation }) => {
     const getExerciseFrequencyByDate = (dateArray) => {
         dateDict = {}
         dateList = []
-        dateArray.forEach(date=>{
-            dateDict[date] = dateDict[date] ? dateDict[date] + 1 : 1 
+        dateArray.forEach(date => {
+            dateDict[date] = dateDict[date] ? dateDict[date] + 1 : 1
         })
-        Object.keys(dateDict).forEach(date=>{
-            dateList.push({date:date, count:dateDict[date]})
+        Object.keys(dateDict).forEach(date => {
+            dateList.push({ date: date, count: dateDict[date] })
         })
         return dateList
 
     }
 
-    const pressHandler = (exercise) =>{
-        navigation.navigate('ExerciseStats',  exercise)
+    const pressHandler = (exercise) => {
+        navigation.navigate('Exercise Stats', exercise)
     }
 
     return (
-        <>
-            <View style={{ flex: 1, justifyContent: 'flex-start', marginTop: 50, alignContent: 'center', alignItems: 'center' }}>
-                <Text>{dashData.total_workouts} workouts to date!</Text>
+        <View style={styles.rootView}>
+            <View style={{ marginVertical: 15, color:'white', justifyContent:'center' }}>
+                <Text style={styles.title}>{dashData.total_workouts} Total Workout{dashData.total_workouts? 's':''}!</Text>
                 <ContributionGraph
-                    values={[{date:'2020-01-01', count:0},...getExerciseFrequencyByDate(dashData.dates)]}
+                    values={[{ date: '2020-01-01', count: 0 }, ...getExerciseFrequencyByDate(dashData.dates)]}
                     endDate={new Date()}
                     numDays={105}
                     height={220}
@@ -68,17 +96,19 @@ const Dashboard = ({ navigation }) => {
                     width={screenWidth}
                 />
             </View>
-            <View style={{flex:2, justifyContent:'center', alignContent:'center', alignItems:'center'}}>
+            <View style={{width:'100%'}}>
                 <View>
-                    <Text>Your Exercises, Analyze Them Further</Text>
+                    <Text style={{color:'white'}}>Your Exercises, Analyze Them Further</Text>
                     {dashData.exercises ? dashData.exercises.map(exercise => (
-                        <TouchableOpacity onPress={()=> pressHandler(exercise)} key={exercise.id}>
-                            <Text>{exercise.name}</Text>
-                        </TouchableOpacity>
+                        // <View style={styles.exercisesView}>
+                            <TouchableOpacity style={styles.exercisesView} onPress={() => pressHandler(exercise)} key={exercise.id}>
+                                <Text>{exercise.name}</Text>
+                            </TouchableOpacity>
+                        // </View>
                     )) : null}
                 </View>
             </View>
-        </>
+        </View>
     );
 };
 

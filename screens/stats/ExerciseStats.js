@@ -41,24 +41,24 @@ const ExerciseStats = ({ navigation }) => {
 
     return Object.keys(exerciseData).length > 0 ? (
         <View style={styles.root}>
-            <View>
+            <View style={{marginVertical:15}}>
                 <Text style={{ fontSize: 24, color:'white' }}>{exercise.name}</Text>
             </View>
             <View style={styles.statsView}>
-                <Text style={styles.statsText}>Projected One Rep Max:</Text>
+                <Text style={styles.statsText}>Projected One Rep Max</Text>
                 <Text style={styles.statsText}> {exerciseData.projected_one_rep.max_weight}</Text>
             </View>
             <View style={styles.statsView}>
                 <Text style={styles.statsText}>Based on</Text>
-                <Text style={styles.statsText}>{exerciseData.projected_one_rep.weight} X {exerciseData.projected_one_rep.reps} </Text>
+                <Text style={styles.statsText}>{exerciseData.projected_one_rep.weight} LBS X {exerciseData.projected_one_rep.reps} </Text>
             </View>
             <View style={styles.statsView}>
                 <Text style={styles.statsText}>Max Reps</Text>
-                <Text style={styles.statsText}>{exerciseData.max_reps.repetition} reps at {exerciseData.max_reps.weight} LBS</Text>
+                <Text style={styles.statsText}>{exerciseData.max_reps.repetition} Reps @ {exerciseData.max_reps.weight} LBS</Text>
             </View>
             <View style={styles.statsView}>
                 <Text style={styles.statsText}>Max Weight</Text>
-                <Text style={styles.statsText}>{exerciseData.max_weight.weight} LBS at {exerciseData.max_weight.repetition} reps</Text>
+                <Text style={styles.statsText}>{exerciseData.max_weight.weight} LBS @ {exerciseData.max_weight.repetition} Reps</Text>
             </View>
             <View style={styles.statsView}>
                 <Text style={styles.statsText}>Total Sets</Text>
