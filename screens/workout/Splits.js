@@ -35,9 +35,7 @@ const Splits = ({ body, navigation }) => {
             alignItems: 'center'
         },
         bodyText: {
-            // padding:70,
             alignSelf: 'flex-start',
-            color: 'white',
             fontWeight: 'bold',
             color: 'black'
         },
