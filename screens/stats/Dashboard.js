@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios'
+import { AntDesign } from '@expo/vector-icons'; 
+
 import {
     // LineChart,
     // BarChart,
@@ -19,11 +21,21 @@ const Dashboard = ({ navigation }) => {
         total_workouts: 0
     })
 
+    const [dropActive, setDropActive] = useState({
+        exercises: false,
+        workout: false
+    })
+
+    const [serverCalled, setServerCalled] = useState({
+        exercises:false,
+        workout: false
+    })
+
     const styles = StyleSheet.create({
         title: {
             fontSize: 24,
-            color:'white',
-            textAlign:'center'
+            color: 'white',
+            textAlign: 'center'
         },
         rootView: {
             backgroundColor: 'grey',
@@ -78,6 +90,9 @@ const Dashboard = ({ navigation }) => {
         return dateList
 
     }
+    const dropDownHandler = (name) =>{
+        setDropActive({...dropActive, [name]: !dropActive[name] })
+    }
 
     const pressHandler = (exercise) => {
         navigation.navigate('Exercise Stats', exercise)
@@ -85,8 +100,8 @@ const Dashboard = ({ navigation }) => {
 
     return (
         <View style={styles.rootView}>
-            <View style={{ marginVertical: 15, color:'white', justifyContent:'center' }}>
-                <Text style={styles.title}>{dashData.total_workouts} Total Workout{dashData.total_workouts? 's':''}!</Text>
+            <View style={{ marginVertical: 15, color: 'white', justifyContent: 'center' }}>
+                <Text style={styles.title}>{dashData.total_workouts} Total Workout{dashData.total_workouts ? 's' : ''}!</Text>
                 <ContributionGraph
                     values={[{ date: '2020-01-01', count: 0 }, ...getExerciseFrequencyByDate(dashData.dates)]}
                     endDate={new Date()}
@@ -96,14 +111,17 @@ const Dashboard = ({ navigation }) => {
                     width={screenWidth}
                 />
             </View>
-            <View style={{width:'100%'}}>
+            <View style={{ width: '100%' }}>
                 <View>
-                    <Text style={{color:'white'}}>Your Exercises, Analyze Them Further</Text>
-                    {dashData.exercises ? dashData.exercises.map(exercise => (
+                    <TouchableOpacity onPress={()=>dropDownHandler('exercises')} style={{ paddingHorizontal:15, display:'flex', flexDirection:'row', justifyContent:'space-between', alignContent:'center', alignItems:'center' }}>
+                        <Text style={{ fontSize: 24, color: 'white' }}>Analyze By Exercise</Text>
+                        <AntDesign name={!dropActive.exercises?"caretdown":"caretup"} size={24} color="white" />
+                    </TouchableOpacity>
+                    {dropActive.exercises ? dashData.exercises.map(exercise => (
                         // <View style={styles.exercisesView}>
-                            <TouchableOpacity style={styles.exercisesView} onPress={() => pressHandler(exercise)} key={exercise.id}>
-                                <Text>{exercise.name}</Text>
-                            </TouchableOpacity>
+                        <TouchableOpacity style={styles.exercisesView} onPress={() => pressHandler(exercise)} key={exercise.id}>
+                            <Text>{exercise.name}</Text>
+                        </TouchableOpacity>
                         // </View>
                     )) : null}
                 </View>
