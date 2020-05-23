@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios'
 import { AntDesign } from '@expo/vector-icons';
+import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 import {
     // LineChart,
@@ -59,6 +60,13 @@ const Dashboard = ({ navigation }) => {
             backgroundColor: 'white'
         }
     })
+
+    const sampleDates = {
+        '2020-05-16':true,
+        '2020-05-17':true,
+        '2020-05-18':true,
+        '2020-05-19':true,
+    }
 
 
     const chartConfig = {
@@ -134,7 +142,7 @@ const Dashboard = ({ navigation }) => {
                         </TouchableOpacity>
                         {dropActive.exercises ? dashData.exercises.map(exercise => (
                             // <View style={styles.exercisesView}>
-                            <View style={{ justifyContent: 'center', alignContent:'center', alignItems: 'center'}} key={exercise.id}>
+                            <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }} key={exercise.id}>
                                 <TouchableOpacity style={styles.exercisesView} onPress={() => pressHandler(exercise)}>
                                     <Text>{exercise.name}</Text>
                                 </TouchableOpacity>
@@ -152,7 +160,7 @@ const Dashboard = ({ navigation }) => {
                         </TouchableOpacity>
                         {dropActive.workouts ? allWorkouts.map((workout, index) => (
                             // <View style={styles.exercisesView}>
-                            <View style={{ justifyContent: 'center', alignContent:'center', alignItems: 'center' }} key={workout.id}>
+                            <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }} key={workout.id}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Workout Overview', workout)} style={styles.exercisesView}>
                                     <Text>Workout {index + 1}</Text>
                                     <Text>{workout.start_time.split(' ').slice(0, 4).join(' ')}</Text>
@@ -162,6 +170,27 @@ const Dashboard = ({ navigation }) => {
                         )) : null}
                     </ScrollView>
                 </View>
+                <CalendarList
+                    // Collection of dates that have to be marked. Default = {}
+                    horizontal={true}
+                    onDayPress={(day) => console.log(day)}
+                    dayComponent={({date, state}) => {
+                        return (
+                          <View>
+                            <Text onPress={()=>sampleDates[date.dateString]? console.log(state, date):null} style={{textAlign: 'center', color: sampleDates[date.dateString] ? 'black': 'gray'}}>
+                              {date.day}
+                            </Text>
+                          </View>
+                        );
+                      }}
+                    //   markedDates={{
+                    //     '2020-05-16': { selected: true, marked: true, selectedColor: 'blue' },
+                    //     '2020-05-17': { marked: true },
+                    //     '2020-05-18': { marked: true, dotColor: 'red', activeOpacity: 0 },
+                    //     '2020-05-19': { disabled: true, disableTouchEvent: true }
+                    // }}
+                      disabledByDefault={true}
+                />
             </ScrollView>
         </View>
     );
