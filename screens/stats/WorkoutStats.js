@@ -25,9 +25,11 @@ const WorkoutStats = ({ navigation }) => {
             {workout.map(currentExercise => {
                 return <>
                     <Text>{currentExercise.exercise}</Text>
-                    {currentExercise.sets.map(currentSet => (
-                        <Text>{currentSet.repetition} X {currentSet.weight}</Text>
-                    ))}
+                    <View style={{flexDirection:'row', justifyContent:'space-evenly', flexWrap:'wrap'}}>
+                        {currentExercise.sets.map(currentSet => (
+                            <Text>{currentSet.repetition} X {currentSet.weight}</Text>
+                        ))}
+                    </View>
                 </>
             })}
         </View>
