@@ -12,6 +12,7 @@ import {
     ContributionGraph,
     // StackedBarChart
 } from "react-native-chart-kit";
+import WorkoutCalendar from './WorkoutCalendar';
 
 
 const Dashboard = ({ navigation }) => {
@@ -61,14 +62,6 @@ const Dashboard = ({ navigation }) => {
         }
     })
 
-    const sampleDates = {
-        '2020-05-16':true,
-        '2020-05-17':true,
-        '2020-05-18':true,
-        '2020-05-19':true,
-    }
-
-
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
         backgroundGradientFromOpacity: 0,
@@ -89,6 +82,7 @@ const Dashboard = ({ navigation }) => {
     }, [])
 
     const getExerciseFrequencyByDate = (dateArray) => {
+        console.log('dateArr',dateArray)
         dateDict = {}
         dateList = []
         dateArray.forEach(date => {
@@ -170,27 +164,7 @@ const Dashboard = ({ navigation }) => {
                         )) : null}
                     </ScrollView>
                 </View>
-                <CalendarList
-                    // Collection of dates that have to be marked. Default = {}
-                    horizontal={true}
-                    onDayPress={(day) => console.log(day)}
-                    dayComponent={({date, state}) => {
-                        return (
-                          <View>
-                            <Text onPress={()=>sampleDates[date.dateString]? console.log(state, date):null} style={{textAlign: 'center', color: sampleDates[date.dateString] ? 'black': 'gray'}}>
-                              {date.day}
-                            </Text>
-                          </View>
-                        );
-                      }}
-                    //   markedDates={{
-                    //     '2020-05-16': { selected: true, marked: true, selectedColor: 'blue' },
-                    //     '2020-05-17': { marked: true },
-                    //     '2020-05-18': { marked: true, dotColor: 'red', activeOpacity: 0 },
-                    //     '2020-05-19': { disabled: true, disableTouchEvent: true }
-                    // }}
-                      disabledByDefault={true}
-                />
+                <WorkoutCalendar dates={dashData.dates}/>
             </ScrollView>
         </View>
     );
