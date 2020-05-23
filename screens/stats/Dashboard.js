@@ -150,7 +150,7 @@ const Dashboard = ({ navigation }) => {
                         </TouchableOpacity>
                         {dropActive.workouts ? allWorkouts.map(( workout, index )=> (
                             // <View style={styles.exercisesView}>
-                            <TouchableOpacity style={styles.exercisesView} key={workout.id}>
+                            <TouchableOpacity onPress={()=> navigation.navigate('Workout Overview', workout)} style={styles.exercisesView} key={workout.id}>
                                 <Text>Workout {index + 1}</Text>
                                 <Text>{workout.start_time.split(' ').slice(0,4).join(' ')}</Text>
                             </TouchableOpacity>

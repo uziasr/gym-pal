@@ -7,6 +7,7 @@ import ExerciseSet from '../screens/exercise/ExerciseSet'
 import Workout from '../screens/workout/Workout'
 import Dashboard from '../screens/stats/Dashboard'
 import ExerciseStats from '../screens/stats/ExerciseStats'
+import WorkoutStats from '../screens/stats/WorkoutStats'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 const screens = {
@@ -31,6 +32,9 @@ const UserStats = {
     },
     "Exercise Stats":{
         screen:ExerciseStats
+    },
+    "Workout Overview":{
+        screen: WorkoutStats
     }
 }
 
