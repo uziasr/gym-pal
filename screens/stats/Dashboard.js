@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios'
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 
 import {
     // LineChart,
@@ -29,7 +29,7 @@ const Dashboard = ({ navigation }) => {
     })
 
     const [serverCalled, setServerCalled] = useState({
-        exercises:false,
+        exercises: false,
         workouts: false
     })
 
@@ -92,18 +92,18 @@ const Dashboard = ({ navigation }) => {
         return dateList
 
     }
-    const dropDownHandler = (name) =>{
-        setDropActive({...dropActive, [name]: !dropActive[name] })
-        if (name == 'workouts' && serverCalled[name] == false){
+    const dropDownHandler = (name) => {
+        setDropActive({ ...dropActive, [name]: !dropActive[name] })
+        if (name == 'workouts' && serverCalled[name] == false) {
             axios.get(`http://192.168.1.3:5000/user/1/${name}`)
-            .then(res => {
-                console.log("good time",res.data[0].start_time.day)
-                setAllWorkouts([...res.data])
-                setServerCalled(()=>{
-                    return {...serverCalled, [name]:true}
+                .then(res => {
+                    console.log("good time", res.data[0].start_time.day)
+                    setAllWorkouts([...res.data])
+                    setServerCalled(() => {
+                        return { ...serverCalled, [name]: true }
+                    })
                 })
-            })
-            .catch(err => console.log(err))
+                .catch(err => console.log(err))
         }
     }
 
@@ -128,15 +128,17 @@ const Dashboard = ({ navigation }) => {
                 </View>
                 <View style={{ width: '100%' }}>
                     <ScrollView>
-                        <TouchableOpacity onPress={()=>dropDownHandler('exercises')} style={{ paddingBottom:5, marginBottom:5, paddingHorizontal:15, display:'flex', flexDirection:'row', justifyContent:'space-between', alignContent:'center', alignItems:'center', borderBottomColor:'white', borderBottomWidth:0.5  }}>
-                            <Text style={{ fontSize: 24, color: 'white'}}>My Exercises</Text>
-                            <AntDesign name={!dropActive.exercises?"caretdown":"caretup"} size={24} color="white" />
+                        <TouchableOpacity onPress={() => dropDownHandler('exercises')} style={{ paddingBottom: 5, marginBottom: 5, paddingHorizontal: 15, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', borderBottomColor: 'white', borderBottomWidth: 0.5 }}>
+                            <Text style={{ fontSize: 24, color: 'white' }}>My Exercises</Text>
+                            <AntDesign name={!dropActive.exercises ? "caretdown" : "caretup"} size={24} color="white" />
                         </TouchableOpacity>
                         {dropActive.exercises ? dashData.exercises.map(exercise => (
                             // <View style={styles.exercisesView}>
-                            <TouchableOpacity style={styles.exercisesView} onPress={() => pressHandler(exercise)} key={exercise.id}>
-                                <Text>{exercise.name}</Text>
-                            </TouchableOpacity>
+                            <View style={{ justifyContent: 'center', alignContent:'center', alignItems: 'center'}} key={exercise.id}>
+                                <TouchableOpacity style={styles.exercisesView} onPress={() => pressHandler(exercise)}>
+                                    <Text>{exercise.name}</Text>
+                                </TouchableOpacity>
+                            </View>
                             // </View>
                         )) : null}
                     </ScrollView>
@@ -144,16 +146,18 @@ const Dashboard = ({ navigation }) => {
                 {/* Could be its own component! */}
                 <View style={{ width: '100%' }}>
                     <ScrollView>
-                        <TouchableOpacity onPress={()=>dropDownHandler('workouts')} style={{ paddingBottom:5, marginBottom:5, paddingHorizontal:15, display:'flex', flexDirection:'row', justifyContent:'space-between', alignContent:'center', alignItems:'center', borderBottomColor:'white', borderBottomWidth:0.5  }}>
-                            <Text style={{ fontSize: 24, color: 'white'}}>My Workouts</Text>
-                            <AntDesign name={!dropActive.workouts?"caretdown":"caretup"} size={24} color="white" />
+                        <TouchableOpacity onPress={() => dropDownHandler('workouts')} style={{ paddingBottom: 5, marginBottom: 5, paddingHorizontal: 15, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', borderBottomColor: 'white', borderBottomWidth: 0.5 }}>
+                            <Text style={{ fontSize: 24, color: 'white' }}>My Workouts</Text>
+                            <AntDesign name={!dropActive.workouts ? "caretdown" : "caretup"} size={24} color="white" />
                         </TouchableOpacity>
-                        {dropActive.workouts ? allWorkouts.map(( workout, index )=> (
+                        {dropActive.workouts ? allWorkouts.map((workout, index) => (
                             // <View style={styles.exercisesView}>
-                            <TouchableOpacity onPress={()=> navigation.navigate('Workout Overview', workout)} style={styles.exercisesView} key={workout.id}>
-                                <Text>Workout {index + 1}</Text>
-                                <Text>{workout.start_time.split(' ').slice(0,4).join(' ')}</Text>
-                            </TouchableOpacity>
+                            <View style={{ justifyContent: 'center', alignContent:'center', alignItems: 'center' }} key={workout.id}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Workout Overview', workout)} style={styles.exercisesView}>
+                                    <Text>Workout {index + 1}</Text>
+                                    <Text>{workout.start_time.split(' ').slice(0, 4).join(' ')}</Text>
+                                </TouchableOpacity>
+                            </View>
                             // </View>
                         )) : null}
                     </ScrollView>
