@@ -8,14 +8,6 @@ const WorkoutCalendar = ({ dates }) => {
 
     const [markedDates, setMarkedDates] = useState({})
 
-    const sampleDates = {
-        '2020-05-16': true,
-        '2020-05-17': true,
-        '2020-05-18': true,
-        '2020-05-19': true,
-    }
-
-
     if (dates.length > 0 && Object.keys(markedDates).length == 0) {
         dates.map(date => {
             setMarkedDates(() => {
@@ -36,9 +28,6 @@ const WorkoutCalendar = ({ dates }) => {
                 horizontal={true}
                 minDate={'2020-01-01'}
                 onDayPress={(day) => dayPressHandler(day.dateString)}
-                // style={{
-                //     height:400
-                // }}
                 // markedDates={{
                 //     '2020-05-16': { disabled: false, marked: true },
                 //     '2020-05-17': { disabled: false, marked: true },

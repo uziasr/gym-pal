@@ -28,7 +28,7 @@ const Dashboard = ({ navigation }) => {
 
     const toggleOverlay = () => {
         setVisible(!visible);
-      };
+    };
 
     const [allWorkouts, setAllWorkouts] = useState([])
 
@@ -41,6 +41,8 @@ const Dashboard = ({ navigation }) => {
         exercises: false,
         workouts: false
     })
+
+    const [workoutByDate, setWorkoutByDate] = useState([])
 
     const styles = StyleSheet.create({
         title: {
@@ -89,7 +91,7 @@ const Dashboard = ({ navigation }) => {
     }, [])
 
     const getExerciseFrequencyByDate = (dateArray) => {
-        console.log('dateArr',dateArray)
+        console.log('dateArr', dateArray)
         dateDict = {}
         dateList = []
         dateArray.forEach(date => {
@@ -120,6 +122,15 @@ const Dashboard = ({ navigation }) => {
         navigation.navigate('Exercise Stats', exercise)
     }
 
+    const dayPressHandler = (contribution) => {
+        console.log(typeof contribution.date)
+        if (contribution.count) {
+            axios.post(`http://192.168.1.3:5000/user/1/workouts`, { date: contribution.date })
+                .then(res => setWorkoutByDate([...res.date]))
+                .catch(err => console.log(err))
+        }
+    }
+
 
     return (
         <View style={styles.rootView}>
@@ -133,6 +144,7 @@ const Dashboard = ({ navigation }) => {
                         height={220}
                         chartConfig={chartConfig}
                         width={screenWidth}
+                        onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
                 <View style={{ width: '100%' }}>
@@ -171,10 +183,10 @@ const Dashboard = ({ navigation }) => {
                         )) : null}
                     </ScrollView>
                 </View>
-                <Button title='Workout History' onPress={()=>toggleOverlay()}/>
-                    <Overlay overlayStyle={{width:'90%', height: 400}} isVisible={visible} onBackdropPress={toggleOverlay}>
-                        <WorkoutCalendar dates={dashData.dates}/>
-                    </Overlay>
+                <Button title='Workout History' onPress={() => toggleOverlay()} />
+                <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
+                    <WorkoutCalendar dates={dashData.dates} />
+                </Overlay>
             </ScrollView>
         </View>
     );
