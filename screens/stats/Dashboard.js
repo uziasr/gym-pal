@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios'
 import { AntDesign } from '@expo/vector-icons';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
+import { Overlay, Button } from 'react-native-elements'
+
 
 import {
     // LineChart,
@@ -22,6 +23,12 @@ const Dashboard = ({ navigation }) => {
         exercise: [],
         total_workouts: 0
     })
+
+    const [visible, setVisible] = useState(false)
+
+    const toggleOverlay = () => {
+        setVisible(!visible);
+      };
 
     const [allWorkouts, setAllWorkouts] = useState([])
 
@@ -164,7 +171,10 @@ const Dashboard = ({ navigation }) => {
                         )) : null}
                     </ScrollView>
                 </View>
-                <WorkoutCalendar dates={dashData.dates}/>
+                <Button title='Workout History' onPress={()=>toggleOverlay()}/>
+                    <Overlay overlayStyle={{width:'90%', height: 400}} isVisible={visible} onBackdropPress={toggleOverlay}>
+                        <WorkoutCalendar dates={dashData.dates}/>
+                    </Overlay>
             </ScrollView>
         </View>
     );
