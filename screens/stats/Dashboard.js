@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios'
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
+import { Overlay, Button } from 'react-native-elements'
+
 
 import {
     // LineChart,
@@ -11,6 +13,8 @@ import {
     ContributionGraph,
     // StackedBarChart
 } from "react-native-chart-kit";
+import WorkoutCalendar from './WorkoutCalendar';
+import ContributionView from './ContributionView';
 
 
 const Dashboard = ({ navigation }) => {
@@ -21,6 +25,12 @@ const Dashboard = ({ navigation }) => {
         total_workouts: 0
     })
 
+    const [visible, setVisible] = useState(false)
+
+    const toggleOverlay = () => {
+        setVisible(!visible);
+    };
+
     const [allWorkouts, setAllWorkouts] = useState([])
 
     const [dropActive, setDropActive] = useState({
@@ -29,9 +39,12 @@ const Dashboard = ({ navigation }) => {
     })
 
     const [serverCalled, setServerCalled] = useState({
-        exercises:false,
+        exercises: false,
         workouts: false
     })
+
+    const [workoutByDate, setWorkoutByDate] = useState([])
+    const [currentDate, setCurrentDate] = useState("")
 
     const styles = StyleSheet.create({
         title: {
@@ -60,7 +73,6 @@ const Dashboard = ({ navigation }) => {
         }
     })
 
-
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
         backgroundGradientFromOpacity: 0,
@@ -81,6 +93,7 @@ const Dashboard = ({ navigation }) => {
     }, [])
 
     const getExerciseFrequencyByDate = (dateArray) => {
+        console.log('dateArr', dateArray)
         dateDict = {}
         dateList = []
         dateArray.forEach(date => {
@@ -92,23 +105,37 @@ const Dashboard = ({ navigation }) => {
         return dateList
 
     }
-    const dropDownHandler = (name) =>{
-        setDropActive({...dropActive, [name]: !dropActive[name] })
-        if (name == 'workouts' && serverCalled[name] == false){
+    const dropDownHandler = (name) => {
+        setDropActive({ ...dropActive, [name]: !dropActive[name] })
+        if (name == 'workouts' && serverCalled[name] == false) {
             axios.get(`http://192.168.1.3:5000/user/1/${name}`)
-            .then(res => {
-                setAllWorkouts([...res.data])
-                setServerCalled(()=>{
-                    return {...serverCalled, [name]:true}
+                .then(res => {
+                    console.log("good time", res.data[0].start_time.day)
+                    setAllWorkouts([...res.data])
+                    setServerCalled(() => {
+                        return { ...serverCalled, [name]: true }
+                    })
                 })
-            })
-            .catch(err => console.log(err))
+                .catch(err => console.log(err))
         }
     }
 
     const pressHandler = (exercise) => {
         navigation.navigate('Exercise Stats', exercise)
     }
+
+    const dayPressHandler = (contribution) => {
+        console.log(typeof contribution.date)
+        if (contribution.count) {
+            axios.post(`http://192.168.1.3:5000/user/1/workouts`, { date: contribution.date })
+                .then(res => {
+                    setWorkoutByDate([...res.data])
+                    setCurrentDate(contribution.date)
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
 
     return (
         <View style={styles.rootView}>
@@ -122,19 +149,26 @@ const Dashboard = ({ navigation }) => {
                         height={220}
                         chartConfig={chartConfig}
                         width={screenWidth}
+                        onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
+                {workoutByDate.length > 0 ?
+                    <View >
+                        <ContributionView workouts={workoutByDate} date={currentDate} />
+                    </View> : null}
                 <View style={{ width: '100%' }}>
                     <ScrollView>
-                        <TouchableOpacity onPress={()=>dropDownHandler('exercises')} style={{ paddingBottom:5, marginBottom:5, paddingHorizontal:15, display:'flex', flexDirection:'row', justifyContent:'space-between', alignContent:'center', alignItems:'center', borderBottomColor:'white', borderBottomWidth:0.5  }}>
-                            <Text style={{ fontSize: 24, color: 'white'}}>My Exercises</Text>
-                            <AntDesign name={!dropActive.exercises?"caretdown":"caretup"} size={24} color="white" />
+                        <TouchableOpacity onPress={() => dropDownHandler('exercises')} style={{ paddingBottom: 5, marginBottom: 5, paddingHorizontal: 15, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', borderBottomColor: 'white', borderBottomWidth: 0.5 }}>
+                            <Text style={{ fontSize: 24, color: 'white' }}>My Exercises</Text>
+                            <AntDesign name={!dropActive.exercises ? "caretdown" : "caretup"} size={24} color="white" />
                         </TouchableOpacity>
                         {dropActive.exercises ? dashData.exercises.map(exercise => (
                             // <View style={styles.exercisesView}>
-                            <TouchableOpacity style={styles.exercisesView} onPress={() => pressHandler(exercise)} key={exercise.id}>
-                                <Text>{exercise.name}</Text>
-                            </TouchableOpacity>
+                            <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }} key={exercise.id}>
+                                <TouchableOpacity style={styles.exercisesView} onPress={() => pressHandler(exercise)}>
+                                    <Text>{exercise.name}</Text>
+                                </TouchableOpacity>
+                            </View>
                             // </View>
                         )) : null}
                     </ScrollView>
@@ -142,19 +176,26 @@ const Dashboard = ({ navigation }) => {
                 {/* Could be its own component! */}
                 <View style={{ width: '100%' }}>
                     <ScrollView>
-                        <TouchableOpacity onPress={()=>dropDownHandler('workouts')} style={{ paddingBottom:5, marginBottom:5, paddingHorizontal:15, display:'flex', flexDirection:'row', justifyContent:'space-between', alignContent:'center', alignItems:'center', borderBottomColor:'white', borderBottomWidth:0.5  }}>
-                            <Text style={{ fontSize: 24, color: 'white'}}>My Workouts</Text>
-                            <AntDesign name={!dropActive.workouts?"caretdown":"caretup"} size={24} color="white" />
+                        <TouchableOpacity onPress={() => dropDownHandler('workouts')} style={{ paddingBottom: 5, marginBottom: 5, paddingHorizontal: 15, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', borderBottomColor: 'white', borderBottomWidth: 0.5 }}>
+                            <Text style={{ fontSize: 24, color: 'white' }}>My Workouts</Text>
+                            <AntDesign name={!dropActive.workouts ? "caretdown" : "caretup"} size={24} color="white" />
                         </TouchableOpacity>
-                        {dropActive.workouts ? allWorkouts.map(( workout, index )=> (
+                        {dropActive.workouts ? allWorkouts.map((workout, index) => (
                             // <View style={styles.exercisesView}>
-                            <TouchableOpacity style={styles.exercisesView} key={workout.id}>
-                                <Text>Workout {index + 1}</Text>
-                            </TouchableOpacity>
+                            <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }} key={workout.id}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Workout Overview', workout)} style={styles.exercisesView}>
+                                    <Text>Workout {index + 1}</Text>
+                                    <Text>{workout.start_time.split(' ').slice(0, 4).join(' ')}</Text>
+                                </TouchableOpacity>
+                            </View>
                             // </View>
                         )) : null}
                     </ScrollView>
                 </View>
+                <Button title='Workout History' onPress={() => toggleOverlay()} />
+                <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
+                    <WorkoutCalendar dates={dashData.dates} />
+                </Overlay>
             </ScrollView>
         </View>
     );
