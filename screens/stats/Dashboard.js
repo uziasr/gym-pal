@@ -14,6 +14,7 @@ import {
     // StackedBarChart
 } from "react-native-chart-kit";
 import WorkoutCalendar from './WorkoutCalendar';
+import ContributionView from './ContributionView';
 
 
 const Dashboard = ({ navigation }) => {
@@ -43,6 +44,7 @@ const Dashboard = ({ navigation }) => {
     })
 
     const [workoutByDate, setWorkoutByDate] = useState([])
+    const [currentDate, setCurrentDate] = useState("")
 
     const styles = StyleSheet.create({
         title: {
@@ -126,7 +128,10 @@ const Dashboard = ({ navigation }) => {
         console.log(typeof contribution.date)
         if (contribution.count) {
             axios.post(`http://192.168.1.3:5000/user/1/workouts`, { date: contribution.date })
-                .then(res => setWorkoutByDate([...res.date]))
+                .then(res => {
+                    setWorkoutByDate([...res.data])
+                    setCurrentDate(contribution.date)
+                })
                 .catch(err => console.log(err))
         }
     }
@@ -147,6 +152,10 @@ const Dashboard = ({ navigation }) => {
                         onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
+                {workoutByDate.length > 0 ?
+                    <View >
+                        <ContributionView workouts={workoutByDate} date={currentDate} />
+                    </View> : null}
                 <View style={{ width: '100%' }}>
                     <ScrollView>
                         <TouchableOpacity onPress={() => dropDownHandler('exercises')} style={{ paddingBottom: 5, marginBottom: 5, paddingHorizontal: 15, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', borderBottomColor: 'white', borderBottomWidth: 0.5 }}>
