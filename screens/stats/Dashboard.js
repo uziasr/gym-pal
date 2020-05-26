@@ -129,6 +129,7 @@ const Dashboard = ({ navigation }) => {
         if (contribution.count !== 0) {
             if (contribution.date == currentDate) {
                 setWorkoutDisplay(!workoutDisplay)
+                setCurrentDate("")
                 setVisible(() => false)
             } else {
                 axios.post(`http://192.168.1.3:5000/user/1/workouts`, { date: contribution.date })
@@ -170,7 +171,7 @@ const Dashboard = ({ navigation }) => {
                 <View style={{ width: '100%' }}>
                     <Button title='Previous Workouts' onPress={() => toggleOverlay()} />
                     <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
-                        <WorkoutCalendar dates={dashData.dates} dayPressHandler={dayPressHandler} />
+                        <WorkoutCalendar dates={dashData.dates} dayPressHandler={dayPressHandler} currentDate={currentDate}/>
                     </Overlay>
                     <ScrollView>
                         <TouchableOpacity onPress={() => dropDownHandler('exercises')} style={{ paddingBottom: 5, marginBottom: 5, paddingHorizontal: 15, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', borderBottomColor: 'white', borderBottomWidth: 0.5 }}>
