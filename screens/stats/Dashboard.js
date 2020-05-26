@@ -126,14 +126,20 @@ const Dashboard = ({ navigation }) => {
     }
 
     const dayPressHandler = (contribution) => {
-        if (contribution.count) {
+        if (contribution.count !== 0) {
             if (contribution.date == currentDate) {
                 setWorkoutDisplay(!workoutDisplay)
+                setVisible(() => false)
             } else {
                 axios.post(`http://192.168.1.3:5000/user/1/workouts`, { date: contribution.date })
                     .then(res => {
-                        setWorkoutByDate([...res.data])
-                        setCurrentDate(contribution.date)
+                        setVisible(() => {
+                            setWorkoutByDate([...res.data])
+                            setCurrentDate(contribution.date)
+                            setWorkoutDisplay(true)
+                            return false
+                        })
+                        console.log(res.data)
                     })
                     .catch(err => console.log(err))
             }
@@ -156,11 +162,16 @@ const Dashboard = ({ navigation }) => {
                         onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
+                {/* <Text style={{color:'white'}}>Press on an block to review workout or use calendar</Text> */}
                 {workoutDisplay && workoutByDate.length > 0 ?
                     <View>
-                        <ContributionView workouts={workoutByDate} date={currentDate} />
+                        <ContributionView workouts={workoutByDate} date={currentDate} navigation={navigation} />
                     </View> : null}
                 <View style={{ width: '100%' }}>
+                    <Button title='Previous Workouts' onPress={() => toggleOverlay()} />
+                    <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
+                        <WorkoutCalendar dates={dashData.dates} dayPressHandler={dayPressHandler} />
+                    </Overlay>
                     <ScrollView>
                         <TouchableOpacity onPress={() => dropDownHandler('exercises')} style={{ paddingBottom: 5, marginBottom: 5, paddingHorizontal: 15, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', borderBottomColor: 'white', borderBottomWidth: 0.5 }}>
                             <Text style={{ fontSize: 24, color: 'white' }}>My Exercises</Text>
@@ -196,10 +207,6 @@ const Dashboard = ({ navigation }) => {
                         )) : null}
                     </ScrollView>
                 </View>
-                <Button title='Workout History' onPress={() => toggleOverlay()} />
-                <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
-                    <WorkoutCalendar dates={dashData.dates} />
-                </Overlay>
             </ScrollView>
         </View>
     );

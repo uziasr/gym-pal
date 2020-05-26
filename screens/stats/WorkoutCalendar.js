@@ -4,7 +4,7 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 
 
 
-const WorkoutCalendar = ({ dates }) => {
+const WorkoutCalendar = ({ dates, dayPressHandler }) => {
 
     const [markedDates, setMarkedDates] = useState({})
 
@@ -16,24 +16,18 @@ const WorkoutCalendar = ({ dates }) => {
         })
     }
 
-    dayPressHandler = (date) =>{
+    dayPress = (date) =>{
         if (date in markedDates){
-            console.log("this is a valid date ", date)
+            console.log('hello')
+            dayPressHandler({date:date})
         } 
     }
 
     return (
             <Calendar
-                // Collection of dates that have to be marked. Default = {}
                 horizontal={true}
                 minDate={'2020-01-01'}
-                onDayPress={(day) => dayPressHandler(day.dateString)}
-                // markedDates={{
-                //     '2020-05-16': { disabled: false, marked: true },
-                //     '2020-05-17': { disabled: false, marked: true },
-                //     '2020-05-18': { disabled: false, marked: true, dotColor: 'red', activeOpacity: 0 },
-                //     '2020-05-19': { disabled: true, disableTouchEvent: true }
-                // }}
+                onDayPress={(day) => dayPress(day.dateString)}
                 markedDates={markedDates}
                 disabledByDefault={true}
                 theme={{

@@ -22,15 +22,15 @@ const WorkoutStats = ({ navigation }) => {
 
     return workout.length > 0 ? (
         <View>
-            {workout.map(currentExercise => {
-                return <>
+            {workout.map((currentExercise, index) => {
+                return <View key={index}>
                     <Text>{currentExercise.exercise}</Text>
                     <View style={{flexDirection:'row', justifyContent:'space-evenly', flexWrap:'wrap'}}>
-                        {currentExercise.sets.map(currentSet => (
-                            <Text>{currentSet.repetition} X {currentSet.weight}</Text>
+                        {currentExercise.sets.map((currentSet, index) => (
+                            <Text key={index}>{currentSet.repetition} X {currentSet.weight}</Text>
                         ))}
                     </View>
-                </>
+                </View>
             })}
         </View>
     ) : <Text>Loading...</Text>

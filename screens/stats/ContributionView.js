@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Card } from 'react-native-elements'
 import { AntDesign } from '@expo/vector-icons';
 
 
-const ContributionView = ({ workouts, date }) => {
+const ContributionView = ({ workouts, date, navigation }) => {
 
     const formatSeconds = (seconds) => {
         // to format time under 24 hours from seconds
@@ -30,27 +30,29 @@ const ContributionView = ({ workouts, date }) => {
             <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                 <Text style={{ ...styles.text, color: 'white', fontSize: 24 }}>{formatDate(date)}</Text></View>
             {workouts.map((workout, index) => {
-                return <Card key={index} containerStyle={{ borderRadius: 5 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={styles.text}>Workout {index + 1}</Text>
-                        <Text style={styles.text}>Duration: {formatSeconds(workout.total_time)}</Text>
-                    </View>
-                   {workout.muscles[0] == "" ? null: <Text style={styles.text}>Muscles Trained:</Text>}
-                    <View>
-                        {workout.muscles[0] == "" ?
-                            <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
-                                <AntDesign name="arrowright" size={24} color="black" />
-                            </View>
-                            :
-                            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                                {workout.muscles.map((muscle, index) => (
-                                    <View key={index} style={{flexDirection:'row', flexWrap:'wrap'}}><Text style={styles.text}>{muscle}</Text></View>
-                                ))}
-                                <AntDesign name="arrowright" size={24} color="black" />
-                            </View>
-                        }
-                    </View>
-                </Card>
+                return <TouchableOpacity key={index} onPress={()=> navigation.navigate('Workout Overview', workout)}>
+                    <Card containerStyle={{ borderRadius: 5 }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <Text style={styles.text}>Workout {index + 1}</Text>
+                            <Text style={styles.text}>Duration: {formatSeconds(workout.total_time)}</Text>
+                        </View>
+                        {workout.muscles[0] == "" ? null : <Text style={styles.text}>Muscles Trained:</Text>}
+                        <View>
+                            {workout.muscles[0] == "" ?
+                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                                    <AntDesign name="arrowright" size={24} color="black" />
+                                </View>
+                                :
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    {workout.muscles.map((muscle, index) => (
+                                        <View key={index} style={{ flexDirection: 'row', flexWrap: 'wrap' }}><Text style={styles.text}>{muscle}</Text></View>
+                                    ))}
+                                    <AntDesign name="arrowright" size={24} color="black" />
+                                </View>
+                            }
+                        </View>
+                    </Card>
+                </TouchableOpacity>
             })}
         </View>
     );
