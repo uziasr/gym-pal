@@ -45,6 +45,7 @@ const Dashboard = ({ navigation }) => {
 
     const [workoutByDate, setWorkoutByDate] = useState([])
     const [currentDate, setCurrentDate] = useState("")
+    const [workoutDisplay, setWorkoutDisplay] = useState(false)
 
     const styles = StyleSheet.create({
         title: {
@@ -125,14 +126,17 @@ const Dashboard = ({ navigation }) => {
     }
 
     const dayPressHandler = (contribution) => {
-        console.log(typeof contribution.date)
         if (contribution.count) {
-            axios.post(`http://192.168.1.3:5000/user/1/workouts`, { date: contribution.date })
-                .then(res => {
-                    setWorkoutByDate([...res.data])
-                    setCurrentDate(contribution.date)
-                })
-                .catch(err => console.log(err))
+            if (contribution.date == currentDate) {
+                setWorkoutDisplay(!workoutDisplay)
+            } else {
+                axios.post(`http://192.168.1.3:5000/user/1/workouts`, { date: contribution.date })
+                    .then(res => {
+                        setWorkoutByDate([...res.data])
+                        setCurrentDate(contribution.date)
+                    })
+                    .catch(err => console.log(err))
+            }
         }
     }
 
@@ -152,8 +156,8 @@ const Dashboard = ({ navigation }) => {
                         onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
-                {workoutByDate.length > 0 ?
-                    <View >
+                {workoutDisplay && workoutByDate.length > 0 ?
+                    <View>
                         <ContributionView workouts={workoutByDate} date={currentDate} />
                     </View> : null}
                 <View style={{ width: '100%' }}>
