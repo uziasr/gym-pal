@@ -5,29 +5,6 @@ import Splits from './Splits'
 import { TabView, SceneMap } from 'react-native-tab-view';
 
 export default function ExerciseOptions({ navigation }) {
-    // Allow the user to select the body parts that they are going to train
-    // the simple options --> chest, back, legs, arms, shoulders
-    // option type --> push/pull/legs
-    // option type full-body
-    const styles = StyleSheet.create({
-        rootWrap: {
-            width: '100%',
-            marginHorizontal: 'auto',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            fontFamily: "'Open Sans', sans-serif",
-            //    backgroundColor: '#bdd4e7',
-            //    backgroundImage: 'linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%)'
-
-        },
-        button: {
-            backgroundColor: 'transparent',
-            color: 'black',
-            paddingVertical: 15,
-            alignSelf: 'center'
-        },
-    });
 
     const FirstRoute = () => {
         return <View style={[{ flex: 1 }, { backgroundColor: '#673ab7' }]}>

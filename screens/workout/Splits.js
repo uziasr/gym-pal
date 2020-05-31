@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import axios from 'axios'
 import { splitStyles } from '../../styles/index'
-import ArrowIcon from './Arrow'
+import { Ionicons } from '@expo/vector-icons';
 
 
 const Splits = ({ body, navigation }) => {
+    
     const [splits, setSplits] = useState({})
     const [isSelected, setSelected] = useState(false)
-    const [splitList, setSplitList] = useState([])
 
     useEffect(() => {
         setSplits(() => {
@@ -33,21 +33,21 @@ const Splits = ({ body, navigation }) => {
                     }
                 })
                 return select
-            })  
+            })
             return { ...splits, [split]: !splits[split] }
         })
     }
 
-    const pressNavigation = () =>{
-        const exercises = Object.keys(splits).filter(split=>splits[split])
+    const pressNavigation = () => {
+        const exercises = Object.keys(splits).filter(split => splits[split])
 
-        axios.post("http://192.168.1.3:5000/workout/1", {muscles: exercises})
-        .then(res=>{
-            console.log(res)
-        })
-        .catch(err=>{
-            console.log("there was an error",err)
-        })
+        axios.post("http://192.168.1.3:5000/workout/1", { muscles: exercises })
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log("there was an error", err)
+            })
     }
 
     return (
@@ -61,8 +61,8 @@ const Splits = ({ body, navigation }) => {
                                     <View style={splitStyles.muscleWrap}>
                                         <Text
                                             style={splitStyles.bodyText}
-                                            >{split.toUpperCase()}</Text>
-                                        <ArrowIcon />
+                                        >{split.toUpperCase()}</Text>
+                                        <Ionicons name="md-add" size={24} color="black" />
                                     </View>
                                 </TouchableOpacity>
                             </View>)
@@ -73,14 +73,14 @@ const Splits = ({ body, navigation }) => {
                         style={splitStyles.skipButton}
                     ><Text>Skip</Text>
                     </TouchableOpacity>
-    
-                    {isSelected? <TouchableOpacity 
-                    style={isSelected ? {...splitStyles.submitButton, backgroundColor:'green'} : {...splitStyles.submitButton}}
-                    disabled={!isSelected}
-                    onPress={()=>{pressNavigation()}}
+
+                    {isSelected ? <TouchableOpacity
+                        style={isSelected ? { ...splitStyles.submitButton, backgroundColor: 'green' } : { ...splitStyles.submitButton }}
+                        disabled={!isSelected}
+                        onPress={() => { pressNavigation() }}
                     >
                         <Text>Start Workout</Text>
-                    </TouchableOpacity> : null }
+                    </TouchableOpacity> : null}
                 </View>
             </ScrollView>
         </View>
