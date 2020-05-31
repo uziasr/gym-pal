@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View,TouchableOpacity, Keyboard } from 'react-native';
 import { Input } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
+import { setFormStyles } from '../../styles/index'
 
 const SetForm = ({ addSet }) => {
     const [currentSet, setCurrentSet] = useState({ weight: 0, reps: 0 })
@@ -13,9 +14,9 @@ const SetForm = ({ addSet }) => {
     const isInvalidInput = !Number(currentSet.weight) == true || !Number(currentSet.reps) == true
 
     return (
-        <View style={{ flexDirection: 'row', justifyContent: "center", alignContent: 'center', alignItems: 'center' }}>
-            <View style={{ flexDirection: 'row', alignContent: 'center', alignItems: 'center', justifyContent: "space-between", width: '80%' }}>
-                <View style={{ width: '35%' }}>
+        <View style={setFormStyles.rootWrap}>
+            <View style={setFormStyles.formWrap}>
+                <View style={setFormStyles.formWrap}>
                     <Input
                         label='Weight'
                         keyboardType='number-pad'
@@ -25,7 +26,7 @@ const SetForm = ({ addSet }) => {
                         value={currentSet.weight == 0? '': (currentSet.weight).toString()}
                         placeholder='0' />
                 </View>
-                <View style={{ width: '35%' }}>
+                <View style={setFormStyles.formWrap}>
                     <Input
                         label='Repetitions'
                         keyboardType='number-pad'
@@ -36,7 +37,7 @@ const SetForm = ({ addSet }) => {
                         style={{ width: '40%' }}
                         placeholder='0' />
                 </View>
-                <View style={{ width: '25%', paddingBottom: 15, paddingLeft: 30 }}>
+                <View style={setFormStyles.buttonWrap}>
                     <TouchableOpacity onPress={() => {
                         addSet(currentSet)
                         setCurrentSet(()=>{

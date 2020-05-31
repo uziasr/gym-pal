@@ -3,8 +3,6 @@ import { View, Text, ScrollView, Dimensions, TouchableOpacity, StyleSheet } from
 import axios from 'axios'
 import { AntDesign } from '@expo/vector-icons';
 import { Overlay, Button } from 'react-native-elements'
-
-
 import {
     // LineChart,
     // BarChart,
@@ -15,6 +13,8 @@ import {
 } from "react-native-chart-kit";
 import WorkoutCalendar from './WorkoutCalendar';
 import ContributionView from './ContributionView';
+import { dashBoardStyles } from '../../styles/index'
+
 
 
 const Dashboard = ({ navigation }) => {
@@ -47,32 +47,6 @@ const Dashboard = ({ navigation }) => {
     const [currentDate, setCurrentDate] = useState("")
     const [workoutDisplay, setWorkoutDisplay] = useState(false)
 
-    const styles = StyleSheet.create({
-        title: {
-            fontSize: 24,
-            color: 'white',
-            textAlign: 'center'
-        },
-        rootView: {
-            backgroundColor: '#2d2d2d',
-            flexDirection: 'column',
-            // justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-            height: '100%',
-            backgroundColor: '#2d2d2d'
-        },
-        exercisesView: {
-            width: '98%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingVertical: 20,
-            paddingHorizontal: 10,
-            borderRadius: 15,
-            marginVertical: 5,
-            backgroundColor: 'white'
-        }
-    })
 
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
@@ -149,10 +123,10 @@ const Dashboard = ({ navigation }) => {
 
 
     return (
-        <View style={styles.rootView}>
+        <View style={dashBoardStyles.rootView}>
             <ScrollView>
-                <View style={{ marginVertical: 15, color: 'white', justifyContent: 'center' }}>
-                    <Text style={styles.title}>{dashData.total_workouts} Total Workout{dashData.total_workouts ? 's' : ''}!</Text>
+                <View style={dashBoardStyles.contributionTitleWrap}>
+                    <Text style={dashBoardStyles.title}>{dashData.total_workouts} Total Workout{dashData.total_workouts ? 's' : ''}!</Text>
                     <ContributionGraph
                         values={[{ date: '2020-01-01', count: 0 }, ...getExerciseFrequencyByDate(dashData.dates)]}
                         endDate={new Date()}
@@ -163,48 +137,43 @@ const Dashboard = ({ navigation }) => {
                         onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
-                {/* <Text style={{color:'white'}}>Press on an block to review workout or use calendar</Text> */}
                 {workoutDisplay && workoutByDate.length > 0 ?
                     <View>
                         <ContributionView workouts={workoutByDate} date={currentDate} navigation={navigation} />
                     </View> : null}
-                <View style={{ width: '100%' }}>
+                <View style={dashBoardStyles.statsDropDownWrap}>
                     <Button title='Previous Workouts' onPress={() => toggleOverlay()} />
                     <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
-                        <WorkoutCalendar dates={dashData.dates} dayPressHandler={dayPressHandler} currentDate={currentDate}/>
+                        <WorkoutCalendar dates={dashData.dates} dayPressHandler={dayPressHandler} currentDate={currentDate} />
                     </Overlay>
                     <ScrollView>
-                        <TouchableOpacity onPress={() => dropDownHandler('exercises')} style={{ paddingBottom: 5, marginBottom: 5, paddingHorizontal: 15, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', borderBottomColor: 'white', borderBottomWidth: 0.5 }}>
-                            <Text style={{ fontSize: 24, color: 'white' }}>My Exercises</Text>
+                        <TouchableOpacity onPress={() => dropDownHandler('exercises')} style={dashBoardStyles.statsDropDownStyle}>
+                            <Text style={dashBoardStyles.statsTitleStyle}>My Exercises</Text>
                             <AntDesign name={!dropActive.exercises ? "caretdown" : "caretup"} size={24} color="white" />
                         </TouchableOpacity>
                         {dropActive.exercises ? dashData.exercises.map(exercise => (
-                            // <View style={styles.exercisesView}>
-                            <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }} key={exercise.id}>
-                                <TouchableOpacity style={styles.exercisesView} onPress={() => pressHandler(exercise)}>
+                            <View style={dashBoardStyles.selectableStatsWrap} key={exercise.id}>
+                                <TouchableOpacity style={dashBoardStyles.exercisesView} onPress={() => pressHandler(exercise)}>
                                     <Text>{exercise.name}</Text>
                                 </TouchableOpacity>
                             </View>
-                            // </View>
                         )) : null}
                     </ScrollView>
                 </View>
                 {/* Could be its own component! */}
-                <View style={{ width: '100%' }}>
+                <View style={dashBoardStyles.statsDropDownWrap}>
                     <ScrollView>
-                        <TouchableOpacity onPress={() => dropDownHandler('workouts')} style={{ paddingBottom: 5, marginBottom: 5, paddingHorizontal: 15, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', borderBottomColor: 'white', borderBottomWidth: 0.5 }}>
-                            <Text style={{ fontSize: 24, color: 'white' }}>My Workouts</Text>
+                        <TouchableOpacity onPress={() => dropDownHandler('workouts')} style={dashBoardStyles.statsDropDownStyle}>
+                            <Text style={dashBoardStyles.statsTitleStyle}>My Workouts</Text>
                             <AntDesign name={!dropActive.workouts ? "caretdown" : "caretup"} size={24} color="white" />
                         </TouchableOpacity>
                         {dropActive.workouts ? allWorkouts.map((workout, index) => (
-                            // <View style={styles.exercisesView}>
-                            <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }} key={workout.id}>
-                                <TouchableOpacity onPress={() => navigation.navigate('Workout Overview', workout)} style={styles.exercisesView}>
+                            <View style={dashBoardStyles.selectableStatsWrap} key={workout.id}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Workout Overview', workout)} style={dashBoardStyles.exercisesView}>
                                     <Text>Workout {index + 1}</Text>
                                     <Text>{workout.start_time.split(' ').slice(0, 4).join(' ')}</Text>
                                 </TouchableOpacity>
                             </View>
-                            // </View>
                         )) : null}
                     </ScrollView>
                 </View>

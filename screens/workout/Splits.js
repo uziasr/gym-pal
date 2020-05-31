@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { gymButton } from '../../common-components/commons'
+import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import axios from 'axios'
-import ArrowIcon from './Arrow'
+import { splitStyles } from '../../styles/index'
+import { Ionicons } from '@expo/vector-icons';
 
 
 const Splits = ({ body, navigation }) => {
+    
     const [splits, setSplits] = useState({})
     const [isSelected, setSelected] = useState(false)
-    const [splitList, setSplitList] = useState([])
 
     useEffect(() => {
         setSplits(() => {
@@ -21,47 +21,6 @@ const Splits = ({ body, navigation }) => {
         })
     }, [body])
 
-    const styles = StyleSheet.create({
-        root:{
-            backgroundColor:'#2d2d2d',
-            height: '100%'
-        },
-        bodyWrap: {
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            flexWrap: 'wrap',
-            alignContent: 'center',
-            alignItems: 'center'
-        },
-        bodyText: {
-            alignSelf: 'flex-start',
-            fontWeight: 'bold',
-            color: 'black'
-        },
-        bodyView: {
-            margin: 5,
-            width: "98%",
-            borderRadius: 15
-        },
-        buttonView: {
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            justifyContent: 'space-evenly'
-        },
-        skipButton: {
-            backgroundColor: 'dodgerblue',
-            padding: 10,
-            borderRadius: 10,
-            color: 'white'
-        },
-        submitButton: {
-            padding: 10,
-            borderRadius: 10
-        }
-
-    })
     navigation.navigate('Exercise')
     const updateSplit = (split) => {
         setSplits(() => {
@@ -74,54 +33,54 @@ const Splits = ({ body, navigation }) => {
                     }
                 })
                 return select
-            })  
+            })
             return { ...splits, [split]: !splits[split] }
         })
     }
 
-    const pressNavigation = () =>{
-        const exercises = Object.keys(splits).filter(split=>splits[split])
+    const pressNavigation = () => {
+        const exercises = Object.keys(splits).filter(split => splits[split])
 
-        axios.post("http://192.168.1.3:5000/workout/1", {muscles: exercises})
-        .then(res=>{
-            console.log(res)
-        })
-        .catch(err=>{
-            console.log("there was an error",err)
-        })
+        axios.post("http://192.168.1.3:5000/workout/1", { muscles: exercises })
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log("there was an error", err)
+            })
     }
 
     return (
-        <View style={styles.root}>
+        <View style={splitStyles.root}>
             <ScrollView>
-                <View style={styles.bodyWrap}>
+                <View style={splitStyles.bodyWrap}>
                     {body.map((split, index) => {
                         return (
-                            <View style={splits[split] ? { ...styles.bodyView, backgroundColor: '#607196' } : { ...styles.bodyView, backgroundColor: '#E8E9ED' }} key={index}>
+                            <View style={splits[split] ? { ...splitStyles.bodyView, backgroundColor: '#607196' } : { ...splitStyles.bodyView, backgroundColor: '#E8E9ED' }} key={index}>
                                 <TouchableOpacity onPress={() => updateSplit(split)}>
-                                    <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center', alignContent: 'center', padding: 15, margin: 5,}}>
+                                    <View style={splitStyles.muscleWrap}>
                                         <Text
-                                            style={styles.bodyText}
-                                            >{split.toUpperCase()}</Text>
-                                        <ArrowIcon />
+                                            style={splitStyles.bodyText}
+                                        >{split.toUpperCase()}</Text>
+                                        <Ionicons name="md-add" size={24} color="black" />
                                     </View>
                                 </TouchableOpacity>
                             </View>)
                     })}
                 </View>
-                <View style={styles.buttonView}>
+                <View style={splitStyles.buttonView}>
                     <TouchableOpacity
-                        style={styles.skipButton}
+                        style={splitStyles.skipButton}
                     ><Text>Skip</Text>
                     </TouchableOpacity>
-    
-                    {isSelected? <TouchableOpacity 
-                    style={isSelected ? {...styles.submitButton, backgroundColor:'green'} : {...styles.submitButton}}
-                    disabled={!isSelected}
-                    onPress={()=>{pressNavigation()}}
+
+                    {isSelected ? <TouchableOpacity
+                        style={isSelected ? { ...splitStyles.submitButton, backgroundColor: 'green' } : { ...splitStyles.submitButton }}
+                        disabled={!isSelected}
+                        onPress={() => { pressNavigation() }}
                     >
                         <Text>Start Workout</Text>
-                    </TouchableOpacity> : null }
+                    </TouchableOpacity> : null}
                 </View>
             </ScrollView>
         </View>

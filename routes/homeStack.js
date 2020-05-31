@@ -72,7 +72,8 @@ const DashboardTabScreen = createBottomTabNavigator(
             // activeBackgroundColor:'black',
             style: {
                 fontSize: 32,
-                paddingVertical: 3
+                paddingVertical: 6,
+                justifyContent: 'space-between',
             }
         }
     }

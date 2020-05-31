@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, Button, ScrollView, Dimensions } from 'react-native';
-import { Input, ListItem } from 'react-native-elements';
-import { Ionicons, FontAwesome, AntDesign } from '@expo/vector-icons';
-
+import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
+import { Input} from 'react-native-elements';
+import { AntDesign } from '@expo/vector-icons';
+import { autoInputStyles } from '../styles/index'
 
 const AutoInput = ({ data, listLimit, pressHandler }) => {
     const [query, setQuery] = useState('')
@@ -12,27 +12,21 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
     return (
         <View>
             <Input
-                style={{ paddingBottom: 0, flex: 1, marginHorizontal: 'auto' }}
+                style={autoInputStyles.input}
                 value={query}
                 onChangeText={(text) => setQuery(text)}
                 placeholder='enter exercise'
                 leftIcon={<AntDesign name="search1" size={20} color="black" />}
             />
-            <View style={{flexGrow : 1, width:'100%', height:'94%'}}>
+            <View style={autoInputStyles.scrollWrap}>
                 <ScrollView contentContainerStyle={{flexGrow:1}}>
                     {true ? filteredData.map((exercise, index) => {
                         return(
-                        <TouchableOpacity style={{
-                            display:'flex',
-                            flexDirection:'row',
-                            justifyContent:'space-between',
-                            paddingVertical:30,
-                            backgroundColor: '#E6E6E6',
-                        }}
+                        <TouchableOpacity style={autoInputStyles.touchableStyle}
                         key={index}
                         onPress={()=>pressHandler(exercise)}
                         >
-                            <Text key={index} style={{paddingHorizontal:4}}>{exercise}</Text>
+                            <Text key={index} style={autoInputStyles.textStyle}>{exercise}</Text>
                             {/* <AntDesign name="right" size={18} color="black" /> */}
                         </TouchableOpacity>)
                     }) : null}

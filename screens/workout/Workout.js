@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text, ScrollView } from 'react-native';
+import { View, Text } from 'react-native';
 
 const Workout = ({ navigation }) => {
     const exerciseSet = navigation.state.params
