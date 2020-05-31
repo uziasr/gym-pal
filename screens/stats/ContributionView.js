@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Card } from 'react-native-elements'
 import { AntDesign } from '@expo/vector-icons';
-
+import { contributionViewStyles } from '../../styles/index'
 
 const ContributionView = ({ workouts, date, navigation }) => {
 
@@ -19,7 +19,7 @@ const ContributionView = ({ workouts, date, navigation }) => {
         return `${month} ${dateArr[2]}, ${dateArr[0]}`
     }
 
-    const styles = StyleSheet.create({
+    const contributionViewStyles = StyleSheet.create({
         text: {
             color: 'black'
         }
@@ -27,25 +27,27 @@ const ContributionView = ({ workouts, date, navigation }) => {
 
     return (
         <View>
-            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                <Text style={{ ...styles.text, color: 'white', fontSize: 24 }}>{formatDate(date)}</Text></View>
+            <View style={contributionViewStyles.rootWrap}>
+                <Text style={contributionViewStyles.headerText}>{formatDate(date)}</Text></View>
             {workouts.map((workout, index) => {
-                return <TouchableOpacity key={index} onPress={()=> navigation.navigate('Workout Overview', workout)}>
+                return <TouchableOpacity key={index} onPress={() => navigation.navigate('Workout Overview', workout)}>
                     <Card containerStyle={{ borderRadius: 5 }}>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <Text style={styles.text}>Workout {index + 1}</Text>
-                            <Text style={styles.text}>Duration: {formatSeconds(workout.total_time)}</Text>
+                        <View style={contributionViewStyles.workoutDescription}>
+                            <Text style={contributionViewStyles.text}>Workout {index + 1}</Text>
+                            <Text style={contributionViewStyles.text}>Duration: {formatSeconds(workout.total_time)}</Text>
                         </View>
-                        {workout.muscles[0] == "" ? null : <Text style={styles.text}>Muscles Trained:</Text>}
+                        {workout.muscles[0] == "" ? null : <Text style={contributionViewStyles.text}>Muscles Trained:</Text>}
                         <View>
                             {workout.muscles[0] == "" ?
-                                <View style={{ flexDirection: "row", justifyContent: 'flex-end' }}>
+                                <View style={contributionViewStyles.withoutMuscle}>
                                     <AntDesign name="arrowright" size={24} color="black" />
                                 </View>
                                 :
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <View style={contributionViewStyles.withMuscles}>
                                     {workout.muscles.map((muscle, index) => (
-                                        <View key={index} style={{ flexDirection: 'row', flexWrap: 'wrap' }}><Text style={styles.text}>{muscle}</Text></View>
+                                        <View key={index} style={contributionViewStyles.withoutMuscle}>
+                                            <Text style={contributionViewStyles.text}>{muscle}</Text>
+                                        </View>
                                     ))}
                                     <AntDesign name="arrowright" size={24} color="black" />
                                 </View>

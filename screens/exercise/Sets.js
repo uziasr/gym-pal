@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text, ScrollView } from 'react-native';
-
+import { View, Text, } from 'react-native';
+import { setStyles } from '../../styles/index'
 
 const Sets = ({ exerciseSet, order}) => {
     return (
-        <View style={{justifyContent: 'center', flexDirection:'row'}}>
-            <View style={{width:'90%', borderRadius:10, marginBottom:10, paddingHorizontal:20, paddingVertical:20, justifyContent: 'space-between', flexDirection:'row', backgroundColor:'#353A47'}}>
-                <Text style={{fontSize:16, color:'white'}}>{order}</Text>
-                <Text style={{fontSize:20, color:'white'}}>{exerciseSet[0]} X {exerciseSet[1]}</Text>
-                <Text style={{fontSize:20, color:'white'}}>{exerciseSet[2] ? 'LBS':'KG'}</Text>
+        <View style={setStyles.rootWrap}>
+            <View style={setStyles.textWrap}>
+                <Text style={setStyles.textStyles}>{order}</Text>
+                <Text style={setStyles.textStyles}>{exerciseSet[0]} X {exerciseSet[1]}</Text>
+                <Text style={setStyles.textStyles}>{exerciseSet[2] ? 'LBS':'KG'}</Text>
             </View>
         </View>
     );

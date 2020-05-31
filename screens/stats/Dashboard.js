@@ -141,7 +141,7 @@ const Dashboard = ({ navigation }) => {
                     <View>
                         <ContributionView workouts={workoutByDate} date={currentDate} navigation={navigation} />
                     </View> : null}
-                <View style={{ width: '100%' }}>
+                <View style={dashBoardStyles.statsDropDownWrap}>
                     <Button title='Previous Workouts' onPress={() => toggleOverlay()} />
                     <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
                         <WorkoutCalendar dates={dashData.dates} dayPressHandler={dayPressHandler} currentDate={currentDate} />
@@ -161,7 +161,7 @@ const Dashboard = ({ navigation }) => {
                     </ScrollView>
                 </View>
                 {/* Could be its own component! */}
-                <View style={{ width: '100%' }}>
+                <View style={dashBoardStyles.statsDropDownWrap}>
                     <ScrollView>
                         <TouchableOpacity onPress={() => dropDownHandler('workouts')} style={dashBoardStyles.statsDropDownStyle}>
                             <Text style={dashBoardStyles.statsTitleStyle}>My Workouts</Text>

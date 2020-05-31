@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text} from 'react-native';
 import axios from 'axios'
+import { workoutStatsStyles } from '../../styles/index'
 
 
 const WorkoutStats = ({ navigation }) => {
@@ -25,7 +26,7 @@ const WorkoutStats = ({ navigation }) => {
             {workout.map((currentExercise, index) => {
                 return <View key={index}>
                     <Text>{currentExercise.exercise}</Text>
-                    <View style={{flexDirection:'row', justifyContent:'space-evenly', flexWrap:'wrap'}}>
+                    <View style={workoutStatsStyles.exerciseWrap}>
                         {currentExercise.sets.map((currentSet, index) => (
                             <Text key={index}>{currentSet.repetition} X {currentSet.weight}</Text>
                         ))}

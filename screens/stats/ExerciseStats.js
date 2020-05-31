@@ -19,8 +19,8 @@ const ExerciseStats = ({ navigation }) => {
 
     return Object.keys(exerciseData).length > 0 ? (
         <View style={exerciseStatsStyles.root}>
-            <View style={{ marginVertical: 15 }}>
-                <Text style={{ fontSize: 24, color: 'white' }}>{exercise.name}</Text>
+            <View style={exerciseStatsStyles.titleWrap}>
+                <Text style={exerciseStatsStyles.title}>{exercise.name}</Text>
             </View>
             <View style={exerciseStatsStyles.statsView}>
                 <Text style={exerciseStatsStyles.statsText}>Projected One Rep Max</Text>
