@@ -16,7 +16,7 @@ const SetForm = ({ addSet }) => {
     return (
         <View style={setFormStyles.rootWrap}>
             <View style={setFormStyles.formWrap}>
-                <View style={setFormStyles.formWrap}>
+                <View style={setFormStyles.inputWrap}>
                     <Input
                         label='Weight'
                         keyboardType='number-pad'
@@ -26,7 +26,7 @@ const SetForm = ({ addSet }) => {
                         value={currentSet.weight == 0? '': (currentSet.weight).toString()}
                         placeholder='0' />
                 </View>
-                <View style={setFormStyles.formWrap}>
+                <View style={setFormStyles.inputWrap}>
                     <Input
                         label='Repetitions'
                         keyboardType='number-pad'
