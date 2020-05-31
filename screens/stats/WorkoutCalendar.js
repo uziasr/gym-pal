@@ -24,14 +24,6 @@ const WorkoutCalendar = ({ dates, dayPressHandler, currentDate }) => {
             dayPressHandler({date:date})
         } 
     }
-
-        // markedDates={{
-                //     '2020-05-16': { disabled: false, marked: true },
-                //     '2020-05-17': { disabled: false, marked: true },
-                //     '2020-05-18': { disabled: false, marked: true, dotColor: 'blue', activeOpacity: 0 },
-                //     '2020-05-19': { disabled: true, disableTouchEvent: true }
-                // }}
-
     return (
             <Calendar
                 horizontal={true}

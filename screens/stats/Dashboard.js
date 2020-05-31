@@ -54,7 +54,7 @@ const Dashboard = ({ navigation }) => {
             textAlign: 'center'
         },
         rootView: {
-            backgroundColor: 'grey',
+            backgroundColor: '#2d2d2d',
             flexDirection: 'column',
             // justifyContent: 'center',
             alignContent: 'center',
