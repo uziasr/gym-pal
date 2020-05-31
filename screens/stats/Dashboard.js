@@ -45,6 +45,7 @@ const Dashboard = ({ navigation }) => {
 
     const [workoutByDate, setWorkoutByDate] = useState([])
     const [currentDate, setCurrentDate] = useState("")
+    const [workoutDisplay, setWorkoutDisplay] = useState(false)
 
     const styles = StyleSheet.create({
         title: {
@@ -53,7 +54,7 @@ const Dashboard = ({ navigation }) => {
             textAlign: 'center'
         },
         rootView: {
-            backgroundColor: 'grey',
+            backgroundColor: '#2d2d2d',
             flexDirection: 'column',
             // justifyContent: 'center',
             alignContent: 'center',
@@ -125,14 +126,24 @@ const Dashboard = ({ navigation }) => {
     }
 
     const dayPressHandler = (contribution) => {
-        console.log(typeof contribution.date)
-        if (contribution.count) {
-            axios.post(`http://192.168.1.3:5000/user/1/workouts`, { date: contribution.date })
-                .then(res => {
-                    setWorkoutByDate([...res.data])
-                    setCurrentDate(contribution.date)
-                })
-                .catch(err => console.log(err))
+        if (contribution.count !== 0) {
+            if (contribution.date == currentDate) {
+                setWorkoutDisplay(!workoutDisplay)
+                setCurrentDate("")
+                setVisible(() => false)
+            } else {
+                axios.post(`http://192.168.1.3:5000/user/1/workouts`, { date: contribution.date })
+                    .then(res => {
+                        setVisible(() => {
+                            setWorkoutByDate([...res.data])
+                            setCurrentDate(contribution.date)
+                            setWorkoutDisplay(true)
+                            return false
+                        })
+                        console.log(res.data)
+                    })
+                    .catch(err => console.log(err))
+            }
         }
     }
 
@@ -152,11 +163,16 @@ const Dashboard = ({ navigation }) => {
                         onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
-                {workoutByDate.length > 0 ?
-                    <View >
-                        <ContributionView workouts={workoutByDate} date={currentDate} />
+                {/* <Text style={{color:'white'}}>Press on an block to review workout or use calendar</Text> */}
+                {workoutDisplay && workoutByDate.length > 0 ?
+                    <View>
+                        <ContributionView workouts={workoutByDate} date={currentDate} navigation={navigation} />
                     </View> : null}
                 <View style={{ width: '100%' }}>
+                    <Button title='Previous Workouts' onPress={() => toggleOverlay()} />
+                    <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
+                        <WorkoutCalendar dates={dashData.dates} dayPressHandler={dayPressHandler} currentDate={currentDate}/>
+                    </Overlay>
                     <ScrollView>
                         <TouchableOpacity onPress={() => dropDownHandler('exercises')} style={{ paddingBottom: 5, marginBottom: 5, paddingHorizontal: 15, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center', borderBottomColor: 'white', borderBottomWidth: 0.5 }}>
                             <Text style={{ fontSize: 24, color: 'white' }}>My Exercises</Text>
@@ -192,10 +208,6 @@ const Dashboard = ({ navigation }) => {
                         )) : null}
                     </ScrollView>
                 </View>
-                <Button title='Workout History' onPress={() => toggleOverlay()} />
-                <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
-                    <WorkoutCalendar dates={dashData.dates} />
-                </Overlay>
             </ScrollView>
         </View>
     );
