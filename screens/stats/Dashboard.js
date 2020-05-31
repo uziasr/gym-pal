@@ -13,7 +13,7 @@ import {
 } from "react-native-chart-kit";
 import WorkoutCalendar from './WorkoutCalendar';
 import ContributionView from './ContributionView';
-import { DashBoardStyles } from '../../styles/index'
+import { dashBoardStyles } from '../../styles/index'
 
 
 

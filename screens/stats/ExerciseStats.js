@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import axios from 'axios';
+import { exerciseStatsStyles } from '../../styles/index'
+
 
 
 const ExerciseStats = ({ navigation }) => {
@@ -14,66 +16,42 @@ const ExerciseStats = ({ navigation }) => {
             .catch(err => console.log(err))
     }, [])
 
-    const styles = StyleSheet.create({
-        root: {
-            backgroundColor: 'grey',
-            flexDirection: 'column',
-            // justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-            height: '100%',
-            backgroundColor:'#2d2d2d'
-        },
-        statsView: {
-            width: '98%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingVertical: 20,
-            paddingHorizontal: 10,
-            borderRadius: 15,
-            marginVertical: 5,
-            backgroundColor: 'white'
-        },
-        statsText:{
-            fontWeight: 'bold'
-        }
-    })
 
     return Object.keys(exerciseData).length > 0 ? (
-        <View style={styles.root}>
-            <View style={{marginVertical:15}}>
-                <Text style={{ fontSize: 24, color:'white' }}>{exercise.name}</Text>
+        <View style={exerciseStatsStyles.root}>
+            <View style={{ marginVertical: 15 }}>
+                <Text style={{ fontSize: 24, color: 'white' }}>{exercise.name}</Text>
             </View>
-            <View style={styles.statsView}>
-                <Text style={styles.statsText}>Projected One Rep Max</Text>
-                <Text style={styles.statsText}> {exerciseData.projected_one_rep.max_weight}</Text>
+            <View style={exerciseStatsStyles.statsView}>
+                <Text style={exerciseStatsStyles.statsText}>Projected One Rep Max</Text>
+                <Text style={exerciseStatsStyles.statsText}> {exerciseData.projected_one_rep.max_weight}</Text>
             </View>
-            <View style={styles.statsView}>
-                <Text style={styles.statsText}>Based on</Text>
-                <Text style={styles.statsText}>{exerciseData.projected_one_rep.weight} LBS X {exerciseData.projected_one_rep.reps} </Text>
+            <View style={exerciseStatsStyles.statsView}>
+                <Text style={exerciseStatsStyles.statsText}>Based on</Text>
+                <Text style={exerciseStatsStyles.statsText}>{exerciseData.projected_one_rep.weight} LBS X {exerciseData.projected_one_rep.reps} </Text>
             </View>
-            <View style={styles.statsView}>
-                <Text style={styles.statsText}>Max Reps</Text>
-                <Text style={styles.statsText}>{exerciseData.max_reps.repetition} Reps @ {exerciseData.max_reps.weight} LBS</Text>
+            <View style={exerciseStatsStyles.statsView}>
+                <Text style={exerciseStatsStyles.statsText}>Max Reps</Text>
+                <Text style={exerciseStatsStyles.statsText}>{exerciseData.max_reps.repetition} Reps @ {exerciseData.max_reps.weight} LBS</Text>
             </View>
-            <View style={styles.statsView}>
-                <Text style={styles.statsText}>Max Weight</Text>
-                <Text style={styles.statsText}>{exerciseData.max_weight.weight} LBS @ {exerciseData.max_weight.repetition} Reps</Text>
+            <View style={exerciseStatsStyles.statsView}>
+                <Text style={exerciseStatsStyles.statsText}>Max Weight</Text>
+                <Text style={exerciseStatsStyles.statsText}>{exerciseData.max_weight.weight} LBS @ {exerciseData.max_weight.repetition} Reps</Text>
             </View>
-            <View style={styles.statsView}>
-                <Text style={styles.statsText}>Total Sets</Text>
-                <Text style={styles.statsText}>{exerciseData.total_sets}</Text>
+            <View style={exerciseStatsStyles.statsView}>
+                <Text style={exerciseStatsStyles.statsText}>Total Sets</Text>
+                <Text style={exerciseStatsStyles.statsText}>{exerciseData.total_sets}</Text>
             </View>
-            <View style={styles.statsView}>
-                <Text style={styles.statsText}>Average Reps</Text>
-                <Text style={styles.statsText}>{exerciseData.average_reps}</Text>
+            <View style={exerciseStatsStyles.statsView}>
+                <Text style={exerciseStatsStyles.statsText}>Average Reps</Text>
+                <Text style={exerciseStatsStyles.statsText}>{exerciseData.average_reps}</Text>
             </View>
-            <View style={styles.statsView}>
-                <Text style={styles.statsText}>Average Weight </Text>
-                <Text style={styles.statsText}>{exerciseData.average_weight}</Text>
+            <View style={exerciseStatsStyles.statsView}>
+                <Text style={exerciseStatsStyles.statsText}>Average Weight </Text>
+                <Text style={exerciseStatsStyles.statsText}>{exerciseData.average_weight}</Text>
             </View>
         </View>
-    ) : <View><Text style={styles.statsText}>Loading...</Text></View>;
+    ) : <View><Text style={exerciseStatsStyles.statsText}>Loading...</Text></View>;
     // return <View></View>
 };
 
