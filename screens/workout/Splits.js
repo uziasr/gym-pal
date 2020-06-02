@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import axios from 'axios'
-import { splitStyles } from '../../styles/index'
+import axios from 'axios';
+import { splitStyles } from '../../styles/index';
 import { Ionicons } from '@expo/vector-icons';
+import splitConversion from './splitHelper';
 
 
 const Splits = ({ body, navigation }) => {
@@ -39,9 +40,9 @@ const Splits = ({ body, navigation }) => {
     }
 
     const pressNavigation = () => {
-        const exercises = Object.keys(splits).filter(split => splits[split])
-
-        axios.post("http://192.168.1.3:5000/workout/1", { muscles: exercises })
+        const musclesTraining = Object.keys(splits).filter(split => splits[split])
+        const specificMuscles = splitConversion(musclesTraining)
+        axios.post("http://192.168.1.3:5000/workout/1", { muscles: specificMuscles })
             .then(res => {
                 console.log(res)
             })

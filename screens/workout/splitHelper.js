@@ -2,22 +2,27 @@ import splits from './body'
 
 const specific = splits.specific
 
-const splitConversion = (compound) => {
+const splitConversion = (compoundArr) => {
     const muscles = []
-        switch(compound) {
+    compoundArr.forEach(compound => {
+        switch (compound) {
             case 'Arms':
-                muscles = [...muscles, 'Triceps', 'Biceps','Forearms']
+                muscles = [...muscles, 'Triceps', 'Biceps', 'Forearms']
                 break
             case 'Legs':
-                muscles = [...muscles, 'Quadriceps', 'Hamstrings','Calves']
+                muscles = [...muscles, 'Quadriceps', 'Hamstrings', 'Calves']
                 break
             case 'Push':
-                muscles = [... muscles, 'Chest', 'Shoulders', 'Triceps' ]
+                muscles = [...muscles, 'Chest', 'Shoulders', 'Triceps']
                 break
             case 'Pull':
                 muscles = [...muscles, 'Back', 'Biceps', 'Quadriceps']
                 break
             case 'Full Body':
                 muscles = splits.specific
-    }
+        }
+    })
+    return [...new Set(muscles)]
 }
+
+export default splitConversion
