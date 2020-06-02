@@ -7,6 +7,7 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 const WorkoutCalendar = ({ dates, dayPressHandler, currentDate }) => {
 
     const [markedDates, setMarkedDates] = useState({})
+    console.log(markedDates)
 
     if (dates.length > 0 && Object.keys(markedDates).length == 0) {
         dates.map(date => {

@@ -19,12 +19,6 @@ const ContributionView = ({ workouts, date, navigation }) => {
         return `${month} ${dateArr[2]}, ${dateArr[0]}`
     }
 
-    const contributionViewStyles = StyleSheet.create({
-        text: {
-            color: 'black'
-        }
-    })
-
     return (
         <View>
             <View style={contributionViewStyles.rootWrap}>

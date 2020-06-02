@@ -1,8 +1,8 @@
 const commonSplit = [
-    'chest', 'arms', 'back', 'legs','shoulders'
+    'Chest', 'Arms', 'Back', 'Legs','Shoulders'
 ]
 const simpleSplit = [
-    'push', 'pull', 'legs', 'full body'
+    'Push', 'Pull', 'Legs', 'Full body'
 ]
 const specificSplit = ['Chest',
 'Back', 'Shoulders', 'Trapezius',
