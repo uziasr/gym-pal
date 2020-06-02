@@ -22,7 +22,7 @@ const WorkoutStats = ({ navigation }) => {
 
     return workout.length > 0 ? (
         <View>
-            <WorkoutPie/>
+            <WorkoutPie workout={workout}/>
             {workout.map((currentExercise, index) => {
                 return <View key={index}>
                     <Text>{currentExercise.exercise}</Text>
