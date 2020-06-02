@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text} from 'react-native';
 import axios from 'axios'
 import { workoutStatsStyles } from '../../styles/index'
+import WorkoutPie from './WorkoutPie';
 
 
 const WorkoutStats = ({ navigation }) => {
@@ -21,6 +22,7 @@ const WorkoutStats = ({ navigation }) => {
 
     return workout.length > 0 ? (
         <View>
+            <WorkoutPie/>
             {workout.map((currentExercise, index) => {
                 return <View key={index}>
                     <Text>{currentExercise.exercise}</Text>
