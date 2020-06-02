@@ -168,7 +168,7 @@ export const workoutStatsStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         flexWrap: 'wrap'
-    }
+    },
 })
 
 export const setStyles = StyleSheet.create({

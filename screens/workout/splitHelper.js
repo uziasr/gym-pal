@@ -1,7 +1,5 @@
 import splits from './body'
 
-const specific = splits.specific
-
 const splitConversion = (compoundArr) => {
     const muscles = []
     compoundArr.forEach(compound => {

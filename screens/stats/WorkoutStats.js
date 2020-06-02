@@ -7,7 +7,6 @@ import { workoutStatsStyles } from '../../styles/index'
 const WorkoutStats = ({ navigation }) => {
 
     const [workout, setWorkout] = useState([])
-    console.log(navigation.state)
     const workoutId = navigation.state.params.id
 
     useEffect(() => {
@@ -19,7 +18,6 @@ const WorkoutStats = ({ navigation }) => {
             .catch(err => console.log(err))
     }, [])
 
-    console.log("now look here ", workout)
 
     return workout.length > 0 ? (
         <View>
