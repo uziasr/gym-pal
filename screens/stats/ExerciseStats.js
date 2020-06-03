@@ -7,7 +7,7 @@ import { exerciseStatsStyles } from '../../styles/index'
 
 const ExerciseStats = ({ navigation }) => {
     const exercise = navigation.state.params
-    console.log(exercise)
+
     const [exerciseData, setExerciseData] = useState({})
 
     useEffect(() => {
