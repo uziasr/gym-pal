@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button } from 'react-native'
+import { View, Button, Text } from 'react-native'
 import {
     PieChart,
 } from "react-native-chart-kit";
@@ -59,6 +59,7 @@ const WorkoutPie = ({ workout }) => {
 
     return (
         <View>
+            <Text>{`Muscle Trained by ${isByExercise ? "Exercise" : "Reps"}`}</Text>
             <PieChart
                 data={!isByExercise && byRep.length ? byRep : byExercise}
                 width={500}
@@ -84,7 +85,7 @@ const WorkoutPie = ({ workout }) => {
                 paddingLeft={15}
                 absolute
             />
-            <Button title={isByExercise ? "By Reps" : "By Muscle"} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} />
+            <Button title={isByExercise ? "By Reps" : "By Exercise"} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} />
         </View>
     );
 };
