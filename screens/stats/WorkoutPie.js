@@ -5,10 +5,10 @@ import {
 } from "react-native-chart-kit";
 
 const WorkoutPie = ({ workout }) => {
-    const [byMuscle, setByMuscle] = useState([])
+    const [byExercise, setByExercise] = useState([])
     const [byRep, setByRep] = useState([])
     const [byWeight, setByWeight] = useState([])
-    const [isByMuscle, setIsByMuscle] = useState(true)
+    const [isByExercise, setIsByExercise] = useState(true)
     const colors = ['red', 'blue', 'green', 'orange']
 
     useEffect(() => {
@@ -16,7 +16,7 @@ const WorkoutPie = ({ workout }) => {
         workout.forEach(exercise => {
             muscleGroupCount[exercise.muscle] = muscleGroupCount[exercise.muscle] ? muscleGroupCount[exercise.muscle] + 1 : 1
         })
-        setByMuscle(() => {
+        setByExercise(() => {
             return Object.keys(muscleGroupCount).map((muscle, index) => {
                 return {
                     name: muscle,
@@ -31,7 +31,7 @@ const WorkoutPie = ({ workout }) => {
     }, [])
     const weightView = () => {
         if (byRep.length > 0) {
-            setIsByMuscle(!isByMuscle)
+            setIsByExercise(!isByExercise)
         } else {
             muscleObj = {}
             index = 0
@@ -52,7 +52,7 @@ const WorkoutPie = ({ workout }) => {
             setByRep(() => {
                return Object.keys(muscleObj).map(muscle=>(muscleObj[muscle]))
             })
-            setIsByMuscle(!isByMuscle)
+            setIsByExercise(!isByExercise)
         }
     }
 
@@ -60,7 +60,7 @@ const WorkoutPie = ({ workout }) => {
     return (
         <View>
             <PieChart
-                data={!isByMuscle && byRep.length ? byRep : byMuscle}
+                data={!isByExercise && byRep.length ? byRep : byExercise}
                 width={500}
                 height={220}
                 chartConfig={{
@@ -79,12 +79,12 @@ const WorkoutPie = ({ workout }) => {
                         stroke: "#ffa726"
                     }
                 }}
-                accessor={!isByMuscle && byRep.length ? "reps" : "sets"}
+                accessor={!isByExercise && byRep.length ? "reps" : "sets"}
                 backgroundColor="transparent"
                 paddingLeft={15}
                 absolute
             />
-            <Button title={isByMuscle ? "By Reps" : "By Muscle"} onPress={() => isByMuscle ? weightView() : setIsByMuscle(!isByMuscle)} />
+            <Button title={isByExercise ? "By Reps" : "By Muscle"} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} />
         </View>
     );
 };
