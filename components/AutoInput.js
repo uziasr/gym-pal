@@ -1,14 +1,33 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
-import { Input} from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import { autoInputStyles } from '../styles/index'
+import splits from '../screens/workout/body'
 
 const AutoInput = ({ data, listLimit, pressHandler }) => {
     const [query, setQuery] = useState('')
-    const filteredData =  data.filter(exercise => {
+    const [muscles, setMuscles] = useState(["All", ...splits.specific])
+    const [muscleFilter, setMuscleFilter] = useState(
+        Object.assign({ "All": true }, ...splits.specific.map(key => ({ [key]: false })))
+    )
+    const filteredData = data.filter(exercise => {
         return (RegExp(new RegExp(query.toLowerCase())).test(exercise.toLowerCase()))
-    }) 
+    })
+
+    const muscleFilterPress = (text) => {
+        if (text == "All") {
+            Object.keys(muscleFilter).forEach(muscle => {
+                setMuscleFilter({ [muscle]: false, All: true })
+            })
+        } else {
+            setMuscleFilter(() => {
+                return {...muscleFilter, All: false, [text]: !muscleFilter[text]}
+            })
+
+        }
+    }
+
     return (
         <View>
             <Input
@@ -18,17 +37,26 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
                 placeholder='enter exercise'
                 leftIcon={<AntDesign name="search1" size={20} color="black" />}
             />
+            <View style={autoInputStyles.touchableMuscleWrapper}>
+                <ScrollView horizontal={true}>
+                    {muscles.map((muscle, index) => (
+                        <TouchableOpacity onPress={() => muscleFilterPress(muscle)} style={autoInputStyles.touchableMuscle} key={index}>
+                            <Text style={muscleFilter[muscle] ? { color: "green" } : { color: "black" }}>{muscle}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+            </View>
             <View style={autoInputStyles.scrollWrap}>
-                <ScrollView contentContainerStyle={{flexGrow:1}}>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                     {true ? filteredData.map((exercise, index) => {
-                        return(
-                        <TouchableOpacity style={autoInputStyles.touchableStyle}
-                        key={index}
-                        onPress={()=>pressHandler(exercise)}
-                        >
-                            <Text key={index} style={autoInputStyles.textStyle}>{exercise}</Text>
-                            {/* <AntDesign name="right" size={18} color="black" /> */}
-                        </TouchableOpacity>)
+                        return (
+                            <TouchableOpacity style={autoInputStyles.touchableStyle}
+                                key={index}
+                                onPress={() => pressHandler(exercise)}
+                            >
+                                <Text key={index} style={autoInputStyles.textStyle}>{exercise}</Text>
+                                {/* <AntDesign name="right" size={18} color="black" /> */}
+                            </TouchableOpacity>)
                     }) : null}
                 </ScrollView>
             </View>
