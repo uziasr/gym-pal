@@ -68,7 +68,6 @@ const Dashboard = ({ navigation }) => {
     }, [])
 
     const getExerciseFrequencyByDate = (dateArray) => {
-        console.log('dateArr', dateArray)
         dateDict = {}
         dateList = []
         dateArray.forEach(date => {
@@ -85,7 +84,6 @@ const Dashboard = ({ navigation }) => {
         if (name == 'workouts' && serverCalled[name] == false) {
             axios.get(`http://192.168.1.3:5000/user/1/${name}`)
                 .then(res => {
-                    console.log("good time", res.data[0].start_time.day)
                     setAllWorkouts([...res.data])
                     setServerCalled(() => {
                         return { ...serverCalled, [name]: true }
@@ -114,7 +112,7 @@ const Dashboard = ({ navigation }) => {
                             setWorkoutDisplay(true)
                             return false
                         })
-                        console.log(res.data)
+
                     })
                     .catch(err => console.log(err))
             }

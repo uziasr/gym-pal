@@ -255,7 +255,7 @@ export const autoInputStyles = StyleSheet.create({
         width: '100%',
         height: '94%'
     },
-    touchableStyle : {
+    touchableStyle: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -264,5 +264,13 @@ export const autoInputStyles = StyleSheet.create({
     },
     textStyle: {
         paddingHorizontal: 4
+    },
+    touchableMuscleWrapper: {
+       alignContent: 'center',
+       alignItems: 'center',
+       paddingVertical: 10
+    },
+    touchableMuscle: {
+        paddingHorizontal: 10,
     }
 })

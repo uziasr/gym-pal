@@ -13,7 +13,6 @@ const WorkoutStats = ({ navigation }) => {
     useEffect(() => {
         axios.get(`http://192.168.1.3:5000/workout/${workoutId}/set`)
             .then(res => {
-                console.log("look here ", res)
                 setWorkout([...res.data])
             })
             .catch(err => console.log(err))
@@ -22,7 +21,7 @@ const WorkoutStats = ({ navigation }) => {
 
     return workout.length > 0 ? (
         <View>
-            <WorkoutPie/>
+            <WorkoutPie workout={workout}/>
             {workout.map((currentExercise, index) => {
                 return <View key={index}>
                     <Text>{currentExercise.exercise}</Text>
