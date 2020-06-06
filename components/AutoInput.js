@@ -7,13 +7,30 @@ import splits from '../screens/workout/body'
 
 const AutoInput = ({ data, listLimit, pressHandler }) => {
     const [query, setQuery] = useState('')
+    const [exercises, SetExercise] = useState(data.map(anExercise=>anExercise.exercise))
     const [muscles, setMuscles] = useState(["All", ...splits.specific])
     const [muscleFilter, setMuscleFilter] = useState(
         Object.assign({ "All": true }, ...splits.specific.map(key => ({ [key]: false })))
     )
-    const filteredData = data.filter(exercise => {
+    
+    const FilterByMuscle = () =>{
+        activeMuscles = Object.keys(muscles)
+        if ("All" in muscles) {
+            return muscles
+        } else {
+            return exercises.filter(exercise=>{
+                return exercise.muscle in activeMuscles
+            })
+        }
+    }
+
+    const muscleFilter = FilterByMuscle()
+    
+    const filteredData = muscleFilter.filter(exercise => {
         return (RegExp(new RegExp(query.toLowerCase())).test(exercise.toLowerCase()))
     })
+
+
 
     const muscleFilterPress = (text) => {
         if (text == "All") {
