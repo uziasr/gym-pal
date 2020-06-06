@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
 import { Input } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
@@ -7,26 +7,39 @@ import splits from '../screens/workout/body'
 
 const AutoInput = ({ data, listLimit, pressHandler }) => {
     const [query, setQuery] = useState('')
-    const [exercises, SetExercise] = useState(data.map(anExercise=>anExercise.exercise))
+    const [exercises, setExercise] = useState([])
     const [muscles, setMuscles] = useState(["All", ...splits.specific])
     const [muscleFilter, setMuscleFilter] = useState(
         Object.assign({ "All": true }, ...splits.specific.map(key => ({ [key]: false })))
     )
-    
-    const FilterByMuscle = () =>{
+    useEffect(()=>{
+        setExercise(()=>{
+            return data.map(anExercise=>anExercise.exercise)
+        })
+    },[data])
+
+
+    const filterByMuscle = () =>{
         activeMuscles = Object.keys(muscles)
-        if ("All" in muscles) {
-            return muscles
+        if (muscleFilter['All']) {
+            return exercises
         } else {
-            return exercises.filter(exercise=>{
-                return exercise.muscle in activeMuscles
+            const filteredArr = [] 
+            data.forEach(anExercise=>{
+               if (muscleFilter[anExercise.muscle]) {
+                   console.log(anExercise)
+                    filteredArr.push(anExercise.exercise)
+               }
             })
+            return filteredArr
         }
     }
 
-    const muscleFilter = FilterByMuscle()
+
+    const exerciseFilteredByMuscle = filterByMuscle()
+    console.log(exerciseFilteredByMuscle)
     
-    const filteredData = muscleFilter.filter(exercise => {
+    const filteredData = exerciseFilteredByMuscle.filter(exercise => {
         return (RegExp(new RegExp(query.toLowerCase())).test(exercise.toLowerCase()))
     })
 
@@ -57,7 +70,10 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
             <View style={autoInputStyles.touchableMuscleWrapper}>
                 <ScrollView horizontal={true}>
                     {muscles.map((muscle, index) => (
-                        <TouchableOpacity onPress={() => muscleFilterPress(muscle)} style={autoInputStyles.touchableMuscle} key={index}>
+                        <TouchableOpacity onPress={() => {
+                            muscleFilterPress(muscle)
+                            
+                        }} style={autoInputStyles.touchableMuscle} key={index}>
                             <Text style={muscleFilter[muscle] ? { color: "green" } : { color: "black" }}>{muscle}</Text>
                         </TouchableOpacity>
                     ))}
