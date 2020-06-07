@@ -9,27 +9,37 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
     const [query, setQuery] = useState('')
     const [exercises, setExercise] = useState([])
     const [muscles, setMuscles] = useState(["All", ...splits.specific])
+    const [exerciseByMuscle, setExerciseByMuscle] = useState(
+        Object.assign({ "All": [] }, ...splits.specific.map(key => ({ [key]: [] })))
+    )
     const [muscleFilter, setMuscleFilter] = useState(
         Object.assign({ "All": true }, ...splits.specific.map(key => ({ [key]: false })))
     )
-    useEffect(()=>{
-        setExercise(()=>{
-            return data.map(anExercise=>anExercise.exercise)
+    useEffect(() => {
+        const exerciseArr = []
+        const exerciseByMuscle2 = exerciseByMuscle
+        for(let i = 0; i<data.length; i++) {
+            exerciseArr.push(data[i].exercise)
+            exerciseByMuscle2[data[i].muscle] = [...exerciseByMuscle2[data[i].muscle], data[i].exercise] 
+        }
+        setExerciseByMuscle(()=>{
+        return { ...exerciseByMuscle, "All": exercises, ...{...exerciseByMuscle2} }
         })
-    },[data])
+        setExercise(()=>exerciseArr)
 
+    }, [data])
 
-    const filterByMuscle = () =>{
+    // console.log(exerciseByMuscle)
+    const filterByMuscle = () => {
         activeMuscles = Object.keys(muscles)
         if (muscleFilter['All']) {
             return exercises
         } else {
-            const filteredArr = [] 
-            data.forEach(anExercise=>{
-               if (muscleFilter[anExercise.muscle]) {
-                   console.log(anExercise)
-                    filteredArr.push(anExercise.exercise)
-               }
+            let filteredArr = []
+            muscles.forEach(muscle => {
+                if (muscleFilter[muscle]) {
+                    filteredArr = [...filteredArr, ...exerciseByMuscle[muscle]]
+                }
             })
             return filteredArr
         }
@@ -37,8 +47,7 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
 
 
     const exerciseFilteredByMuscle = filterByMuscle()
-    console.log(exerciseFilteredByMuscle)
-    
+
     const filteredData = exerciseFilteredByMuscle.filter(exercise => {
         return (RegExp(new RegExp(query.toLowerCase())).test(exercise.toLowerCase()))
     })
@@ -52,7 +61,7 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
             })
         } else {
             setMuscleFilter(() => {
-                return {...muscleFilter, All: false, [text]: !muscleFilter[text]}
+                return { ...muscleFilter, All: false, [text]: !muscleFilter[text] }
             })
 
         }
@@ -72,7 +81,7 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
                     {muscles.map((muscle, index) => (
                         <TouchableOpacity onPress={() => {
                             muscleFilterPress(muscle)
-                            
+
                         }} style={autoInputStyles.touchableMuscle} key={index}>
                             <Text style={muscleFilter[muscle] ? { color: "green" } : { color: "black" }}>{muscle}</Text>
                         </TouchableOpacity>
