@@ -12,27 +12,30 @@ const ExerciseSet = ({ navigation }) => {
     const currentExercise = navigation.state.params.exercise
     const [switchValue, setUnit] = useState(true)
     const [exerciseSet, setExerciseSet] = useState({ [currentExercise]: [] })
+    const [workoutId, setWorkoutId] = useState()
 
     const capitalize = (words) => {
         return words.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ')
     }
 
-    const addSet = (set) => {
+    const addSet = async (set) => {
+        let currentWorkoutId;
+        const formattedSet = { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }
         if (exerciseSet[currentExercise].length == 0) {
-            axios.post(`http://192.168.1.3:5000//workout/${8}/exercise`, {exercise: currentExercise})
-            .then(res=>{
-                const {id, } = res.data
-            })
-            .catch(err=>console.log(err))
+           const res = await axios.post(`http://192.168.1.3:5000//workout/${8}/exercise`, { exercise: currentExercise })
+            currentWorkoutId = res.data.id
+           setWorkoutId(() => res.data.id)
         }
-        
-        setExerciseSet(() => { 
-           return  {[currentExercise]: [...exerciseSet[currentExercise], { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }]}
+        console.log("this is the ID that I need", workoutId)
+        axios.post(`http://192.168.1.3:5000//workout/exercise/${ workoutId || currentWorkoutId}/set`, formattedSet)
+            .then(res=>console.log(res.data))
+            .catch(err => console.log(err))
+
+        setExerciseSet(() => {
+            return { [currentExercise]: [...exerciseSet[currentExercise], formattedSet] }
         })
     }
 
-    console.log(exerciseSet)
-    console.log(exerciseSet.length)
     return (
         <View>
             <View style={exerciseSetStyles.titleWrap}>
