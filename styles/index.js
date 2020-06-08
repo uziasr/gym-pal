@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native'
+import { colors } from './constants'
 
 export const splitStyles = StyleSheet.create({
     root: {
-        backgroundColor: '#2d2d2d',
+        backgroundColor: colors.rootBackground,
         height: '100%'
     },
     bodyWrap: {
@@ -57,12 +58,11 @@ export const dashBoardStyles = StyleSheet.create({
         textAlign: 'center'
     },
     rootView: {
-        backgroundColor: '#2d2d2d',
+        backgroundColor: colors.rootBackground,
         flexDirection: 'column',
         alignContent: 'center',
         alignItems: 'center',
         height: '100%',
-        backgroundColor: '#2d2d2d'
     },
     exercisesView: {
         width: '98%',
@@ -107,7 +107,7 @@ export const dashBoardStyles = StyleSheet.create({
 
 export const exerciseStatsStyles = StyleSheet.create({
     root: {
-        backgroundColor: 'grey',
+        backgroundColor: colors.rootBackground,
         flexDirection: 'column',
         // justifyContent: 'center',
         alignContent: 'center',
@@ -164,11 +164,19 @@ export const contributionViewStyles = StyleSheet.create({
 })
 
 export const workoutStatsStyles = StyleSheet.create({
+    root: {
+        backgroundColor:colors.rootBackground,
+        height: '100%'
+    },
     exerciseWrap: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         flexWrap: 'wrap'
     },
+    text: { 
+        color: "white"
+    }
+
 })
 
 export const setStyles = StyleSheet.create({
@@ -240,7 +248,7 @@ export const exerciseSetStyles = StyleSheet.create({
         fontSize: 16
     },
     scrollWrap: {
-        height: 450
+        height: 400
     }
 })
 
@@ -272,5 +280,32 @@ export const autoInputStyles = StyleSheet.create({
     },
     touchableMuscle: {
         paddingHorizontal: 10,
+    }
+})
+
+export const workoutStyles = StyleSheet.create({
+    root:{
+        backgroundColor: colors.rootBackground,
+        height: "100%"
+    },
+    exerciseWrapper : {
+        marginVertical: 5,
+        marginHorizontal: 10,
+    },
+    exerciseText: {
+        color: 'white',
+        fontSize: 24,
+        borderColor: "white",
+        borderWidth: 1
+    },
+    setWrapper: {
+        borderWidth: 2,
+        borderColor: "white",
+        // width: ,
+        flexDirection: 'row',
+        flexWrap: "wrap", 
+    },
+    setText: {
+        color: "white"
     }
 })

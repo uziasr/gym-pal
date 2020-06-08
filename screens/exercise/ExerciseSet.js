@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, ScrollView } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, ScrollView, Dimensions } from 'react-native';
 import { Button } from 'react-native-elements'
 import Switches from 'react-native-switches'
 import SetForm from './SetForm'
@@ -19,6 +19,8 @@ const ExerciseSet = ({ navigation }) => {
     const addSet = (set) => {
         setExerciseSet({ [currentExercise]: [...exerciseSet[currentExercise], [set.weight, set.reps, switchValue]] })
     }
+
+    console.log("this is the height", Dimensions.get("screen").height)
 
     return (
         <View>

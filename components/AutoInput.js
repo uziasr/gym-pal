@@ -23,13 +23,12 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
             exerciseByMuscle2[data[i].muscle] = [...exerciseByMuscle2[data[i].muscle], data[i].exercise] 
         }
         setExerciseByMuscle(()=>{
-        return { ...exerciseByMuscle, "All": exercises, ...{...exerciseByMuscle2} }
+        return { ...exerciseByMuscle2 }
         })
         setExercise(()=>exerciseArr)
 
     }, [data])
 
-    // console.log(exerciseByMuscle)
     const filterByMuscle = () => {
         activeMuscles = Object.keys(muscles)
         if (muscleFilter['All']) {

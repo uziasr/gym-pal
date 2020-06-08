@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Button, Text } from 'react-native'
+import { workoutStatsStyles } from '../../styles/index'
 import {
     PieChart,
 } from "react-native-chart-kit";
@@ -59,7 +60,7 @@ const WorkoutPie = ({ workout }) => {
 
     return (
         <View>
-            <Text>{`Muscle Trained by ${isByExercise ? "Exercise" : "Reps"}`}</Text>
+            <Text style={workoutStatsStyles.text}>{`Muscle Trained by ${isByExercise ? "Exercise" : "Reps"}`}</Text>
             <PieChart
                 data={!isByExercise && byRep.length ? byRep : byExercise}
                 width={500}
