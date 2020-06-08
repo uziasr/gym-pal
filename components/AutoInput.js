@@ -19,8 +19,8 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
         const exerciseArr = []
         const exerciseByMuscle2 = exerciseByMuscle
         for (let i = 0; i < data.length; i++) {
-            exerciseArr.push(data[i].exercise)
-            exerciseByMuscle2[data[i].muscle] = [...exerciseByMuscle2[data[i].muscle], data[i].exercise]
+            exerciseArr.push(data[i])
+            exerciseByMuscle2[data[i].muscle] = [...exerciseByMuscle2[data[i].muscle], data[i]]
         }
         setExerciseByMuscle(() => {
             return { ...exerciseByMuscle2 }
@@ -48,7 +48,7 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
     const exerciseFilteredByMuscle = filterByMuscle()
 
     const filteredData = exerciseFilteredByMuscle.filter(exercise => {
-        return (RegExp(new RegExp(query.toLowerCase())).test(exercise.toLowerCase()))
+        return (RegExp(new RegExp(query.toLowerCase())).test(exercise.exercise.toLowerCase()))
     })
 
 
@@ -69,12 +69,14 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
     function ExerciseItem({ item }) {
         return (
             <TouchableOpacity style={autoInputStyles.touchableStyle}
-                onPress={() => pressHandler(item)}
+                onPress={() => pressHandler(item.exercise)}
             >
-                <Text style={autoInputStyles.textStyle}>{item}</Text>
+                <Text style={autoInputStyles.textStyle}>{item.exercise}</Text>
+                <Text style={{fontSize:12}}>{item.muscle}</Text>
             </TouchableOpacity>
         )
     }
+
 
     console.log(filteredData)
 
