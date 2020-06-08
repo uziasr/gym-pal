@@ -3,6 +3,7 @@ import { View, TextInput, TouchableOpacity, Text, ScrollView, Dimensions } from 
 import { Button } from 'react-native-elements'
 import Switches from 'react-native-switches'
 import SetForm from './SetForm'
+import axios from 'axios'
 import Sets from './Sets'
 import { exerciseSetStyles } from '../../styles/index'
 
@@ -17,10 +18,21 @@ const ExerciseSet = ({ navigation }) => {
     }
 
     const addSet = (set) => {
-        setExerciseSet({ [currentExercise]: [...exerciseSet[currentExercise], [set.weight, set.reps, switchValue]] })
+        if (exerciseSet[currentExercise].length == 0) {
+            axios.post(`http://192.168.1.3:5000//workout/${8}/exercise`, {exercise: currentExercise})
+            .then(res=>{
+                const {id, } = res.data
+            })
+            .catch(err=>console.log(err))
+        }
+        
+        setExerciseSet(() => { 
+           return  {[currentExercise]: [...exerciseSet[currentExercise], { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }]}
+        })
     }
 
-
+    console.log(exerciseSet)
+    console.log(exerciseSet.length)
     return (
         <View>
             <View style={exerciseSetStyles.titleWrap}>

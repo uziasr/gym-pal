@@ -72,13 +72,28 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
                 onPress={() => pressHandler(item.exercise)}
             >
                 <Text style={autoInputStyles.textStyle}>{item.exercise}</Text>
-                <Text style={{fontSize:12}}>{item.muscle}</Text>
+                <Text style={{ fontSize: 12 }}>{item.muscle}</Text>
             </TouchableOpacity>
         )
     }
 
-
-    console.log(filteredData)
+    function ExerciseItemScroll({ exercise }) {
+        return (
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                {true ? filteredData.map((exercise, index) => {
+                    return (
+                        <TouchableOpacity style={autoInputStyles.touchableStyle}
+                            key={index}
+                            onPress={() => pressHandler(exercise.exercise)}
+                        >
+                            <Text key={index} style={autoInputStyles.textStyle}>{exercise.exercise}</Text>
+                            <Text style={{ fontSize: 12 }}>{exercise.muscle}</Text>
+                            {/* <AntDesign name="right" size={18} color="black" /> */}
+                        </TouchableOpacity>)
+                }) : null}
+            </ScrollView>
+        )
+    }
 
     return (
         <View>
@@ -102,11 +117,12 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
                 </ScrollView>
             </View>
             <View style={autoInputStyles.scrollWrap}>
-                <FlatList
+                {/* <FlatList
                     data={filteredData}
-                    renderItem={({ item }) => <ExerciseItem item={item}/>}
+                    renderItem={({ item }) => <ExerciseItem item={item} />}
                     keyExtractor={(item, index) => index.toString()}
-                />
+                /> */}
+                <ExerciseItemScroll exercise={filteredData}/>
             </View>
         </View>
     );
