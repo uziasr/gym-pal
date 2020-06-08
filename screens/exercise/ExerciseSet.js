@@ -20,7 +20,6 @@ const ExerciseSet = ({ navigation }) => {
         setExerciseSet({ [currentExercise]: [...exerciseSet[currentExercise], [set.weight, set.reps, switchValue]] })
     }
 
-    console.log("this is the height", Dimensions.get("screen").height)
 
     return (
         <View>
@@ -42,7 +41,7 @@ const ExerciseSet = ({ navigation }) => {
                 </ScrollView>
             </View>
             <View>
-                <Button title='Complete' onPress={() => { navigation.navigate('Workout', exerciseSet) }} buttonStyle={{ backgroundColor: '#18A558' }} />
+                <Button title='Complete' disabled={!exerciseSet[currentExercise].length} onPress={() => { navigation.navigate('Workout', exerciseSet) }} buttonStyle={{ backgroundColor: '#18A558' }} />
             </View>
         </View>
     );

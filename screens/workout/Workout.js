@@ -16,7 +16,9 @@ const Workout = ({ navigation }) => {
     }, [])
 
 
-    console.log(currentWorkout)
+    const nextExerciseHandler = () => {
+        navigation.navigate("Exercise")
+    }
 
     return (
         <View style={workoutStyles.root}>
@@ -33,7 +35,7 @@ const Workout = ({ navigation }) => {
                 </View>
             }) :
                 null}
-            <Button onPress={() => console.log("next exercise")} title="Next Exercise"  buttonStyle={{ backgroundColor: "green", marginVertical: 5 }} />
+            <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", marginVertical: 5 }} />
             <Button onPress={() => console.log("complete workout")} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />
         </View>
     );
