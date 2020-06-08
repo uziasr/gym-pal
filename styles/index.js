@@ -294,20 +294,21 @@ export const workoutStyles = StyleSheet.create({
     },
     exerciseText: {
         color: 'white',
-        fontSize: 24,
+        fontSize: 20,
         borderColor: "white",
         borderBottomWidth: 1,
         marginBottom: 10
     },
     setWrapper: {
-        borderWidth: 1,
-        borderColor: "white",
+        borderWidth: 0,
         paddingVertical: 5,
-        paddingHorizontal: 15,
+        paddingHorizontal: 12,
         width: 100,
         flexDirection: 'row',
         flexWrap: "wrap",
-        borderRadius: 5, 
+        borderRadius: 5,
+        margin:1,
+        justifyContent: "center",
     },
     setText: {
         color: "white"

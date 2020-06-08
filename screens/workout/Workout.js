@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
+import { Button } from 'react-native-elements';
 import axios from 'axios'
 import { workoutStyles } from '../../styles/index'
 
@@ -16,15 +17,15 @@ const Workout = ({ navigation }) => {
 
 
     console.log(currentWorkout)
-   
+
     return (
         <View style={workoutStyles.root}>
             {currentWorkout.length !== 0 ? currentWorkout.map((exercise, index) => {
                 return <View key={index} style={workoutStyles.exerciseWrapper}>
                     <Text style={workoutStyles.exerciseText}>{exercise.exercise}</Text>
-                    <View style={{display:'flex', flexDirection:'row',}}>
+                    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: "center" }}>
                         {exercise.sets.map((aSet, index) => {
-                            return <View key={index} style={workoutStyles.setWrapper}>
+                            return <View key={index} style={{ ...workoutStyles.setWrapper, backgroundColor: aSet.unit == "pounds" ? "dodgerblue" : "green" }}>
                                 <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition}</Text>
                             </View>
                         })}
@@ -32,6 +33,8 @@ const Workout = ({ navigation }) => {
                 </View>
             }) :
                 null}
+            <Button onPress={() => console.log("next exercise")} title="Next Exercise"  buttonStyle={{ backgroundColor: "green", marginVertical: 5 }} />
+            <Button onPress={() => console.log("complete workout")} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />
         </View>
     );
 };
