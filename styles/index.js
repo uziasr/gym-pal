@@ -296,14 +296,18 @@ export const workoutStyles = StyleSheet.create({
         color: 'white',
         fontSize: 24,
         borderColor: "white",
-        borderWidth: 1
+        borderBottomWidth: 1,
+        marginBottom: 10
     },
     setWrapper: {
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: "white",
-        // width: ,
+        paddingVertical: 5,
+        paddingHorizontal: 15,
+        width: 100,
         flexDirection: 'row',
-        flexWrap: "wrap", 
+        flexWrap: "wrap",
+        borderRadius: 5, 
     },
     setText: {
         color: "white"

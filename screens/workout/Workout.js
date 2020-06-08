@@ -19,12 +19,12 @@ const Workout = ({ navigation }) => {
    
     return (
         <View style={workoutStyles.root}>
-            {currentWorkout.length !== 0 ? currentWorkout.map(exercise => {
-                return <View style={workoutStyles.exerciseWrapper}>
+            {currentWorkout.length !== 0 ? currentWorkout.map((exercise, index) => {
+                return <View key={index} style={workoutStyles.exerciseWrapper}>
                     <Text style={workoutStyles.exerciseText}>{exercise.exercise}</Text>
-                    <View style={{display:'flex', flexDirection:'row'}}>
-                        {exercise.sets.map(aSet => {
-                            return <View style={workoutStyles.setWrapper}>
+                    <View style={{display:'flex', flexDirection:'row',}}>
+                        {exercise.sets.map((aSet, index) => {
+                            return <View key={index} style={workoutStyles.setWrapper}>
                                 <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition}</Text>
                             </View>
                         })}
