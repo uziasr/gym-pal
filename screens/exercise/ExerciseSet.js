@@ -56,7 +56,7 @@ const ExerciseSet = ({ navigation }) => {
                 </ScrollView>
             </View>
             <View>
-                <Button title='Complete' disabled={!exerciseSet[currentExercise].length} onPress={() => { navigation.navigate('Workout', exerciseSet) }} buttonStyle={{ backgroundColor: '#18A558' }} />
+                <Button title='Complete' disabled={!exerciseSet[currentExercise].length} onPress={() => { navigation.navigate('Workout', {id: workoutId}) }} buttonStyle={{ backgroundColor: '#18A558' }} />
             </View>
         </View>
     );

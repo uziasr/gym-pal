@@ -22,7 +22,7 @@ const Splits = ({ body, navigation }) => {
         })
     }, [body])
 
-    navigation.navigate('Exercise')// remove this after redux
+    navigation.navigate('Workout')// remove this after redux
     const updateSplit = (split) => {
         setSplits(() => {
             const newSplit = { ...splits, [split]: !splits[split] }
