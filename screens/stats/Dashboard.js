@@ -21,7 +21,6 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux"
 const Dashboard = ({ navigation }) => {
 
     const userId  = useSelector(state=> state.userId, shallowEqual)
-    console.log("this should appear null wooo", userId)
     const [dashData, setDashData] = useState({
         dates: [],
         exercise: [],
