@@ -7,8 +7,8 @@ const Sets = ({ exerciseSet, order}) => {
         <View style={setStyles.rootWrap}>
             <View style={setStyles.textWrap}>
                 <Text style={setStyles.textStyles}>{order}</Text>
-                <Text style={setStyles.textStyles}>{exerciseSet[0]} X {exerciseSet[1]}</Text>
-                <Text style={setStyles.textStyles}>{exerciseSet[2] ? 'LBS':'KG'}</Text>
+                <Text style={setStyles.textStyles}>{exerciseSet.weight} X {exerciseSet.repetition}</Text>
+                <Text style={setStyles.textStyles}>{exerciseSet.unit ? 'LBS':'KG'}</Text>
             </View>
         </View>
     );

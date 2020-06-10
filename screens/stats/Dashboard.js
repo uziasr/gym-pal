@@ -14,11 +14,13 @@ import {
 import WorkoutCalendar from './WorkoutCalendar';
 import ContributionView from './ContributionView';
 import { dashBoardStyles } from '../../styles/index'
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
 
 
 
 const Dashboard = ({ navigation }) => {
 
+    const userId  = useSelector(state=> state.userId, shallowEqual)
     const [dashData, setDashData] = useState({
         dates: [],
         exercise: [],

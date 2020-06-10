@@ -20,14 +20,14 @@ const WorkoutStats = ({ navigation }) => {
 
 
     return workout.length > 0 ? (
-        <View>
+        <View style={workoutStatsStyles.root}>
             <WorkoutPie workout={workout}/>
             {workout.map((currentExercise, index) => {
                 return <View key={index}>
-                    <Text>{currentExercise.exercise}</Text>
+                    <Text style={workoutStatsStyles.text}>{currentExercise.exercise}</Text>
                     <View style={workoutStatsStyles.exerciseWrap}>
                         {currentExercise.sets.map((currentSet, index) => (
-                            <Text key={index}>{currentSet.repetition} X {currentSet.weight}</Text>
+                            <Text key={index} style={workoutStatsStyles.text}>{currentSet.repetition} X {currentSet.weight}</Text>
                         ))}
                     </View>
                 </View>

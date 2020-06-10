@@ -1,10 +1,18 @@
 import React from 'react';
-import  Navigator from './routes/homeStack'
+import Navigator from './routes/homeStack'
+import { createStore, applyMiddleware } from "redux"
+import { Provider } from "react-redux"
+import reducer from './state/reducers/index'
+import thunk from 'redux-thunk'
 
 export default function App() {
+  const store = createStore(reducer, applyMiddleware(thunk))
+
   return (
     <>
-    <Navigator/>
+      <Provider store={store}>
+        <Navigator />
+      </Provider>
     </>
   );
 }

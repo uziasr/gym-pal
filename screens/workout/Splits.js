@@ -22,7 +22,7 @@ const Splits = ({ body, navigation }) => {
         })
     }, [body])
 
-    navigation.navigate('Exercise')
+    navigation.navigate('Workout')// remove this after redux
     const updateSplit = (split) => {
         setSplits(() => {
             const newSplit = { ...splits, [split]: !splits[split] }
@@ -42,9 +42,10 @@ const Splits = ({ body, navigation }) => {
     const pressNavigation = () => {
         const musclesTraining = Object.keys(splits).filter(split => splits[split])
         const specificMuscles = splitConversion(musclesTraining)
-        axios.post("http://192.168.1.3:5000/workout/1", { muscles: specificMuscles })
+        axios.post(`http://192.168.1.3:5000/user/${1}/workout`, { muscles: specificMuscles })
             .then(res => {
-                console.log(res)
+                console.log(res.data)
+                navigation.navigate("Exercise")
             })
             .catch(err => {
                 console.log("there was an error", err)

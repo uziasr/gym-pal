@@ -1,14 +1,55 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import { Button } from 'react-native-elements';
+import axios from 'axios'
+import { workoutStyles } from '../../styles/index'
 
 const Workout = ({ navigation }) => {
-    const exerciseSet = navigation.state.params
-    const allExercise = Object.keys(exerciseSet)
+    // console.log(navigation.state.params)
+    // const workoutId = navigation.state.params.id
+    // // const allExercise = Object.keys(exerciseSet)
+    // console.log("this is workout id", workoutId)
+    const [currentWorkout, setCurrentWorkout] = useState([])
+
+    useEffect(() => {
+        axios.get(`http://192.168.1.3:5000//workout/${8}/set`) // needs to updated with dynamic
+            .then(res => setCurrentWorkout(res.data))
+            .catch(err => console.log(err))
+    }, [])
+
+
+    const nextExerciseHandler = () => {
+        navigation.navigate("Exercise")
+    }
+
+    const completeWorkout = () => {
+        axios.get(`http://192.168.1.3:5000//workout/${8}/end`)
+        .then(res=>{4
+            console.log(res)
+            navigation.navigate("Overall Stats")
+        })
+        .catch(err=> console.log(err))
+    }
+
     return (
-        <View>
-            {allExercise.map((exercise, index)=>(
-                <Text key={index}>{exercise} for {exerciseSet[exercise].length} sets</Text>
-            ))}
+        <View style={workoutStyles.root}>
+            <ScrollView>
+                {currentWorkout.length !== 0 ? currentWorkout.map((exercise, index) => {
+                    return <View key={index} style={workoutStyles.exerciseWrapper}>
+                        <Text style={workoutStyles.exerciseText}>{exercise.exercise}</Text>
+                        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: "center" }}>
+                            {exercise.sets.map((aSet, index) => {
+                                return <View key={index} style={{ ...workoutStyles.setWrapper, backgroundColor: aSet.unit == "pounds" ? "dodgerblue" : "green" }}>
+                                    <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition}</Text>
+                                </View>
+                            })}
+                        </View>
+                    </View>
+                }) :
+                    null}
+            </ScrollView>
+            <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", marginVertical: 5 }} />
+            <Button onPress={() => completeWorkout()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />
         </View>
     );
 };

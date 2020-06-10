@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
+import { View, TouchableOpacity, Text, ScrollView, FlatList } from 'react-native';
 import { Input } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import { autoInputStyles } from '../styles/index'
@@ -18,18 +18,17 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
     useEffect(() => {
         const exerciseArr = []
         const exerciseByMuscle2 = exerciseByMuscle
-        for(let i = 0; i<data.length; i++) {
-            exerciseArr.push(data[i].exercise)
-            exerciseByMuscle2[data[i].muscle] = [...exerciseByMuscle2[data[i].muscle], data[i].exercise] 
+        for (let i = 0; i < data.length; i++) {
+            exerciseArr.push(data[i])
+            exerciseByMuscle2[data[i].muscle] = [...exerciseByMuscle2[data[i].muscle], data[i]]
         }
-        setExerciseByMuscle(()=>{
-        return { ...exerciseByMuscle, "All": exercises, ...{...exerciseByMuscle2} }
+        setExerciseByMuscle(() => {
+            return { ...exerciseByMuscle2 }
         })
-        setExercise(()=>exerciseArr)
+        setExercise(() => exerciseArr)
 
     }, [data])
 
-    // console.log(exerciseByMuscle)
     const filterByMuscle = () => {
         activeMuscles = Object.keys(muscles)
         if (muscleFilter['All']) {
@@ -49,7 +48,7 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
     const exerciseFilteredByMuscle = filterByMuscle()
 
     const filteredData = exerciseFilteredByMuscle.filter(exercise => {
-        return (RegExp(new RegExp(query.toLowerCase())).test(exercise.toLowerCase()))
+        return (RegExp(new RegExp(query.toLowerCase())).test(exercise.exercise.toLowerCase()))
     })
 
 
@@ -65,6 +64,35 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
             })
 
         }
+    }
+
+    function ExerciseItem({ item }) {
+        return (
+            <TouchableOpacity style={autoInputStyles.touchableStyle}
+                onPress={() => pressHandler(item.exercise)}
+            >
+                <Text style={autoInputStyles.textStyle}>{item.exercise}</Text>
+                <Text style={{ fontSize: 12 }}>{item.muscle}</Text>
+            </TouchableOpacity>
+        )
+    }
+
+    function ExerciseItemScroll({ exercise }) {
+        return (
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                {true ? filteredData.map((exercise, index) => {
+                    return (
+                        <TouchableOpacity style={autoInputStyles.touchableStyle}
+                            key={index}
+                            onPress={() => pressHandler(exercise.exercise)}
+                        >
+                            <Text key={index} style={autoInputStyles.textStyle}>{exercise.exercise}</Text>
+                            <Text style={{ fontSize: 12 }}>{exercise.muscle}</Text>
+                            {/* <AntDesign name="right" size={18} color="black" /> */}
+                        </TouchableOpacity>)
+                }) : null}
+            </ScrollView>
+        )
     }
 
     return (
@@ -89,22 +117,15 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
                 </ScrollView>
             </View>
             <View style={autoInputStyles.scrollWrap}>
-                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                    {true ? filteredData.map((exercise, index) => {
-                        return (
-                            <TouchableOpacity style={autoInputStyles.touchableStyle}
-                                key={index}
-                                onPress={() => pressHandler(exercise)}
-                            >
-                                <Text key={index} style={autoInputStyles.textStyle}>{exercise}</Text>
-                                {/* <AntDesign name="right" size={18} color="black" /> */}
-                            </TouchableOpacity>)
-                    }) : null}
-                </ScrollView>
+                {/* <FlatList
+                    data={filteredData}
+                    renderItem={({ item }) => <ExerciseItem item={item} />}
+                    keyExtractor={(item, index) => index.toString()}
+                /> */}
+                <ExerciseItemScroll exercise={filteredData}/>
             </View>
         </View>
     );
 };
 
 export default AutoInput;
-

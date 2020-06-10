@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View,TouchableOpacity, Keyboard } from 'react-native';
+import { View, TouchableOpacity, Keyboard } from 'react-native';
 import { Input } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import { setFormStyles } from '../../styles/index'
@@ -23,7 +23,7 @@ const SetForm = ({ addSet }) => {
                         numericValue
                         onChangeText={text => inputChangeHandler('weight', text)}
                         inputStyle={{ textAlign: 'center' }}
-                        value={currentSet.weight == 0? '': (currentSet.weight).toString()}
+                        value={currentSet.weight == 0 ? '' : (currentSet.weight).toString()}
                         placeholder='0' />
                 </View>
                 <View style={setFormStyles.inputWrap}>
@@ -33,25 +33,26 @@ const SetForm = ({ addSet }) => {
                         numericValue
                         onChangeText={text => inputChangeHandler('reps', text)}
                         inputStyle={{ textAlign: 'center' }}
-                        value={currentSet.reps == 0? '': (currentSet.reps).toString() }
+                        value={currentSet.reps == 0 ? '' : (currentSet.reps).toString()}
                         style={{ width: '40%' }}
                         placeholder='0' />
                 </View>
                 <View style={setFormStyles.buttonWrap}>
                     <TouchableOpacity onPress={() => {
                         addSet(currentSet)
-                        setCurrentSet(()=>{
+                        setCurrentSet(() => {
                             return {
-                                weight:0,
-                                reps:0
+                                weight: 0,
+                                reps: 0
                             }
                         })
                         Keyboard.dismiss()
                     }}
-                        disabled={ isInvalidInput ? true : false}
-                        >
-                        <AntDesign name="pluscircle" size={35} color={isInvalidInput? 'grey' : "#18A558"} />
-                    </TouchableOpacity></View>
+                        disabled={isInvalidInput ? true : false}
+                    >
+                        <AntDesign name="pluscircle" size={35} color={isInvalidInput ? 'grey' : "#18A558"} />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
