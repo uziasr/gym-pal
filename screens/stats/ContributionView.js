@@ -30,7 +30,7 @@ const ContributionView = ({ workouts, date, navigation }) => {
                 return <TouchableOpacity style={contributionViewStyles.touchableWorkoutWrapper} key={index} onPress={() => navigation.navigate('Workout Overview', workout)}>
                     <Card containerStyle={contributionViewStyles.workoutCard}>
                         <View style={contributionViewStyles.workoutDescription}>
-                            <Ionicons style={contributionViewStyles.iconStyle} name="md-fitness" size={60} color="white" />
+                            <Ionicons style={contributionViewStyles.iconStyle} name="md-fitness" size={60} color="black" />
                             <View style={contributionViewStyles.workoutView}>
                                 <Text style={contributionViewStyles.text}>Workout {index + 1}</Text>
                                 <View style={contributionViewStyles.durationStyle}>

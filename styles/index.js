@@ -176,7 +176,6 @@ export const contributionViewStyles = StyleSheet.create({
     },
     iconStyle : {
         paddingRight: 25,
-        backgroundColor: "black"
     },
     workoutView : {
         width: "70%"
@@ -313,21 +312,23 @@ export const workoutStyles = StyleSheet.create({
         height: "100%"
     },
     exerciseWrapper : {
-        marginVertical: 5,
+        marginVertical: 8,
         marginHorizontal: 10,
+        flexDirection: "row",
+        paddingLeft: 10,
+        justifyContent: "flex-start"
+
     },
     exerciseText: {
         color: 'white',
-        fontSize: 20,
-        borderColor: "white",
-        borderBottomWidth: 1,
+        fontSize: 16,
         marginBottom: 10
     },
-    setWrapper: {
+    setTextWrapper: {
         borderWidth: 0,
         paddingVertical: 5,
         paddingHorizontal: 12,
-        width: 100,
+        width: 150 ,
         flexDirection: 'row',
         flexWrap: "wrap",
         borderRadius: 5,
@@ -336,5 +337,20 @@ export const workoutStyles = StyleSheet.create({
     },
     setText: {
         color: "white"
+    },
+    exerciseTextWrap: {
+        flexDirection: "row", 
+        flexWrap: "wrap", 
+        width: "40%", 
+        alignItems: "center", 
+        alignContent: "center" 
+    },
+    setWrapper:{
+        borderLeftWidth: 1, 
+        borderLeftColor: "white", 
+        paddingLeft: 15, 
+        justifyContent: "center", 
+        alignContent: "center", 
+        alignItems: "center"
     }
 })

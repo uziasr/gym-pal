@@ -26,7 +26,7 @@ const WorkoutStats = ({ navigation }) => {
                 {workout.map((currentExercise, index) => {
                     return <View key={index}>
                         <Text style={workoutStatsStyles.text}>{currentExercise.exercise}</Text>
-                        <View style={workoutStatsStyles.exerciseWrap}>
+                        <View>
                             {currentExercise.sets.map((currentSet, index) => (
                                 <Text key={index} style={workoutStatsStyles.text}>{currentSet.repetition} X {currentSet.weight}</Text>
                             ))}
