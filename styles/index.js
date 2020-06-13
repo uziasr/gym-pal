@@ -160,7 +160,30 @@ export const contributionViewStyles = StyleSheet.create({
     },
     withMuscles: {
         flexDirection: 'row',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        flexWrap: 'wrap'
+    },
+    touchableWorkoutWrapper : {
+        marginBottom: 15
+    },
+    workoutCard: {
+        borderRadius: 2, 
+        width: "90%", 
+        alignContent:"center", 
+        alignItems:"center", 
+        paddingVertical: 10, 
+        paddingHorizontal: 5
+    },
+    iconStyle : {
+        paddingRight: 25,
+        backgroundColor: "black"
+    },
+    workoutView : {
+        width: "70%"
+    },
+    durationStyle : {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 })
 

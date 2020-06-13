@@ -27,13 +27,16 @@ const ContributionView = ({ workouts, date, navigation }) => {
             </View>
             {/* <View style={{width:"80%"}}> */}
             {workouts.map((workout, index) => {
-                return <TouchableOpacity style={{ marginBottom: 15 }} key={index} onPress={() => navigation.navigate('Workout Overview', workout)}>
-                    <Card containerStyle={{ borderRadius: 2, width: "90%", alignContent:"center", alignItems:"center"}}>
+                return <TouchableOpacity style={contributionViewStyles.touchableWorkoutWrapper} key={index} onPress={() => navigation.navigate('Workout Overview', workout)}>
+                    <Card containerStyle={contributionViewStyles.workoutCard}>
                         <View style={contributionViewStyles.workoutDescription}>
-                            <Ionicons style={{ paddingRight: 25 }} name="md-fitness" size={60} color="black" />
-                            <View style={{ width: "70%" }}>
+                            <Ionicons style={contributionViewStyles.iconStyle} name="md-fitness" size={60} color="white" />
+                            <View style={contributionViewStyles.workoutView}>
                                 <Text style={contributionViewStyles.text}>Workout {index + 1}</Text>
-                                <Text style={contributionViewStyles.text}>Duration: {formatSeconds(workout.total_time)}</Text>
+                                <View style={contributionViewStyles.durationStyle}>
+                                    <Text style={contributionViewStyles.text}>Duration: {formatSeconds(workout.total_time)}</Text>
+                                    <AntDesign name="arrowright" size={24} color="black" /> 
+                                </View>
                                 {workout.muscles[0] == "" ?
                                     null
                                     :
