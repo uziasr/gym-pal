@@ -12,6 +12,8 @@ const WorkoutPie = ({ workout }) => {
     const [isByExercise, setIsByExercise] = useState(true)
     const colors = ['red', 'blue', 'green', 'orange']
 
+    console.log("byRep",byRep)
+    console.log("byExercise", byExercise)
     useEffect(() => {
         muscleGroupCount = {} // name: count
         workout.forEach(exercise => {

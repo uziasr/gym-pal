@@ -151,7 +151,8 @@ export const contributionViewStyles = StyleSheet.create({
     },
     workoutDescription: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-start',
+        width: "100%"
     },
     withoutMuscle: {
         flexDirection: "row",
@@ -159,7 +160,7 @@ export const contributionViewStyles = StyleSheet.create({
     },
     withMuscles: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-start'
     }
 })
 
