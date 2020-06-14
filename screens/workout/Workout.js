@@ -47,7 +47,7 @@ const Workout = ({ navigation }) => {
                                 </View>
                             })}
                         </View>
-                        <View style={{ ...exerciseTextWrap, paddingLeft:10 }}>
+                        <View style={{ ...workoutStyles.exerciseTextWrap, paddingLeft:10 }}>
                             <Text style={workoutStyles.exerciseText}>{index + 1}</Text>
                         </View>
                     </View>

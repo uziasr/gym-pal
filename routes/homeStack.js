@@ -9,6 +9,9 @@ import Workout from '../screens/workout/Workout'
 import Dashboard from '../screens/stats/Dashboard'
 import ExerciseStats from '../screens/stats/ExerciseStats'
 import WorkoutStats from '../screens/stats/WorkoutStats'
+import SignIn from '../screens/authenticate/SignIn'
+import SignUp from '../screens/authenticate/SingUp'
+// import SignUp from '../screens/authenticate/SingUp'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome5, Fontisto } from '@expo/vector-icons';
 
@@ -41,8 +44,18 @@ const UserStats = {
     }
 }
 
+const authorization = {
+    "Login":{
+        screen:SignIn
+    },
+    "Sign Up": {
+        screen: SignUp
+    }
+}
+
 const WorkoutStack = createStackNavigator(screens);
 const StatStack = createStackNavigator(UserStats);
+const AuthStack = createStackNavigator(authorization)
 
 
 const DashboardTabScreen = createBottomTabNavigator(
@@ -52,7 +65,7 @@ const DashboardTabScreen = createBottomTabNavigator(
             navigationOptions: ({ navigation }) => ({
                 tabBarIcon: ({ tintColor }) => (
                     <FontAwesome5 name="walking" size={20} color={tintColor} />
-                )
+                ),
             }),
         },
         Stats: {
@@ -63,8 +76,14 @@ const DashboardTabScreen = createBottomTabNavigator(
                 )
             }),
         },
-
+        Login: {
+            screen: AuthStack,
+            navigationOptions: ({ navigation }) => ({
+                tabBarVisible: false
+            })
+        }
     },
+
     {
         tabBarOptions: {
             inactiveTintColor: 'dodgerblue',

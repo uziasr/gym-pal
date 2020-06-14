@@ -20,7 +20,7 @@ const SignUp = () => {
     }
 
     const inputChangeHandler = (name, text) => {
-        setNewUser({ ...currentSet, [name]: text })
+        setNewUser({ ...newUser, [name]: text })
     }
 
     return (
@@ -39,6 +39,7 @@ const SignUp = () => {
                 label="Password"
                 onChangeText={(text)=> inputChangeHandler("password", text)}
                 value={newUser.password}
+                secureTextEntry={true}
             />
             <Button title="Sign Up" onPress={()=>pressHandler()}/>
         </View>

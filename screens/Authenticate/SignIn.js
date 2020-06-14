@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
+import axios from 'axios'
 
 const SignIn = () => {
 
@@ -17,7 +18,7 @@ const SignIn = () => {
     }
 
     const inputChangeHandler = (name, text) => {
-        setNewUser({ ...currentSet, [name]: text })
+        setNewUser({ ...newUser, [name]: text })
     }
 
     return (
@@ -31,6 +32,7 @@ const SignIn = () => {
                 label="Password"
                 onChangeText={(text) => inputChangeHandler("password", text)}
                 value={newUser.password}
+                secureTextEntry={true}
             />
             <Button title="Login" onPress={()=>pressHandler()}/>
         </View>
