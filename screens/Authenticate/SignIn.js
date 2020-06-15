@@ -27,12 +27,14 @@ const SignIn = () => {
                 label="Email"
                 onChangeText={(text) => inputChangeHandler("email", text)}
                 value={newUser.email}
+                autoCapitalize="none"
             />
             <Input
                 label="Password"
                 onChangeText={(text) => inputChangeHandler("password", text)}
                 value={newUser.password}
                 secureTextEntry={true}
+                autoCapitalize="none"
             />
             <Button title="Login" onPress={()=>pressHandler()}/>
         </View>

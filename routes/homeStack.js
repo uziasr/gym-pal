@@ -11,9 +11,11 @@ import ExerciseStats from '../screens/stats/ExerciseStats'
 import WorkoutStats from '../screens/stats/WorkoutStats'
 import SignIn from '../screens/authenticate/SignIn'
 import SignUp from '../screens/authenticate/SingUp'
-// import SignUp from '../screens/authenticate/SingUp'
+import Auth from '../screens/authenticate/Auth'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome5, Fontisto } from '@expo/vector-icons';
+import { loggedIn } from '../utils/index'
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 const screens = {
@@ -45,12 +47,15 @@ const UserStats = {
 }
 
 const authorization = {
-    "Login":{
-        screen:SignIn
+    "On Board": {
+        screen: Auth
     },
-    "Sign Up": {
-        screen: SignUp
-    }
+    // "Login":{
+    //     screen:SignIn
+    // },
+    // "Sign Up": {
+    //     screen: SignUp
+    // },
 }
 
 const WorkoutStack = createStackNavigator(screens);
@@ -76,8 +81,8 @@ const DashboardTabScreen = createBottomTabNavigator(
                 )
             }),
         },
-        Login: {
-            screen: AuthStack,
+        Account: {
+            screen: loggedIn ? AuthStack : AuthStack,
             navigationOptions: ({ navigation }) => ({
                 tabBarVisible: false
             })

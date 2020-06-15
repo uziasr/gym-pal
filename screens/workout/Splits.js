@@ -51,7 +51,7 @@ const Splits = ({ body, navigation }) => {
                 navigation.navigate("Exercise")
             })
             .catch(err => {
-                console.log("there was an error", err)
+                console.log(err)
             })
     }
 

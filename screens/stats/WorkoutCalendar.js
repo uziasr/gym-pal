@@ -6,8 +6,6 @@ import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 const WorkoutCalendar = ({ dates, dayPressHandler, currentDate }) => {
 
     const [markedDates, setMarkedDates] = useState({})
-    console.log("this", dates)
-
 
     useEffect(() => {
         setMarkedDates(() => {
@@ -22,9 +20,6 @@ const WorkoutCalendar = ({ dates, dayPressHandler, currentDate }) => {
         })
     }, [])
 
-
-
-    console.log("this is marked dates", markedDates)
 
     const dayPress = (date) => {
         if (date in markedDates) {

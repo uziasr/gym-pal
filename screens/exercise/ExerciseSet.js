@@ -26,7 +26,6 @@ const ExerciseSet = ({ navigation }) => {
             currentWorkoutId = res.data.id
            setWorkoutId(() => res.data.id)
         }
-        console.log("this is the ID that I need", workoutId)
         axios.post(`http://192.168.1.3:5000//workout/exercise/${ workoutId || currentWorkoutId}/set`, formattedSet)
             .then(res=>console.log(res.data))
             .catch(err => console.log(err))
