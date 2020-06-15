@@ -151,13 +151,36 @@ export const contributionViewStyles = StyleSheet.create({
     },
     workoutDescription: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-start',
+        width: "100%"
     },
     withoutMuscle: {
         flexDirection: "row",
         justifyContent: 'flex-end'
     },
     withMuscles: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        flexWrap: 'wrap'
+    },
+    touchableWorkoutWrapper : {
+        marginBottom: 15
+    },
+    workoutCard: {
+        borderRadius: 2, 
+        width: "90%", 
+        alignContent:"center", 
+        alignItems:"center", 
+        paddingVertical: 10, 
+        paddingHorizontal: 5
+    },
+    iconStyle : {
+        paddingRight: 25,
+    },
+    workoutView : {
+        width: "70%"
+    },
+    durationStyle : {
         flexDirection: 'row',
         justifyContent: 'space-between'
     }
@@ -289,21 +312,23 @@ export const workoutStyles = StyleSheet.create({
         height: "100%"
     },
     exerciseWrapper : {
-        marginVertical: 5,
+        marginVertical: 8,
         marginHorizontal: 10,
+        flexDirection: "row",
+        paddingLeft: 10,
+        justifyContent: "flex-start"
+
     },
     exerciseText: {
         color: 'white',
-        fontSize: 20,
-        borderColor: "white",
-        borderBottomWidth: 1,
+        fontSize: 16,
         marginBottom: 10
     },
-    setWrapper: {
+    setTextWrapper: {
         borderWidth: 0,
         paddingVertical: 5,
         paddingHorizontal: 12,
-        width: 100,
+        width: 150 ,
         flexDirection: 'row',
         flexWrap: "wrap",
         borderRadius: 5,
@@ -312,5 +337,20 @@ export const workoutStyles = StyleSheet.create({
     },
     setText: {
         color: "white"
+    },
+    exerciseTextWrap: {
+        flexDirection: "row", 
+        flexWrap: "wrap", 
+        width: "40%", 
+        alignItems: "center", 
+        alignContent: "center" 
+    },
+    setWrapper:{
+        borderLeftWidth: 1, 
+        borderLeftColor: "white", 
+        paddingLeft: 15, 
+        justifyContent: "center", 
+        alignContent: "center", 
+        alignItems: "center"
     }
 })

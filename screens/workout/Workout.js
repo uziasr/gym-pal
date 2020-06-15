@@ -24,11 +24,12 @@ const Workout = ({ navigation }) => {
 
     const completeWorkout = () => {
         axios.get(`http://192.168.1.3:5000//workout/${8}/end`)
-        .then(res=>{4
-            console.log(res)
-            navigation.navigate("Overall Stats")
-        })
-        .catch(err=> console.log(err))
+            .then(res => {
+                4
+                console.log(res)
+                navigation.navigate("Overall Stats")
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -36,13 +37,18 @@ const Workout = ({ navigation }) => {
             <ScrollView>
                 {currentWorkout.length !== 0 ? currentWorkout.map((exercise, index) => {
                     return <View key={index} style={workoutStyles.exerciseWrapper}>
-                        <Text style={workoutStyles.exerciseText}>{exercise.exercise}</Text>
-                        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: "center" }}>
+                        <View style={workoutStyles.exerciseTextWrap}>
+                            <Text style={workoutStyles.exerciseText}>{exercise.exercise}</Text>
+                        </View>
+                        <View style={workoutStyles.setWrapper}>
                             {exercise.sets.map((aSet, index) => {
-                                return <View key={index} style={{ ...workoutStyles.setWrapper, backgroundColor: aSet.unit == "pounds" ? "dodgerblue" : "green" }}>
-                                    <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition}</Text>
+                                return <View key={index} style={{ ...workoutStyles.setTextWrapper, backgroundColor: aSet.unit == "pounds" ? "dodgerblue" : "green", marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
+                                    <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
                                 </View>
                             })}
+                        </View>
+                        <View style={{ ...workoutStyles.exerciseTextWrap, paddingLeft:10 }}>
+                            <Text style={workoutStyles.exerciseText}>{index + 1}</Text>
                         </View>
                     </View>
                 }) :

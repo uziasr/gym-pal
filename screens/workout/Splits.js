@@ -22,7 +22,10 @@ const Splits = ({ body, navigation }) => {
         })
     }, [body])
 
-    navigation.navigate('Workout')// remove this after redux
+    // **************************************************** THIS HERE
+    navigation.navigate('Login')// remove this after redux
+    // ****************************************************
+
     const updateSplit = (split) => {
         setSplits(() => {
             const newSplit = { ...splits, [split]: !splits[split] }
@@ -48,7 +51,7 @@ const Splits = ({ body, navigation }) => {
                 navigation.navigate("Exercise")
             })
             .catch(err => {
-                console.log("there was an error", err)
+                console.log(err)
             })
     }
 
