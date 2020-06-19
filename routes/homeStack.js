@@ -65,20 +65,20 @@ const AuthStack = createStackNavigator(authorization)
 
 const DashboardTabScreen = createBottomTabNavigator(
     {
-        Workout: {
-            screen: WorkoutStack,
-            navigationOptions: ({ navigation }) => ({
-                tabBarIcon: ({ tintColor }) => (
-                    <FontAwesome5 name="walking" size={20} color={tintColor} />
-                ),
-            }),
-        },
         Stats: {
             screen: StatStack,
             navigationOptions: ({ navigation }) => ({
                 tabBarIcon: ({ tintColor }) => (
                     <Fontisto name="line-chart" size={20} color={tintColor} />
                 )
+            }),
+        },
+        Workout: {
+            screen: WorkoutStack,
+            navigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({ tintColor }) => (
+                    <FontAwesome5 name="walking" size={20} color={tintColor} />
+                ),
             }),
         },
         Account: {

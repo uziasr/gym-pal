@@ -34,7 +34,8 @@ const Auth = ({ navigation }) => {
 
     return (
         <View>
-            {loggedIn ? <Profile /> : < LoggedOut />}
+            {/* {loggedIn ? <Profile /> : < LoggedOut />} */}
+            < LoggedOut />
         </View>
     );
 };

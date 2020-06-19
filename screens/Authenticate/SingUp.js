@@ -10,7 +10,6 @@ const SignUp = ({ navigation }) => {
         console.log(newUser)
         try {
           await AsyncStorage.setItem('@storage_Key', value)
-          navigation.navigate("Workout")
         } catch (e) {
           // saving error
           console.log(e)
@@ -29,6 +28,7 @@ const SignUp = ({ navigation }) => {
             console.log(res.data)
             try {
                 await AsyncStorage.setItem('token', `Bearer ${res.data.token}`)
+                navigation.navigate("Workout")
             } catch(e) {
                 console.log(e)
             }
@@ -61,7 +61,7 @@ const SignUp = ({ navigation }) => {
                 secureTextEntry={true}
                 autoCapitalize="none"
             />
-            <Button title="Sign Up" onPress={()=>storeData("hello")}/>
+            <Button title="Sign Up" onPress={()=>pressHandler()}/>
         </View>
     );
 };
