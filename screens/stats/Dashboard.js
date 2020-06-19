@@ -21,14 +21,14 @@ import { getToken } from '../../state/actions/index'
 
 
 const Dashboard = ({ navigation }) => {
-    
-    const userId  = useSelector(state=> state.userId, shallowEqual)
+
+    const state = useSelector(state => state, shallowEqual)
     const [dashData, setDashData] = useState({
         dates: [],
         exercise: [],
         total_workouts: 0
     })
-    const dispatch =  useDispatch()
+    const dispatch = useDispatch()
 
     const [visible, setVisible] = useState(false)
 
@@ -51,6 +51,12 @@ const Dashboard = ({ navigation }) => {
     const [workoutByDate, setWorkoutByDate] = useState([])
     const [currentDate, setCurrentDate] = useState("")
     const [workoutDisplay, setWorkoutDisplay] = useState(false)
+
+    // console.log(state.tokenOnLoading, state.token)
+
+    if (state.tokenOnLoading == false && state.token == null) {
+        navigation.navigate("Account")
+    }
 
 
     const chartConfig = {
@@ -128,7 +134,7 @@ const Dashboard = ({ navigation }) => {
 
     return (
         <View style={dashBoardStyles.rootView}>
-            <ScrollView>
+            {state.tokenOnLoading ? null : <ScrollView>
                 <View style={dashBoardStyles.contributionTitleWrap}>
                     <Text style={dashBoardStyles.title}>{dashData.total_workouts} Total Workout{dashData.total_workouts ? 's' : ''}!</Text>
                     <ContributionGraph
@@ -181,7 +187,7 @@ const Dashboard = ({ navigation }) => {
                         )) : null}
                     </ScrollView>
                 </View>
-            </ScrollView>
+            </ScrollView>}
         </View>
     );
 };

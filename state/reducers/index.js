@@ -8,33 +8,33 @@ import {
 
 const initialState = {
     userId: null,
-    token: loggedIn,
+    token: null,
     currentWorkoutId: null,
     currentSetId: null,
-    loading: false
+    loading: false,
+    tokenOnLoading: true 
 }
 
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_TOKEN_START: {
-            console.log("this has started")
             return {
                 ...initialState,
-                loading: true
             }
         }
         case GET_TOKEN_SUCCESS: {
-            console.log("this is succeeding", action.payload)
+            console.log("this is success")
             return {
                 ...initialState,
-                token: action.payload
+                token: null,
+                tokenOnLoading: false
             }
         }
         case GET_TOKEN_FAIL: {
-            console.log("this is failing")
             return {
-                ...initialState
+                ...initialState,
+                tokenOnLoading: false
             }
         }
         default:
