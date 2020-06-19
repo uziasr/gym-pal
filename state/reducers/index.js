@@ -18,18 +18,21 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_TOKEN_START: {
+            console.log("this has started")
             return {
                 ...initialState,
                 loading: true
             }
         }
         case GET_TOKEN_SUCCESS: {
+            console.log("this is succeeding", action.payload)
             return {
                 ...initialState,
                 token: action.payload
             }
         }
         case GET_TOKEN_FAIL: {
+            console.log("this is failing")
             return {
                 ...initialState
             }

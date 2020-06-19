@@ -6,7 +6,7 @@ export const GET_TOKEN_FAIL = "GET_TOKEN_FAIL"
 
 export const getToken = () => dispatch => {
     dispatch({ type: GET_TOKEN_START });
-    AsyncStorage.getItem("@storage_Key")
+    AsyncStorage.getItem("token")
     .then(token =>{
         dispatch({type: GET_TOKEN_SUCCESS, payload: token})
     })

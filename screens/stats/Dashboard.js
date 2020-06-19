@@ -15,17 +15,20 @@ import WorkoutCalendar from './WorkoutCalendar';
 import ContributionView from './ContributionView';
 import { dashBoardStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { getToken } from '../../state/actions/index'
+
 
 
 
 const Dashboard = ({ navigation }) => {
-
+    
     const userId  = useSelector(state=> state.userId, shallowEqual)
     const [dashData, setDashData] = useState({
         dates: [],
         exercise: [],
         total_workouts: 0
     })
+    const dispatch =  useDispatch()
 
     const [visible, setVisible] = useState(false)
 
@@ -67,6 +70,7 @@ const Dashboard = ({ navigation }) => {
         axios.get("http://192.168.1.3:5000/user/1/exercise")
             .then(res => setDashData({ ...res.data }))
             .catch(err => console.log(err))
+        dispatch(getToken())
     }, [])
 
     const getExerciseFrequencyByDate = (dateArray) => {
