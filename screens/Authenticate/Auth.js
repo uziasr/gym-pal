@@ -4,11 +4,18 @@ import SignIn from './SignIn'
 import SignUp from './SingUp'
 import Profile from './Profile'
 import { loggedIn } from '../../utils/index'
+import { getToken } from '../../state/actions/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 
 const Auth = ({ navigation }) => {
 
     const [login, setLogin] = useState(false)
+    const state = useSelector(state => state, shallowEqual)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getToken())
+    }, [])
 
     const LoggedOut = () => {
         if (login) {
@@ -32,10 +39,11 @@ const Auth = ({ navigation }) => {
         }
     }
 
+    console.log(state)
     return (
         <View>
             {/* {loggedIn ? <Profile /> : < LoggedOut />} */}
-            < LoggedOut />
+            {state.token == null ? < LoggedOut /> : <Profile />}
         </View>
     );
 };

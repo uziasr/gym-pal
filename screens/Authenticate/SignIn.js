@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import axios from 'axios'
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
 
     const [newUser, setNewUser] = useState({
         name:'',

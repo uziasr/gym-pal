@@ -52,7 +52,7 @@ const Dashboard = ({ navigation }) => {
     const [currentDate, setCurrentDate] = useState("")
     const [workoutDisplay, setWorkoutDisplay] = useState(false)
 
-    // console.log(state.tokenOnLoading, state.token)
+    console.log(state.tokenOnLoading, state.token)
 
     if (state.tokenOnLoading == false && state.token == null) {
         navigation.navigate("Account")
