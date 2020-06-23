@@ -14,7 +14,7 @@ import SignUp from '../screens/authenticate/SingUp'
 import Auth from '../screens/authenticate/Auth'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome5, Fontisto } from '@expo/vector-icons';
-import { loggedIn } from '../utils/index'
+// import { loggedIn } from '../utils/index'
 import AsyncStorage from '@react-native-community/async-storage';
 
 
@@ -82,7 +82,7 @@ const DashboardTabScreen = createBottomTabNavigator(
             }),
         },
         Account: {
-            screen: loggedIn ? AuthStack : AuthStack,
+            screen: AuthStack,
             navigationOptions: ({ navigation }) => ({
                 tabBarVisible: false
             })

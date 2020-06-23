@@ -52,12 +52,6 @@ const Dashboard = ({ navigation }) => {
     const [currentDate, setCurrentDate] = useState("")
     const [workoutDisplay, setWorkoutDisplay] = useState(false)
 
-    console.log(state.tokenOnLoading, state.token)
-
-    if (state.tokenOnLoading == false && state.token == null) {
-        navigation.navigate("Account")
-    }
-
 
     const chartConfig = {
         backgroundGradientFrom: "#1E2923",
@@ -134,7 +128,7 @@ const Dashboard = ({ navigation }) => {
 
     return (
         <View style={dashBoardStyles.rootView}>
-            {state.tokenOnLoading ? null : <ScrollView>
+            <ScrollView>
                 <View style={dashBoardStyles.contributionTitleWrap}>
                     <Text style={dashBoardStyles.title}>{dashData.total_workouts} Total Workout{dashData.total_workouts ? 's' : ''}!</Text>
                     <ContributionGraph
@@ -187,7 +181,7 @@ const Dashboard = ({ navigation }) => {
                         )) : null}
                     </ScrollView>
                 </View>
-            </ScrollView>}
+            </ScrollView>
         </View>
     );
 };

@@ -12,7 +12,6 @@ const SignIn = ({ navigation }) => {
     const pressHandler = () => {
         axios.post(`http://192.168.1.3:5000/user/signin`, newUser)
         .then(res=>{
-            console.log(res.data)
             navigation.navigate("Workout")
         })
         .catch(err=>console.log(err))

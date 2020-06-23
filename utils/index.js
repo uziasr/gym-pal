@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
 
-const getToken = async () => {
+export const getToken = async () => {
     console.log("this has started")
     try {
         const item = await AsyncStorage.getItem("@storage_Key")
@@ -11,7 +11,7 @@ const getToken = async () => {
         return null
     }
 }
-(async() => getToken())()
-console.log("this should come very last!")
+// (async() => getToken())()
+// console.log("this should come very last!")
 
-export const loggedIn = "this will be the token"
+// export const loggedIn = "this will be the token"
