@@ -5,9 +5,7 @@ import {
     GET_EXERCISE_START,
     GET_EXERCISE_SUCCESS,
     GET_EXERCISE_FAIL,
-    ADD_SET_START,
-    ADD_SET_SUCCESS,
-    ADD_SET_FAIL,
+    SET_USER_DATA
 } from "../actions/index"
 
 
@@ -31,10 +29,9 @@ const reducer = (state = initialState, action) => {
             }
         }
         case GET_TOKEN_SUCCESS: {
-            console.log("this is success")
             return {
                 ...state,
-                token: null,
+                token: action.payload,
                 tokenOnLoading: false
             }
         }
@@ -62,6 +59,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false
+            }
+        }
+        case SET_USER_DATA : {
+            return {
+                ...state,
+                token: action.payload.token,
+                userId: action.payload.id,
             }
         }
         default:

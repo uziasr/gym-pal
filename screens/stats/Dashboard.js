@@ -23,6 +23,7 @@ import { getToken } from '../../state/actions/index'
 const Dashboard = ({ navigation }) => {
 
     const state = useSelector(state => state, shallowEqual)
+    console.log("this is state", state)
     const [dashData, setDashData] = useState({
         dates: [],
         exercise: [],
@@ -71,7 +72,8 @@ const Dashboard = ({ navigation }) => {
             .then(res => setDashData({ ...res.data }))
             .catch(err => console.log(err))
         dispatch(getToken())
-    }, [])
+    }, [state.reducer.token])
+    console.log("console.log", state.reducer)
 
     const getExerciseFrequencyByDate = (dateArray) => {
         dateDict = {}
