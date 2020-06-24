@@ -43,11 +43,13 @@ export const getExercises = () => dispatch => {
         })
 }
 
-export const setUserData = (userInfo) => dispatch => {
+export const setUserData = (user) => dispatch => {
     dispatch({ type: LOGIN_USER_START })
-    axiosWithAuthorization(null)
-        .then(userData => {
+    axiosWithAuthorization(null).post("/user/signin", user)
+        .then(async (userData) => {
+            await AsyncStorage.setItem("token", res.data.token)
             dispatch({ type: LOGIN_USER_START, payload: userData })
+            navigation.navigate("Workout")
         })
         .catch(err => {
             dispatch({ type: LOGIN_USER_FAIL, payload: err })

@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import AsyncStorage from '@react-native-community/async-storage';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { setUserData } from '../../state/actions/index'
 import axios from 'axios'
 
 const SignIn = ({ navigation }) => {
@@ -11,14 +12,11 @@ const SignIn = ({ navigation }) => {
         name:'',
         email:''
     })
+    const dispatch = useDispatch()
+
     const pressHandler = () => {
-        axios.post(`http://192.168.1.3:5000/user/signin`, newUser)
-        .then(async (res)=>{
-            await AsyncStorage.setItem("token", res.data.token)
-            navigation.navigate("Workout")
-            console.log(res.data.token)
-        })
-        .catch(err=>console.log(err))
+        dispatch(setUserData(newUser))
+        navigation.navigate("Workout")
     }
 
     const inputChangeHandler = (name, text) => {

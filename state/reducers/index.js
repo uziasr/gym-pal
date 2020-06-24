@@ -5,7 +5,9 @@ import {
     GET_EXERCISE_START,
     GET_EXERCISE_SUCCESS,
     GET_EXERCISE_FAIL,
-    SET_USER_DATA
+    LOGIN_USER_START,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_FAIL,
 } from "../actions/index"
 
 
@@ -61,11 +63,25 @@ const reducer = (state = initialState, action) => {
                 loading: false
             }
         }
-        case SET_USER_DATA : {
+        case LOGIN_USER_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case LOGIN_USER_SUCCESS: {
             return {
                 ...state,
                 token: action.payload.token,
                 userId: action.payload.id,
+                loading:false
+            }
+        }
+        case LOGIN_USER_FAIL : { 
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
             }
         }
         default:
