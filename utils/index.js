@@ -13,7 +13,6 @@ export const getToken = async () => {
 }
 
 export const axiosWithAuthorization = (token) => {
-    console.log("this is the tokenhkhjklfjdsa", token)
     return axios.create({
         baseURL: "http://192.168.1.3:5000",
         headers: {

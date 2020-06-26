@@ -16,18 +16,13 @@ import ContributionView from './ContributionView';
 import { dashBoardStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getToken } from '../../state/actions/index'
-import { getDashData } from '../../state/actions/statsActions'
+import { getDashData, getUserWorkout } from '../../state/actions/statsActions'
 
 
 const Dashboard = ({ navigation }) => {
 
     const state = useSelector(state => state, shallowEqual)
-    console.log("this is state for my token", state.reducer.token)
-    const [dashData, setDashData] = useState({
-        dates: [],
-        exercise: [],
-        total_workouts: 0
-    })
+
     const dispatch = useDispatch()
 
     const [visible, setVisible] = useState(false)
@@ -35,8 +30,6 @@ const Dashboard = ({ navigation }) => {
     const toggleOverlay = () => {
         setVisible(!visible);
     };
-
-    const [allWorkouts, setAllWorkouts] = useState([])
 
     const [dropActive, setDropActive] = useState({
         exercises: false,
@@ -67,16 +60,11 @@ const Dashboard = ({ navigation }) => {
     const screenWidth = Dimensions.get("window").width;
 
     useEffect(() => {
-        // axios.get("http://192.168.1.3:5000/user/1/exercise")
-        //     .then(res => setDashData({ ...res.data }))
-        //     .catch(err => console.log(err))
-        // console.log("hello!", state.reducer.token)
         dispatch(getToken())
         dispatch(getDashData(state.reducer.token))
     }, [state.reducer.token])
 
 
-    console.log("this is my state", state.statsReducer)
     const getExerciseFrequencyByDate = (dateArray) => {
         dateDict = {}
         dateList = []
@@ -92,14 +80,10 @@ const Dashboard = ({ navigation }) => {
     const dropDownHandler = (name) => {
         setDropActive({ ...dropActive, [name]: !dropActive[name] })
         if (name == 'workouts' && serverCalled[name] == false) {
-            axios.get(`http://192.168.1.3:5000/user/1/${name}`)
-                .then(res => {
-                    setAllWorkouts([...res.data])
-                    setServerCalled(() => {
-                        return { ...serverCalled, [name]: true }
-                    })
-                })
-                .catch(err => console.log(err))
+            dispatch(getUserWorkout(state.reducer.token))
+            setServerCalled(() => {
+                return { ...serverCalled, [name]: true }
+            })
         }
     }
 
@@ -175,7 +159,7 @@ const Dashboard = ({ navigation }) => {
                             <Text style={dashBoardStyles.statsTitleStyle}>My Workouts</Text>
                             <AntDesign name={!dropActive.workouts ? "caretdown" : "caretup"} size={24} color="white" />
                         </TouchableOpacity>
-                        {dropActive.workouts ? allWorkouts.map((workout, index) => (
+                        {dropActive.workouts ? state.statsReducer.allWorkouts.map((workout, index) => (
                             <View style={dashBoardStyles.selectableStatsWrap} key={workout.id}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Workout Overview', workout)} style={dashBoardStyles.exercisesView}>
                                     <Text>Workout {index + 1}</Text>
