@@ -47,7 +47,6 @@ const Splits = ({ body, navigation }) => {
         const specificMuscles = splitConversion(musclesTraining)
         axios.post(`http://192.168.1.3:5000/user/${1}/workout`, { muscles: specificMuscles })
             .then(res => {
-                console.log(res.data)
                 navigation.navigate("Exercise")
             })
             .catch(err => {

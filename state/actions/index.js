@@ -17,18 +17,26 @@ import { axiosWithAuthorization } from "../../utils/index"
 
 
 const endpoint = 'http://192.168.1.3:5000'
-export const getToken = () => dispatch => {
+export const getToken = () => async dispatch => {
     dispatch({ type: GET_TOKEN_START });
-    console.log("starting here")
-    AsyncStorage.getItem("token")
-        .then(token => {
-            console.log("inside token", token)
-            dispatch({ type: GET_TOKEN_SUCCESS, payload: token })
-        })
-        .catch(error => {
-            console.log("inside error")
-            dispatch({ type: GET_TOKEN_FAIL, payload: error })
-        })
+    try {
+        await axiosWithAuthorization().get("/workout/exercise")
+        .catch(err=>console.log(err))
+        const token = await AsyncStorage.getItem("token")
+        dispatch({ type: GET_TOKEN_SUCCESS, payload: token })
+    } catch {
+        console.log(e)
+    }
+
+    // AsyncStorage.getItem("token")
+    //     .then(token => {
+    //         console.log("inside token", token)
+    //         dispatch({ type: GET_TOKEN_SUCCESS, payload: token })
+    //     })
+    //     .catch(error => {
+    //         console.log("inside error")
+    //         dispatch({ type: GET_TOKEN_FAIL, payload: error })
+    //     })
 
 }
 
@@ -49,7 +57,6 @@ export const setUserData = (user) => dispatch => {
         .then(async (userData) => {
             await AsyncStorage.setItem("token", res.data.token)
             dispatch({ type: LOGIN_USER_START, payload: userData })
-            navigation.navigate("Workout")
         })
         .catch(err => {
             dispatch({ type: LOGIN_USER_FAIL, payload: err })

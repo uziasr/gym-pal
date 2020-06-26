@@ -25,7 +25,6 @@ const SignUp = ({ navigation }) => {
     const pressHandler = async () => {
         axios.post(`http://192.168.1.3:5000/user/signup`, newUser)
         .then(async res=>{
-            console.log(res.data)
             try {
                 await AsyncStorage.setItem('token', `Bearer ${res.data.token}`)
                 navigation.navigate("Workout")

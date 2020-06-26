@@ -16,14 +16,13 @@ import ContributionView from './ContributionView';
 import { dashBoardStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getToken } from '../../state/actions/index'
-
-
+import { getDashData } from '../../state/actions/statsActions'
 
 
 const Dashboard = ({ navigation }) => {
 
     const state = useSelector(state => state, shallowEqual)
-    console.log("this is state", state)
+    console.log("this is state for my token", state.reducer.token)
     const [dashData, setDashData] = useState({
         dates: [],
         exercise: [],
@@ -68,13 +67,16 @@ const Dashboard = ({ navigation }) => {
     const screenWidth = Dimensions.get("window").width;
 
     useEffect(() => {
-        axios.get("http://192.168.1.3:5000/user/1/exercise")
-            .then(res => setDashData({ ...res.data }))
-            .catch(err => console.log(err))
+        // axios.get("http://192.168.1.3:5000/user/1/exercise")
+        //     .then(res => setDashData({ ...res.data }))
+        //     .catch(err => console.log(err))
+        // console.log("hello!", state.reducer.token)
         dispatch(getToken())
+        dispatch(getDashData(state.reducer.token))
     }, [state.reducer.token])
-    console.log("console.log", state.reducer)
 
+
+    console.log("this is my state", state.statsReducer)
     const getExerciseFrequencyByDate = (dateArray) => {
         dateDict = {}
         dateList = []
@@ -132,9 +134,9 @@ const Dashboard = ({ navigation }) => {
         <View style={dashBoardStyles.rootView}>
             <ScrollView>
                 <View style={dashBoardStyles.contributionTitleWrap}>
-                    <Text style={dashBoardStyles.title}>{dashData.total_workouts} Total Workout{dashData.total_workouts ? 's' : ''}!</Text>
+                    <Text style={dashBoardStyles.title}>{state.statsReducer.totalWorkouts} Total Workout{state.statsReducer.totalWorkouts ? 's' : ''}!</Text>
                     <ContributionGraph
-                        values={[{ date: '2020-01-01', count: 0 }, ...getExerciseFrequencyByDate(dashData.dates)]}
+                        values={[{ date: '2020-01-01', count: 0 }, ...getExerciseFrequencyByDate(state.statsReducer.dates)]}
                         endDate={new Date()}
                         numDays={105}
                         height={220}
@@ -150,14 +152,14 @@ const Dashboard = ({ navigation }) => {
                 <View style={dashBoardStyles.statsDropDownWrap}>
                     <Button title='Previous Workouts' onPress={() => toggleOverlay()} />
                     <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
-                        <WorkoutCalendar dates={dashData.dates} dayPressHandler={dayPressHandler} currentDate={currentDate} />
+                        <WorkoutCalendar dates={state.statsReducer.dates} dayPressHandler={dayPressHandler} currentDate={currentDate} />
                     </Overlay>
                     <ScrollView>
                         <TouchableOpacity onPress={() => dropDownHandler('exercises')} style={dashBoardStyles.statsDropDownStyle}>
                             <Text style={dashBoardStyles.statsTitleStyle}>My Exercises</Text>
                             <AntDesign name={!dropActive.exercises ? "caretdown" : "caretup"} size={24} color="white" />
                         </TouchableOpacity>
-                        {dropActive.exercises ? dashData.exercises.map(exercise => (
+                        {dropActive.exercises ? state.statsReducer.exercises.map(exercise => (
                             <View style={dashBoardStyles.selectableStatsWrap} key={exercise.id}>
                                 <TouchableOpacity style={dashBoardStyles.exercisesView} onPress={() => pressHandler(exercise)}>
                                     <Text>{exercise.name}</Text>
