@@ -13,7 +13,6 @@ const initialState = {
     loading: false,
     error: null,
     fullCurrentExercise: {
-        // [initialState.currentExercise]: []
     }
 
 }

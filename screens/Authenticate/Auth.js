@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Text } from "react-native"
 import SignIn from './SignIn'
 import SignUp from './SingUp'
 import Profile from './Profile'
-// import { loggedIn } from '../../utils/index'
 import { getToken } from '../../state/actions/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 

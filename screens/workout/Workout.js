@@ -5,10 +5,6 @@ import axios from 'axios'
 import { workoutStyles } from '../../styles/index'
 
 const Workout = ({ navigation }) => {
-    // console.log(navigation.state.params)
-    // const workoutId = navigation.state.params.id
-    // // const allExercise = Object.keys(exerciseSet)
-    // console.log("this is workout id", workoutId)
     const [currentWorkout, setCurrentWorkout] = useState([])
 
     useEffect(() => {

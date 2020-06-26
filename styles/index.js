@@ -109,7 +109,6 @@ export const exerciseStatsStyles = StyleSheet.create({
     root: {
         backgroundColor: colors.rootBackground,
         flexDirection: 'column',
-        // justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
         height: '100%',

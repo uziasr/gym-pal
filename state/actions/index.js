@@ -27,17 +27,6 @@ export const getToken = () => async dispatch => {
     } catch {
         console.log(e)
     }
-
-    // AsyncStorage.getItem("token")
-    //     .then(token => {
-    //         console.log("inside token", token)
-    //         dispatch({ type: GET_TOKEN_SUCCESS, payload: token })
-    //     })
-    //     .catch(error => {
-    //         console.log("inside error")
-    //         dispatch({ type: GET_TOKEN_FAIL, payload: error })
-    //     })
-
 }
 
 export const getExercises = () => dispatch => {

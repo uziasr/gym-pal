@@ -1,6 +1,5 @@
 import { createStackNavigator } from 'react-navigation-stack'
 import React from 'react'
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createAppContainer } from 'react-navigation'
 import ExerciseOptions from '../screens/workout/ExerciseOptions';
 import Exercise from '../screens/exercise/Exercise'
@@ -9,13 +8,9 @@ import Workout from '../screens/workout/Workout'
 import Dashboard from '../screens/stats/Dashboard'
 import ExerciseStats from '../screens/stats/ExerciseStats'
 import WorkoutStats from '../screens/stats/WorkoutStats'
-import SignIn from '../screens/authenticate/SignIn'
-import SignUp from '../screens/authenticate/SingUp'
 import Auth from '../screens/authenticate/Auth'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome5, Fontisto } from '@expo/vector-icons';
-// import { loggedIn } from '../utils/index'
-import AsyncStorage from '@react-native-community/async-storage';
 
 
 const screens = {
@@ -50,12 +45,6 @@ const authorization = {
     "On Board": {
         screen: Auth
     },
-    // "Login":{
-    //     screen:SignIn
-    // },
-    // "Sign Up": {
-    //     screen: SignUp
-    // },
 }
 
 const WorkoutStack = createStackNavigator(screens);

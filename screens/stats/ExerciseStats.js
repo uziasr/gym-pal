@@ -52,7 +52,6 @@ const ExerciseStats = ({ navigation }) => {
             </View>
         </View>
     ) : <View><Text style={exerciseStatsStyles.statsText}>Loading...</Text></View>;
-    // return <View></View>
 };
 
 export default ExerciseStats;
