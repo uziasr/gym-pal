@@ -1,30 +1,55 @@
 import React, { useState } from 'react';
 import { View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
+import axios from "axios"
 import AsyncStorage from '@react-native-community/async-storage';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { login } from '../../state/actions/index'
-import axios from 'axios'
+import { register } from "../../state/actions/index"
 
-const SignIn = ({ navigation }) => {
+
+const Register = ({ navigation }) => {
+
+    const storeData = async (value) => {
+        console.log(newUser)
+        try {
+            await AsyncStorage.setItem('@storage_Key', value)
+        } catch (e) {
+            // saving error
+            console.log(e)
+        }
+    }
 
     const [newUser, setNewUser] = useState({
-        name:'',
-        email:''
+        name: '',
+        email: '',
+        password: ''
     })
+
     const dispatch = useDispatch()
 
-    const loginHandler = () => {
-        dispatch(login(newUser))
-        navigation.navigate("Workout")
+    const state = useSelector(state => state.reducer, shallowEqual)
+    
+    const pressHandler = () => {
+        dispatch(register(newUser))
+        if (state.token){
+            navigation.navigate("Workout")
+        }
+    
     }
 
     const inputChangeHandler = (name, text) => {
         setNewUser({ ...newUser, [name]: text })
     }
 
+
     return (
         <View>
+            <Input
+                label="Name"
+                onChangeText={(text) => inputChangeHandler("name", text)}
+                value={newUser.name}
+                autoCapitalize="words"
+            />
             <Input
                 label="Email"
                 onChangeText={(text) => inputChangeHandler("email", text)}
@@ -38,9 +63,9 @@ const SignIn = ({ navigation }) => {
                 secureTextEntry={true}
                 autoCapitalize="none"
             />
-            <Button title="Login" onPress={()=>loginHandler()}/>
+            <Button title="Sign Up" onPress={() => pressHandler()} />
         </View>
     );
 };
 
-export default SignIn;
+export default Register;

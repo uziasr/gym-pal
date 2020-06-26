@@ -8,11 +8,15 @@ import {
     LOGIN_USER_START,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
+    REGISTER_SUCCESS,
+    REGISTER_START,
+    REGISTER_FAIL,
 } from "../actions/index"
 
 
 const initialState = {
     userId: null,
+    name: null,
     token: null,
     currentWorkoutId: null,
     currentSetId: null,
@@ -74,10 +78,31 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 token: action.payload.token,
                 userId: action.payload.id,
-                loading:false
+                loading: false
             }
         }
-        case LOGIN_USER_FAIL : { 
+        case LOGIN_USER_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        }
+        case REGISTER_START: {
+            return {
+                ...state,
+                loading: false,
+            }
+        }
+        case REGISTER_SUCCESS: {
+            return {
+                ...state,
+                loading: true,
+                token: action.payload.token,
+                name: action.payload.name
+            }
+        }
+        case REGISTER_FAIL: {
             return {
                 ...state,
                 loading: false,
