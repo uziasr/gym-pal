@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
-import AsyncStorage from '@react-native-community/async-storage';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { login } from '../../state/actions/index'
-import axios from 'axios'
 
 const SignIn = ({ navigation }) => {
 

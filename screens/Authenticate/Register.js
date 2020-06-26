@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native'
 import { Button, Input } from 'react-native-elements'
-import axios from "axios"
 import AsyncStorage from '@react-native-community/async-storage';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { register } from "../../state/actions/index"
