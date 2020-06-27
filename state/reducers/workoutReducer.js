@@ -10,8 +10,10 @@ import {
 const initialState = {
     currentExercise: null,
     workoutExerciseId: null,
+    exercise: null,
     loading: false,
     error: null,
+    currentWorkoutId: null,
     fullCurrentExercise: {
     }
 
@@ -45,14 +47,15 @@ const workoutReducer = (state = initialState, action) => {
         case ADD_EXERCISE_TO_WORKOUT_START: {
             return {
                 ...state,
-                loading: false
+                loading: true,
+                error: null
             }
         }
         case ADD_EXERCISE_TO_WORKOUT_SUCCESS: {
             return {
                 ...state,
-                currentExercise: action.payload.currentExercise,
-                workoutExerciseId: action.payload.workoutExerciseId,
+                currentExercise: action.payload.exercise,
+                workoutExerciseId: action.payload.id,
                 loading: false
             }
         }

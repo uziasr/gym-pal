@@ -6,6 +6,8 @@ import SetForm from './SetForm'
 import axios from 'axios'
 import Sets from './Sets'
 import { exerciseSetStyles } from '../../styles/index'
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { addSet, addExerciseToWorkout } from '../../state/actions/workoutActions'
 
 const ExerciseSet = ({ navigation }) => {
 
@@ -14,22 +16,24 @@ const ExerciseSet = ({ navigation }) => {
     const [exerciseSet, setExerciseSet] = useState({ [currentExercise]: [] })
     const [workoutId, setWorkoutId] = useState()
 
+    const state = useSelector(state=> state.workoutReducer)
+
     const capitalize = (words) => {
         return words.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ')
     }
 
-    const addSet = async (set) => {
+    const addWorkoutSet = async (set) => {
         let currentWorkoutId;
         const formattedSet = { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }
         if (exerciseSet[currentExercise].length == 0) {
-           const res = await axios.post(`http://192.168.1.3:5000//workout/${8}/exercise`, { exercise: currentExercise })
+            const res = await axios.post(`http://192.168.1.3:5000//workout/${8}/exercise`, { exercise: currentExercise })
             currentWorkoutId = res.data.id
-           setWorkoutId(() => res.data.id)
+            setWorkoutId(() => res.data.id)
+        } else {
+            axios.post(`http://192.168.1.3:5000//workout/exercise/${workoutId || currentWorkoutId}/set`, formattedSet)
+                .then(res => console.log(res.data))
+                .catch(err => console.log(err))
         }
-        axios.post(`http://192.168.1.3:5000//workout/exercise/${ workoutId || currentWorkoutId}/set`, formattedSet)
-            .then(res=>console.log(res.data))
-            .catch(err => console.log(err))
-
         setExerciseSet(() => {
             return { [currentExercise]: [...exerciseSet[currentExercise], formattedSet] }
         })
@@ -47,7 +51,7 @@ const ExerciseSet = ({ navigation }) => {
                 </View>
             </View>
             <View>
-                <SetForm addSet={addSet} />
+                <SetForm addSet={addWorkoutSet} />
             </View>
             <View style={exerciseSetStyles.scrollWrap}>
                 <ScrollView>
@@ -55,7 +59,7 @@ const ExerciseSet = ({ navigation }) => {
                 </ScrollView>
             </View>
             <View>
-                <Button title='Complete' disabled={!exerciseSet[currentExercise].length} onPress={() => { navigation.navigate('Workout', {id: workoutId}) }} buttonStyle={{ backgroundColor: '#18A558' }} />
+                <Button title='Complete' disabled={!exerciseSet[currentExercise].length} onPress={() => { navigation.navigate('Workout', { id: workoutId }) }} buttonStyle={{ backgroundColor: '#18A558' }} />
             </View>
         </View>
     );

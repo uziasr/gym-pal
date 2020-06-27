@@ -12,7 +12,7 @@ import {
 
 const initialState = {
     dates: [],
-    exercise: [],
+    exercises: [],
     allWorkouts: [],
     workoutByDate: [],
     totalWorkouts: 0,
