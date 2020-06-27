@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import axios from 'axios'
 import AutoInput from '../../components/AutoInput'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { getExercise } from "../../state/actions/exerciseAction"
+import { getExercises } from "../../state/actions/exerciseAction"
 
 const Exercise = ({ navigation }) => {
 
@@ -16,7 +15,7 @@ const Exercise = ({ navigation }) => {
     const state = useSelector(state=>state.exerciseReducer, shallowEqual)
 
     useEffect(() => {
-        dispatch(getExercise())
+        dispatch(getExercises())
     }, [])
 
     const addExercise = (new_exercise) => {
@@ -26,7 +25,7 @@ const Exercise = ({ navigation }) => {
             return { ...workout, [new_exercise]: [] }
         })
         setExercise(new_exercise)
-        navigation.navigate('ExerciseSet', { exercise: new_exercise })
+        navigation.navigate('Sets', { exercise: new_exercise })
 
     }
 

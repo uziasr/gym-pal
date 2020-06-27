@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
-import axios from 'axios'
+import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Overlay, Button } from 'react-native-elements'
 import {
@@ -16,7 +15,7 @@ import ContributionView from './ContributionView';
 import { dashBoardStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getToken } from '../../state/actions/index'
-import { getDashData, getUserWorkout } from '../../state/actions/statsActions'
+import { getDashData, getUserWorkout, getWorkoutByDate } from '../../state/actions/statsActions'
 
 
 const Dashboard = ({ navigation }) => {
@@ -41,7 +40,6 @@ const Dashboard = ({ navigation }) => {
         workouts: false
     })
 
-    const [workoutByDate, setWorkoutByDate] = useState([])
     const [currentDate, setCurrentDate] = useState("")
     const [workoutDisplay, setWorkoutDisplay] = useState(false)
 
@@ -98,17 +96,13 @@ const Dashboard = ({ navigation }) => {
                 setCurrentDate("")
                 setVisible(() => false)
             } else {
-                axios.post(`http://192.168.1.3:5000/user/1/workouts`, { date: contribution.date })
-                    .then(res => {
-                        setVisible(() => {
-                            setWorkoutByDate([...res.data])
-                            setCurrentDate(contribution.date)
-                            setWorkoutDisplay(true)
-                            return false
-                        })
-
-                    })
-                    .catch(err => console.log(err))
+                dispatch(getWorkoutByDate(state.reducer.token, { date: contribution.date }))
+                // below should be called under truthy circumstances
+                setVisible(() => {
+                    setCurrentDate(contribution.date)
+                    setWorkoutDisplay(true)
+                    return false
+                })
             }
         }
     }
@@ -129,9 +123,9 @@ const Dashboard = ({ navigation }) => {
                         onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
-                {workoutDisplay && workoutByDate.length > 0 ?
+                {workoutDisplay && state.statsReducer.workoutByDate.length > 0 ?
                     <View>
-                        <ContributionView workouts={workoutByDate} date={currentDate} navigation={navigation} />
+                        <ContributionView workouts={state.statsReducer.workoutByDate} date={currentDate} navigation={navigation} />
                     </View> : null}
                 <View style={dashBoardStyles.statsDropDownWrap}>
                     <Button title='Previous Workouts' onPress={() => toggleOverlay()} />

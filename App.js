@@ -5,7 +5,7 @@ import { Provider } from "react-redux"
 import reducer from './state/reducers/index'
 import workoutReducer from './state/reducers/workoutReducer'
 import statsReducer from './state/reducers/statsReducer'
-import exerciseReducer from "./state/reducers/exerciseReducer"
+import exerciseReducer from './state/reducers/exerciseReducer'
 import thunk from 'redux-thunk'
 import { getToken } from './utils/index'
 

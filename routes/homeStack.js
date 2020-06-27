@@ -20,7 +20,7 @@ const screens = {
     Exercise: {
         screen: Exercise
     },
-    ExerciseSet: {
+    Sets: {
         screen: ExerciseSet
     },
     Workout: {

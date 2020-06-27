@@ -5,12 +5,16 @@ import {
     GET_USER_WORKOUT_START,
     GET_USER_WORKOUT_SUCCESS,
     GET_USER_WORKOUT_FAIL,
+    GET_WORKOUT_BY_DATE_START,
+    GET_WORKOUT_BY_DATE_SUCCESS,
+    GET_WORKOUT_BY_DATE_FAIL,
 } from '../actions/statsActions'
 
 const initialState = {
     dates: [],
     exercise: [],
     allWorkouts: [],
+    workoutByDate: [],
     totalWorkouts: 0,
     loading: false,
     error: null
@@ -62,6 +66,26 @@ const statsReducer = (state = initialState, action) => {
             }
         }
 
+        case GET_WORKOUT_BY_DATE_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case GET_WORKOUT_BY_DATE_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                workoutByDate: action.payload
+            }
+        }
+        case GET_WORKOUT_BY_DATE_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        }
         default:
             return state;
     }

@@ -2,7 +2,7 @@ import {
     GET_EXERCISE_LIST_START,
     GET_EXERCISE_LIST_SUCCESS,
     GET_EXERCISE_LIST_FAIL,
-} from "../reducers/exerciseReducer"
+} from "../actions/exerciseAction"
 
 const initialState = {
     exercises: [],
@@ -20,7 +20,8 @@ const exerciseReducer = (state = initialState, action) => {
         case GET_EXERCISE_LIST_SUCCESS: {
             return {
                 ...state,
-                loading: false
+                loading: false,
+                exercises: action.payload
             }
         }
         case GET_EXERCISE_LIST_FAIL: {
