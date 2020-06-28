@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import axios from 'axios';
 import { splitStyles } from '../../styles/index';
 import { Ionicons } from '@expo/vector-icons';
 import splitConversion from './splitHelper';
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { startWorkout } from "../../state/actions/workoutActions"
 
 
 const Splits = ({ body, navigation }) => {
-    
+
     const [splits, setSplits] = useState({})
     const [isSelected, setSelected] = useState(false)
+    const state = useSelector(state => state, shallowEqual)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setSplits(() => {
@@ -23,7 +26,7 @@ const Splits = ({ body, navigation }) => {
     }, [body])
 
     // **************************************************** THIS HERE
-    navigation.navigate('Login')// remove this after redux
+    // navigation.navigate('Login')// remove this after redux
     // ****************************************************
 
     const updateSplit = (split) => {
@@ -45,13 +48,8 @@ const Splits = ({ body, navigation }) => {
     const pressNavigation = () => {
         const musclesTraining = Object.keys(splits).filter(split => splits[split])
         const specificMuscles = splitConversion(musclesTraining)
-        axios.post(`http://192.168.1.3:5000/user/${1}/workout`, { muscles: specificMuscles })
-            .then(res => {
-                navigation.navigate("Exercise")
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        dispatch(startWorkout(state.reducer.token, { muscles: specificMuscles }))
+        navigation.navigate("Exercise")
     }
 
     return (

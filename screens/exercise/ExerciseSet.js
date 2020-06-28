@@ -16,7 +16,8 @@ const ExerciseSet = ({ navigation }) => {
     const [exerciseSet, setExerciseSet] = useState({ [currentExercise]: [] })
     const [workoutId, setWorkoutId] = useState()
 
-    const state = useSelector(state=> state.workoutReducer)
+    const state = useSelector(state=> state)
+    const dispatch = useDispatch()
 
     const capitalize = (words) => {
         return words.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ')
@@ -26,14 +27,18 @@ const ExerciseSet = ({ navigation }) => {
         let currentWorkoutId;
         const formattedSet = { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }
         if (exerciseSet[currentExercise].length == 0) {
-            const res = await axios.post(`http://192.168.1.3:5000//workout/${8}/exercise`, { exercise: currentExercise })
-            currentWorkoutId = res.data.id
-            setWorkoutId(() => res.data.id)
-        } else {
-            axios.post(`http://192.168.1.3:5000//workout/exercise/${workoutId || currentWorkoutId}/set`, formattedSet)
-                .then(res => console.log(res.data))
-                .catch(err => console.log(err))
-        }
+            // const res = await axios.post(`http://192.168.1.3:5000//workout/${8}/exercise`, { exercise: currentExercise })
+            // currentWorkoutId = res.data.id
+            // setWorkoutId(() => res.data.id)
+           dispatch( addExerciseToWorkout(state.reducer.token, state.workoutReducer.workoutId, { exercise: currentExercise }))
+        } 
+            console.log("this is that state that I need to look at", state.workoutReducer)
+            // axios.post(`http://192.168.1.3:5000//workout/exercise/${workoutId || currentWorkoutId}/set`, formattedSet)
+            //     .then(res => console.log(res.data))
+            //     .catch(err => console.log(err))
+            // workout exercise id is created in the statement above
+            dispatch(addSet(state.reducer.token, state.workoutReducer.workoutExerciseId, formattedSet))
+
         setExerciseSet(() => {
             return { [currentExercise]: [...exerciseSet[currentExercise], formattedSet] }
         })
