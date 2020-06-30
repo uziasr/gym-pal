@@ -8,6 +8,12 @@ import {
     START_WORKOUT_START,
     START_WORKOUT_SUCCESS,
     START_WORKOUT_FAIL,
+    GET_WORKOUT_IN_PROGRESS_START,
+    GET_WORKOUT_IN_PROGRESS_SUCCESS,
+    GET_WORKOUT_IN_PROGRESS_FAIL,
+    GET_EXERCISE_IN_PROGRESS_START,
+    GET_EXERCISE_IN_PROGRESS_SUCCESS,
+    GET_EXERCISE_IN_PROGRESS_FAIL,
 } from "../actions/workoutActions"
 
 const initialState = {
@@ -90,6 +96,46 @@ const workoutReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload
+            }
+        }
+        case GET_WORKOUT_IN_PROGRESS_START: {
+            return {
+                ...state,
+                loading: true,
+            }
+        }
+        case GET_WORKOUT_IN_PROGRESS_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                workoutId: action.payload.id
+            }
+        }
+        case GET_WORKOUT_IN_PROGRESS_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload.err
+            }
+        }
+        case GET_EXERCISE_IN_PROGRESS_START: {
+            return {
+                ...state,
+                loading: false,
+            }
+        }
+        case GET_EXERCISE_IN_PROGRESS_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                fullCurrentExercise: action.payload
+            }
+        }
+        case GET_EXERCISE_IN_PROGRESS_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload.err
             }
         }
         default:

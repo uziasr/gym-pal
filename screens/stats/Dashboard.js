@@ -16,7 +16,7 @@ import { dashBoardStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getToken } from '../../state/actions/index'
 import { getDashData, getUserWorkout, getWorkoutByDate } from '../../state/actions/statsActions'
-
+import { getExerciseInProgress, getWorkoutInProgress } from "../../state/actions/workoutActions"
 
 const Dashboard = ({ navigation }) => {
 
@@ -60,6 +60,11 @@ const Dashboard = ({ navigation }) => {
     useEffect(() => {
         dispatch(getToken())
         dispatch(getDashData(state.reducer.token))
+        // these next dispatches are put in place here to update the state for the user
+        // since this is the landing screen for now
+        dispatch(getExerciseInProgress(state.reducer.token))
+        dispatch(getWorkoutInProgress(state.reducer.token))
+
     }, [state.reducer.token])
 
 
