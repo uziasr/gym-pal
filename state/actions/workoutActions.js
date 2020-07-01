@@ -18,11 +18,17 @@ export const GET_EXERCISE_IN_PROGRESS_START = "GET_EXERCISE_IN_PROGRESS_START"
 export const GET_EXERCISE_IN_PROGRESS_SUCCESS = "GET_EXERCISE_IN_PROGRESS_SUCCESS"
 export const GET_EXERCISE_IN_PROGRESS_FAIL = "GET_EXERCISE_IN_PROGRESS_FAIL"
 
+export const COMPLETE_WORKOUT_START = "COMPLETE_WORKOUT_START"
+export const COMPLETE_WORKOUT_SUCCESS = "COMPLETE_WORKOUT_SUCCESS"
+export const COMPLETE_WORKOUT_FAIL = "COMPLETE_WORKOUT_FAIL"
+
 import { axiosWithAuthorization } from '../../utils/index'
 
 export const addSet = (token, workoutExerciseId, formattedSet) => dispatch => {
     dispatch({ type: ADD_SET_START })
-    axiosWithAuthorization(token).post(`/workout/exercise/${workoutExerciseId}`, formattedSet)
+    axiosWithAuthorization(token).post(`/workout/exercise/${workoutExerciseId}/set
+    
+    `, formattedSet)
         .then(res => {
             dispatch({ type: ADD_SET_SUCCESS, payload: res.data })
         })
@@ -75,6 +81,17 @@ export const getExerciseInProgress = (token) => dispatch => {
             dispatch({ type: GET_EXERCISE_IN_PROGRESS_SUCCESS, payload: res.data })
         })
         .catch(err => {
-            dispatch({ type: GET_EXERCISE_IN_PROGRESS_FAIL, payload:err })
+            dispatch({ type: GET_EXERCISE_IN_PROGRESS_FAIL, payload: err })
+        })
+}
+
+export const completeSet = (token, workoutExerciseId) => dispatch => {
+    dispatch({ type: COMPLETE_WORKOUT_START })
+    axiosWithAuthorization(token).patch(`/workout/${workoutExerciseId}/exercise`)
+        .then(res => {
+            dispatch({ type: COMPLETE_WORKOUT_SUCCESS })
+        })
+        .catch(err => {
+            dispatch({ type: COMPLETE_WORKOUT_FAIL, payload:err })
         })
 }

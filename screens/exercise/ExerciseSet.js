@@ -3,11 +3,10 @@ import { View, TextInput, TouchableOpacity, Text, ScrollView, Dimensions } from 
 import { Button } from 'react-native-elements'
 import Switches from 'react-native-switches'
 import SetForm from './SetForm'
-import axios from 'axios'
 import Sets from './Sets'
 import { exerciseSetStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { addSet } from '../../state/actions/workoutActions'
+import { addSet, completeSet } from '../../state/actions/workoutActions'
 
 const ExerciseSet = ({ navigation }) => {
 
@@ -23,7 +22,7 @@ const ExerciseSet = ({ navigation }) => {
         return words.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ')
     }
 
-    const addWorkoutSet = async (set) => {
+    const addWorkoutSet = (set) => {
 
         const formattedSet = { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }
         dispatch(addSet(state.reducer.token, state.workoutReducer.workoutExerciseId, formattedSet))
@@ -31,6 +30,11 @@ const ExerciseSet = ({ navigation }) => {
         setExerciseSet(() => {
             return { [currentExercise]: [...exerciseSet[currentExercise], formattedSet] }
         })
+    }
+
+    const completeWorkout = () => {
+        dispatch(completeSet(state.reducer.token, state.workoutReducer.workoutExerciseId))
+        navigation.navigate('Workout', { id: workoutId })
     }
 
     return (
@@ -53,7 +57,7 @@ const ExerciseSet = ({ navigation }) => {
                 </ScrollView>
             </View>
             <View>
-                <Button title='Complete' disabled={!exerciseSet[currentExercise].length} onPress={() => { navigation.navigate('Workout', { id: workoutId }) }} buttonStyle={{ backgroundColor: '#18A558' }} />
+                <Button title='Complete' disabled={!exerciseSet[currentExercise].length} onPress={() => completeWorkout()} buttonStyle={{ backgroundColor: '#18A558' }} />
             </View>
         </View>
     );

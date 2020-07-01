@@ -14,6 +14,9 @@ import {
     GET_EXERCISE_IN_PROGRESS_START,
     GET_EXERCISE_IN_PROGRESS_SUCCESS,
     GET_EXERCISE_IN_PROGRESS_FAIL,
+    COMPLETE_WORKOUT_START,
+    COMPLETE_WORKOUT_SUCCESS,
+    COMPLETE_WORKOUT_FAIL,
 } from "../actions/workoutActions"
 
 const initialState = {
@@ -25,7 +28,9 @@ const initialState = {
     error: null,
     currentWorkoutId: null,
     fullCurrentExercise: {
-    }
+    },
+    workoutInProgress: false,
+    exerciseInProgress: false
 
 }
 
@@ -108,7 +113,8 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                workoutId: action.payload.id
+                workoutId: action.payload.id,
+                workoutInProgress: true
             }
         }
         case GET_WORKOUT_IN_PROGRESS_FAIL: {
@@ -128,7 +134,8 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                fullCurrentExercise: action.payload
+                fullCurrentExercise: action.payload,
+                exerciseInProgress: true
             }
         }
         case GET_EXERCISE_IN_PROGRESS_FAIL: {
@@ -136,6 +143,25 @@ const workoutReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload.err
+            }
+        }
+        case COMPLETE_WORKOUT_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case COMPLETE_WORKOUT_SUCCESS: {
+            return {
+                ...state,
+                loading: false
+            }
+        }
+        case COMPLETE_WORKOUT_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
             }
         }
         default:
