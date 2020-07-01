@@ -7,7 +7,7 @@ import axios from 'axios'
 import Sets from './Sets'
 import { exerciseSetStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { addSet, addExerciseToWorkout } from '../../state/actions/workoutActions'
+import { addSet } from '../../state/actions/workoutActions'
 
 const ExerciseSet = ({ navigation }) => {
 
@@ -24,22 +24,10 @@ const ExerciseSet = ({ navigation }) => {
     }
 
     const addWorkoutSet = async (set) => {
-        let currentWorkoutId;
+
         const formattedSet = { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }
-        if (exerciseSet[currentExercise].length == 0) {
-            // const res = await axios.post(`http://192.168.1.3:5000//workout/${8}/exercise`, { exercise: currentExercise })
-            // currentWorkoutId = res.data.id
-            // setWorkoutId(() => res.data.id)
-            dispatch(addExerciseToWorkout(state.reducer.token, state.workoutReducer.workoutId, { exercise: currentExercise }, formattedSet))
-        }
-        // console.log("this is that state that I need to look at", state.workoutReducer)
-        // axios.post(`http://192.168.1.3:5000//workout/exercise/${workoutId || currentWorkoutId}/set`, formattedSet)
-        //     .then(res => console.log(res.data))
-        //     .catch(err => console.log(err))
-        // workout exercise id is created in the statement above
-        else {
-            dispatch(addSet(state.reducer.token, state.workoutReducer.workoutExerciseId, formattedSet))
-        }
+        dispatch(addSet(state.reducer.token, state.workoutReducer.workoutExerciseId, formattedSet))
+
         setExerciseSet(() => {
             return { [currentExercise]: [...exerciseSet[currentExercise], formattedSet] }
         })

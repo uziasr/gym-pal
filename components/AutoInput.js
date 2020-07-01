@@ -62,7 +62,6 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
             setMuscleFilter(() => {
                 return { ...muscleFilter, All: false, [text]: !muscleFilter[text] }
             })
-
         }
     }
 

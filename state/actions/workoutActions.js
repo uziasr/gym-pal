@@ -32,14 +32,12 @@ export const addSet = (token, workoutExerciseId, formattedSet) => dispatch => {
 }
 
 
-export const addExerciseToWorkout = (token, workoutId, exercise, formattedSet) => dispatch => {
+export const addExerciseToWorkout = (token, workoutId, exercise) => dispatch => {
     // to only be called when the first set is added
     dispatch({ type: ADD_EXERCISE_TO_WORKOUT_START })
     axiosWithAuthorization(token).post(`/workout/${workoutId}/exercise`, exercise)
         .then(res => {
-            // dispatch({ type: ADD_EXERCISE_TO_WORKOUT_SUCCESS, payload: res.data })
-            console.log(res.data.id)
-            addSet(token, res.data.id, formattedSet)
+            dispatch({ type: ADD_EXERCISE_TO_WORKOUT_SUCCESS, payload: res.data })
         })
         .catch(err => {
             dispatch({ type: ADD_EXERCISE_TO_WORKOUT_FAIL, payload: err })
