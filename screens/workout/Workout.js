@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Button } from 'react-native-elements';
-import axios from 'axios'
 import { workoutStyles } from '../../styles/index'
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { getWorkoutById, completeWorkout } from "../../state/actions/workoutActions"
+
 
 const Workout = ({ navigation }) => {
-    const [currentWorkout, setCurrentWorkout] = useState([])
+    const state = useSelector(state => state, shallowEqual)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        axios.get(`http://192.168.1.3:5000//workout/${8}/set`) // needs to updated with dynamic
-            .then(res => setCurrentWorkout(res.data))
-            .catch(err => console.log(err))
+        dispatch(getWorkoutById(state.reducer.token, state.workoutReducer.workoutId))
     }, [])
 
 
@@ -18,20 +19,16 @@ const Workout = ({ navigation }) => {
         navigation.navigate("Exercise")
     }
 
-    const completeWorkout = () => {
-        axios.get(`http://192.168.1.3:5000//workout/${8}/end`)
-            .then(res => {
-                4
-                console.log(res)
-                navigation.navigate("Overall Stats")
-            })
-            .catch(err => console.log(err))
+    const completeHandler = () => {
+        dispatch(completeWorkout(state.reducer.token,state.workoutReducer.workoutId))
+        navigation.navigate("Overall Stats")
+
     }
 
     return (
         <View style={workoutStyles.root}>
             <ScrollView>
-                {currentWorkout.length !== 0 ? currentWorkout.map((exercise, index) => {
+                {state.workoutReducer.currentWorkout.length !== 0 ? state.workoutReducer.currentWorkout.map((exercise, index) => {
                     return <View key={index} style={workoutStyles.exerciseWrapper}>
                         <View style={workoutStyles.exerciseTextWrap}>
                             <Text style={workoutStyles.exerciseText}>{exercise.exercise}</Text>
@@ -43,7 +40,7 @@ const Workout = ({ navigation }) => {
                                 </View>
                             })}
                         </View>
-                        <View style={{ ...workoutStyles.exerciseTextWrap, paddingLeft:10 }}>
+                        <View style={{ ...workoutStyles.exerciseTextWrap, paddingLeft: 10 }}>
                             <Text style={workoutStyles.exerciseText}>{index + 1}</Text>
                         </View>
                     </View>
@@ -51,7 +48,7 @@ const Workout = ({ navigation }) => {
                     null}
             </ScrollView>
             <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", marginVertical: 5 }} />
-            <Button onPress={() => completeWorkout()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />
+            <Button onPress={() => completeHandler()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />
         </View>
     );
 };

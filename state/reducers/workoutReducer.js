@@ -14,6 +14,12 @@ import {
     GET_EXERCISE_IN_PROGRESS_START,
     GET_EXERCISE_IN_PROGRESS_SUCCESS,
     GET_EXERCISE_IN_PROGRESS_FAIL,
+    COMPLETE_EXERCISE_START,
+    COMPLETE_EXERCISE_SUCCESS,
+    COMPLETE_EXERCISE_FAIL,
+    GET_WORKOUT_BY_ID_START,
+    GET_WORKOUT_BY_ID_SUCCESS,
+    GET_WORKOUT_BY_ID_FAIL,
     COMPLETE_WORKOUT_START,
     COMPLETE_WORKOUT_SUCCESS,
     COMPLETE_WORKOUT_FAIL,
@@ -29,6 +35,7 @@ const initialState = {
     currentWorkoutId: null,
     fullCurrentExercise: {
     },
+    currentWorkout: [],
     workoutInProgress: false,
     exerciseInProgress: false
 
@@ -107,6 +114,7 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
+                error: null
             }
         }
         case GET_WORKOUT_IN_PROGRESS_SUCCESS: {
@@ -128,6 +136,7 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                error: null
             }
         }
         case GET_EXERCISE_IN_PROGRESS_SUCCESS: {
@@ -145,6 +154,47 @@ const workoutReducer = (state = initialState, action) => {
                 error: action.payload.err
             }
         }
+        case COMPLETE_EXERCISE_START: {
+            return {
+                ...state,
+                loading: true,
+                error: null
+            }
+        }
+        case COMPLETE_EXERCISE_SUCCESS: {
+            return {
+                ...state,
+                loading: false
+            }
+        }
+        case COMPLETE_EXERCISE_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        }
+        case GET_WORKOUT_BY_ID_START: {
+            return {
+                ...state,
+                loading: true,
+                error: null
+            }
+        }
+        case GET_WORKOUT_BY_ID_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                currentWorkout: action.payload
+            }
+        }
+        case GET_WORKOUT_BY_ID_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        }
         case COMPLETE_WORKOUT_START: {
             return {
                 ...state,
@@ -160,8 +210,7 @@ const workoutReducer = (state = initialState, action) => {
         case COMPLETE_WORKOUT_FAIL: {
             return {
                 ...state,
-                loading: false,
-                error: action.payload
+                loading: false
             }
         }
         default:

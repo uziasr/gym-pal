@@ -18,6 +18,14 @@ export const GET_EXERCISE_IN_PROGRESS_START = "GET_EXERCISE_IN_PROGRESS_START"
 export const GET_EXERCISE_IN_PROGRESS_SUCCESS = "GET_EXERCISE_IN_PROGRESS_SUCCESS"
 export const GET_EXERCISE_IN_PROGRESS_FAIL = "GET_EXERCISE_IN_PROGRESS_FAIL"
 
+export const COMPLETE_EXERCISE_START = "COMPLETE_EXERCISE_START"
+export const COMPLETE_EXERCISE_SUCCESS = "COMPLETE_EXERCISE_SUCCESS"
+export const COMPLETE_EXERCISE_FAIL = "COMPLETE_EXERCISE_FAIL"
+
+export const GET_WORKOUT_BY_ID_START = "GET_WORKOUT_BY_ID_START"
+export const GET_WORKOUT_BY_ID_SUCCESS = "GET_WORKOUT_BY_ID_SUCCESS"
+export const GET_WORKOUT_BY_ID_FAIL = "GET_WORKOUT_BY_ID_FAIL"
+
 export const COMPLETE_WORKOUT_START = "COMPLETE_WORKOUT_START"
 export const COMPLETE_WORKOUT_SUCCESS = "COMPLETE_WORKOUT_SUCCESS"
 export const COMPLETE_WORKOUT_FAIL = "COMPLETE_WORKOUT_FAIL"
@@ -86,12 +94,34 @@ export const getExerciseInProgress = (token) => dispatch => {
 }
 
 export const completeSet = (token, workoutExerciseId) => dispatch => {
-    dispatch({ type: COMPLETE_WORKOUT_START })
+    dispatch({ type: COMPLETE_EXERCISE_START })
     axiosWithAuthorization(token).patch(`/workout/${workoutExerciseId}/exercise`)
+        .then(res => {
+            dispatch({ type: COMPLETE_EXERCISE_SUCCESS })
+        })
+        .catch(err => {
+            dispatch({ type: COMPLETE_EXERCISE_FAIL, payload: err })
+        })
+}
+
+export const getWorkoutById = (token, workoutID) => dispatch => {
+    dispatch({ type: GET_WORKOUT_BY_ID_START })
+    axiosWithAuthorization(token).get(`/workout/${workoutID}/set`)
+        .then(res => {
+            dispatch({ type: GET_WORKOUT_BY_ID_SUCCESS, payload: res.data })
+        })
+        .catch(err => {
+            dispatch({ type: GET_WORKOUT_BY_ID_FAIL, payload: err })
+        })
+}
+
+export const completeWorkout = (token, workoutID) => dispatch => {
+    dispatch({ type: COMPLETE_WORKOUT_START })
+    axiosWithAuthorization(token).get(`/workout/${workoutID}/end`)
         .then(res => {
             dispatch({ type: COMPLETE_WORKOUT_SUCCESS })
         })
         .catch(err => {
-            dispatch({ type: COMPLETE_WORKOUT_FAIL, payload:err })
+            dispatch({ type: COMPLETE_WORKOUT_FAIL, payload: err })
         })
 }

@@ -17,6 +17,7 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getToken } from '../../state/actions/index'
 import { getDashData, getUserWorkout, getWorkoutByDate } from '../../state/actions/statsActions'
 import { getExerciseInProgress, getWorkoutInProgress } from "../../state/actions/workoutActions"
+import { NavigationEvents } from 'react-navigation';
 
 const Dashboard = ({ navigation }) => {
 
@@ -56,6 +57,8 @@ const Dashboard = ({ navigation }) => {
     };
 
     const screenWidth = Dimensions.get("window").width;
+    () => navigation.addListener('focus', () => console.log('Screen was focused'))
+
 
     useEffect(() => {
         dispatch(getToken())
@@ -67,6 +70,10 @@ const Dashboard = ({ navigation }) => {
 
     }, [state.reducer.token])
 
+    // useEffect(
+    //     () => { navigation.addListener('blur', () => console.log('Screen was unfocused')) },
+    //     []
+    // );
 
     const getExerciseFrequencyByDate = (dateArray) => {
         dateDict = {}
@@ -115,6 +122,9 @@ const Dashboard = ({ navigation }) => {
 
     return (
         <View style={dashBoardStyles.rootView}>
+            <NavigationEvents
+                onWillFocus={payload => dispatch(getDashData(state.reducer.token))}
+                onDidFocus={payload => dispatch(getDashData(state.reducer.token))}/>
             <ScrollView>
                 <View style={dashBoardStyles.contributionTitleWrap}>
                     <Text style={dashBoardStyles.title}>{state.statsReducer.totalWorkouts} Total Workout{state.statsReducer.totalWorkouts ? 's' : ''}!</Text>
