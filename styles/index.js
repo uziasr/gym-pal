@@ -239,6 +239,10 @@ export const setFormStyles = StyleSheet.create({
     inputWrap: {
         width: '35%'
     },
+    lockStyle : {
+        paddingRight: 25,
+        paddingBottom: 15
+    },
     buttonWrap: {
         width: '25%',
         paddingBottom: 15,

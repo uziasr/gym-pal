@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Keyboard } from 'react-native';
 import { Input } from 'react-native-elements';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { setFormStyles } from '../../styles/index'
 
 const SetForm = ({ addSet }) => {
+
     const [currentSet, setCurrentSet] = useState({ weight: 0, reps: 0 })
+    const [lockInput, setLockInput] = useState(false)
 
     const inputChangeHandler = (name, text) => {
         setCurrentSet({ ...currentSet, [name]: text })
@@ -16,6 +18,9 @@ const SetForm = ({ addSet }) => {
     return (
         <View style={setFormStyles.rootWrap}>
             <View style={setFormStyles.formWrap}>
+                <TouchableOpacity onPress={() => setLockInput(!lockInput)}>
+                    <FontAwesome5 style={setFormStyles.lockStyle} name={!lockInput ? "unlock" : "lock"} size={24} color="black" />
+                </TouchableOpacity>
                 <View style={setFormStyles.inputWrap}>
                     <Input
                         label='Weight'
@@ -40,12 +45,14 @@ const SetForm = ({ addSet }) => {
                 <View style={setFormStyles.buttonWrap}>
                     <TouchableOpacity onPress={() => {
                         addSet(currentSet)
-                        setCurrentSet(() => {
-                            return {
-                                weight: 0,
-                                reps: 0
-                            }
-                        })
+                        if (!lockInput) {
+                            setCurrentSet(() => {
+                                return {
+                                    weight: 0,
+                                    reps: 0
+                                }
+                            })
+                        }
                         Keyboard.dismiss()
                     }}
                         disabled={isInvalidInput ? true : false}
