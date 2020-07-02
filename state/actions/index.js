@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
 
 export const GET_TOKEN_START = "GET_TOKEN_START"
 export const GET_TOKEN_SUCCESS = "GET_TOKEN_SUCCESS"

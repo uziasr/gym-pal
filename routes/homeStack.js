@@ -10,7 +10,7 @@ import ExerciseStats from '../screens/stats/ExerciseStats'
 import WorkoutStats from '../screens/stats/WorkoutStats'
 import Auth from '../screens/authenticate/Auth'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { FontAwesome5, Fontisto } from '@expo/vector-icons';
+import { FontAwesome5, MaterialIcons, Foundation } from '@expo/vector-icons';
 
 
 const screens = {
@@ -58,7 +58,7 @@ const DashboardTabScreen = createBottomTabNavigator(
             screen: StatStack,
             navigationOptions: ({ navigation }) => ({
                 tabBarIcon: ({ tintColor }) => (
-                    <Fontisto name="line-chart" size={20} color={tintColor} />
+                    <Foundation name="graph-pie" size={32} color={tintColor} />
                 )
             }),
         },
@@ -66,13 +66,16 @@ const DashboardTabScreen = createBottomTabNavigator(
             screen: WorkoutStack,
             navigationOptions: ({ navigation }) => ({
                 tabBarIcon: ({ tintColor }) => (
-                    <FontAwesome5 name="walking" size={20} color={tintColor} />
+                    <FontAwesome5 name="walking" size={28} color={tintColor} />
                 ),
             }),
         },
         Account: {
             screen: AuthStack,
             navigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({ tintColor }) => (
+                    <MaterialIcons name="person" size={34} color={tintColor} />
+                ),
                 tabBarVisible: false
             })
         }
