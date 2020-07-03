@@ -37,10 +37,10 @@ const WorkoutPie = ({ workout }) => {
             muscleObj = {}
             index = 0
             workout.forEach((exercise, index)=>{
-                if (exercise in muscleObj) {
-                    muscleObj = {...muscleObj, [exercise]: {...muscleObj[exercise], reps: muscleObj[exercise].reps + exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0)}}
+                if (exercise.muscle in muscleObj) {
+                    muscleObj = {...muscleObj, [exercise.muscle]: {...muscleObj[exercise], reps: muscleObj[exercise].reps + exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0)}}
                 } else {
-                    muscleObj = {...muscleObj, [exercise] :{
+                    muscleObj = {...muscleObj, [exercise.muscle] :{
                         name: exercise.muscle,
                         reps: exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0),
                         color: colors[index],
@@ -56,7 +56,6 @@ const WorkoutPie = ({ workout }) => {
             setIsByExercise(!isByExercise)
         }
     }
-
 
     return (
         <View>
