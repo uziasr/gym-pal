@@ -68,7 +68,7 @@ const Dashboard = ({ navigation }) => {
         dispatch(getExerciseInProgress(state.reducer.token))
         dispatch(getWorkoutInProgress(state.reducer.token))
 
-    }, [state.reducer.token])
+    }, [state.reducer.token, state.workoutReducer.workoutInProgress])
 
     // useEffect(
     //     () => { navigation.addListener('blur', () => console.log('Screen was unfocused')) },

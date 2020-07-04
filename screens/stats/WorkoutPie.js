@@ -38,7 +38,7 @@ const WorkoutPie = ({ workout }) => {
             index = 0
             workout.forEach((exercise, index)=>{
                 if (exercise.muscle in muscleObj) {
-                    muscleObj = {...muscleObj, [exercise.muscle]: {...muscleObj[exercise], reps: muscleObj[exercise].reps + exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0)}}
+                    muscleObj = {...muscleObj, [exercise.muscle]: {...muscleObj[exercise.muscle], reps: muscleObj[exercise.muscle].reps + exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0)}}
                 } else {
                     muscleObj = {...muscleObj, [exercise.muscle] :{
                         name: exercise.muscle,

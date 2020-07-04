@@ -34,7 +34,7 @@ const ExerciseSet = ({ navigation }) => {
 
     const completeWorkout = () => {
         dispatch(completeSet(state.reducer.token, state.workoutReducer.workoutExerciseId))
-        navigation.navigate('Workout', { id: workoutId })
+        navigation.navigate('Workout')
     }
 
     return (

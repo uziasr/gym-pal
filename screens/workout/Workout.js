@@ -4,7 +4,7 @@ import { Button } from 'react-native-elements';
 import { workoutStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getWorkoutById, completeWorkout } from "../../state/actions/workoutActions"
-
+import { NavigationEvents } from 'react-navigation';
 
 const Workout = ({ navigation }) => {
     const state = useSelector(state => state, shallowEqual)
@@ -50,6 +50,7 @@ const Workout = ({ navigation }) => {
 
     return (
         <View style={workoutStyles.root}>
+           <NavigationEvents onWillFocus={payload => state.workoutReducer.workoutInProgress ? null: navigation.navigate("Body")} />
             {state.workoutReducer.loading ? <ActivityIndicator size="large" color="white" /> : <RecordedWorkout/>}
             <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", marginVertical: 5 }} />
             <Button onPress={() => completeHandler()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />

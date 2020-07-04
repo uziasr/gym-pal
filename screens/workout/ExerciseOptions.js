@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Dimensions } from 'react-native';
 import bodyData from './body'
 import Splits from './Splits'
 import { TabView, SceneMap } from 'react-native-tab-view';
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { NavigationEvents } from 'react-navigation';
+
 
 export default function ExerciseOptions({ navigation }) {
+
+
+    const state = useSelector(state => state.workoutReducer, shallowEqual)
 
     const FirstRoute = () => {
         return <View style={[{ flex: 1 }, { backgroundColor: '#673ab7' }]}>
@@ -31,7 +37,7 @@ export default function ExerciseOptions({ navigation }) {
     const [routes] = useState([
         { key: 'simple', title: 'Simple' },
         { key: 'common', title: 'Common' },
-        { key: 'specific', title:'Specific'}
+        { key: 'specific', title: 'Specific' }
     ]);
     const renderScene = SceneMap({
         simple: FirstRoute,
@@ -57,13 +63,15 @@ export default function ExerciseOptions({ navigation }) {
 
     return (
         <>
+            <NavigationEvents
+                onWillFocus={payload => state.workoutInProgress ? navigation.navigate("Exercise"): null} />
             <TabView
                 navigationState={{ index, routes }}
                 renderScene={renderScene}
                 onIndexChange={setIndex}
                 initialLayout={initialLayout}
                 indicatorStyle={{ backgroundColor: 'blue', height: 2 }}
-                style={{background: 'black'}}
+                style={{ background: 'black' }}
             />
         </>
 

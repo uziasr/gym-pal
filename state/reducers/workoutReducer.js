@@ -118,6 +118,7 @@ const workoutReducer = (state = initialState, action) => {
             }
         }
         case GET_WORKOUT_IN_PROGRESS_SUCCESS: {
+            console.log(action.payload)
             return {
                 ...state,
                 loading: false,
@@ -204,7 +205,11 @@ const workoutReducer = (state = initialState, action) => {
         case COMPLETE_WORKOUT_SUCCESS: {
             return {
                 ...state,
-                loading: false
+                loading: false,
+                currentWorkoutId: null,
+                currentWorkout: [],
+                workoutInProgress: false,
+                exerciseInProgress: false
             }
         }
         case COMPLETE_WORKOUT_FAIL: {

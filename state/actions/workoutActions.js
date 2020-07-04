@@ -74,10 +74,10 @@ export const getWorkoutInProgress = (token) => dispatch => {
     dispatch({ type: GET_WORKOUT_IN_PROGRESS_START })
     axiosWithAuthorization(token).get("/workout/startup")
         .then(res => {
-            dispatch({ type: GET_WORKOUT_IN_PROGRESS_START, payload: res.data })
+            dispatch({ type: GET_WORKOUT_IN_PROGRESS_SUCCESS, payload: res.data })
         })
         .catch(err => {
-            dispatch({ type: GET_WORKOUT_IN_PROGRESS_START, payload: err })
+            dispatch({ type: GET_WORKOUT_IN_PROGRESS_FAIL, payload: err })
         })
 
 }
