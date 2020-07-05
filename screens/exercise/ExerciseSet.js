@@ -38,14 +38,14 @@ const ExerciseSet = ({ navigation }) => {
     }
 
     return (
-        <View>
+        <View style={exerciseSetStyles.rootWrap}>
             <View style={exerciseSetStyles.titleWrap}>
                 <Text style={exerciseSetStyles.title}>{capitalize(currentExercise)}</Text>
             </View>
             <View style={exerciseSetStyles.unitWrap}>
                 <View style={exerciseSetStyles.unit}>
                     <Text style={exerciseSetStyles.unitText}>Unit of Weight</Text>
-                    <Switches color='#353A47' colorTextOff='#353A47' colorTextOn='#353A47' textSize={24} borderColor='#353A47' buttonColor='#353A47' shape={'line'} textFont={'normal'} value={!switchValue} onChange={() => { setUnit(!switchValue) }} animationDuration={125} textOff={'lb'} textOn={'kg'} />
+                    <Switches color='white' colorTextOff='white' colorTextOn='white' textSize={24} borderColor='#353A47' buttonColor='white' shape={'line'} textFont={'normal'} value={!switchValue} onChange={() => { setUnit(!switchValue) }} animationDuration={125} textOff={'lb'} textOn={'kg'} />
                 </View>
             </View>
             <View>

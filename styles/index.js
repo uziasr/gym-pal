@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native'
 import { colors } from './constants'
 
+const backgroundColor = "#212121"
 export const splitStyles = StyleSheet.create({
     root: {
-        backgroundColor: colors.rootBackground,
+        backgroundColor: backgroundColor,
         height: '100%'
     },
     bodyWrap: {
@@ -58,7 +59,7 @@ export const dashBoardStyles = StyleSheet.create({
         textAlign: 'center'
     },
     rootView: {
-        backgroundColor: colors.rootBackground,
+        backgroundColor: backgroundColor,
         flexDirection: 'column',
         alignContent: 'center',
         alignItems: 'center',
@@ -107,7 +108,7 @@ export const dashBoardStyles = StyleSheet.create({
 
 export const exerciseStatsStyles = StyleSheet.create({
     root: {
-        backgroundColor: colors.rootBackground,
+        backgroundColor: backgroundColor,
         flexDirection: 'column',
         alignContent: 'center',
         alignItems: 'center',
@@ -187,7 +188,7 @@ export const contributionViewStyles = StyleSheet.create({
 
 export const workoutStatsStyles = StyleSheet.create({
     root: {
-        backgroundColor:colors.rootBackground,
+        backgroundColor:backgroundColor,
         height: '100%'
     },
     exerciseWrap: {
@@ -241,7 +242,7 @@ export const setFormStyles = StyleSheet.create({
     },
     lockStyle : {
         paddingRight: 25,
-        paddingBottom: 15
+        paddingBottom: 15,
     },
     buttonWrap: {
         width: '25%',
@@ -251,6 +252,10 @@ export const setFormStyles = StyleSheet.create({
 })
 
 export const exerciseSetStyles = StyleSheet.create({
+    rootWrap: {
+        backgroundColor: backgroundColor,
+        color: "white"
+    },
     titleWrap: {
         marginTop: 10,
         display: 'flex',
@@ -258,7 +263,9 @@ export const exerciseSetStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     title: {
-        fontSize: 20
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "white"
     },
     unitWrap: {
         flexDirection: 'row',
@@ -268,44 +275,60 @@ export const exerciseSetStyles = StyleSheet.create({
     unit: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '90%'
+        width: '85%'
     },
     unitText: {
-        fontSize: 16
+        fontSize: 16,
+        color: "white"
     },
     scrollWrap: {
-        height: 400
+        height: 446
     }
 })
 
 export const autoInputStyles = StyleSheet.create({
     input: {
-        paddingBottom: 0,
         flex: 1,
         marginHorizontal: 'auto'
+    },
+    inputWrap: {
+        paddingTop: 10,
+
     },
     scrollWrap: {
         flexGrow: 1,
         width: '100%',
-        height: '94%'
+        height: '82%'
+    },
+    muscleText: {
+        fontSize: 18
     },
     touchableStyle: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingVertical: 30,
-        backgroundColor: '#E6E6E6',
+        // backgroundColor: '#E6E6E6',
+        borderColor: '#E6E6E6',
+        borderWidth: 1,
+        borderStyle: "solid",
+        paddingLeft: 15
     },
     textStyle: {
-        paddingHorizontal: 4
+        fontSize: 16,
+        fontWeight: "bold"
     },
     touchableMuscleWrapper: {
        alignContent: 'center',
        alignItems: 'center',
-       paddingVertical: 10
+    //    paddingBottom: 20
+    },
+    exerciseTextWrap: {
+
     },
     touchableMuscle: {
         paddingHorizontal: 10,
+        paddingBottom: 20
     }
 })
 

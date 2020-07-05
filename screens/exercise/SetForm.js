@@ -7,7 +7,7 @@ import { setFormStyles } from '../../styles/index'
 const SetForm = ({ addSet }) => {
 
     const [currentSet, setCurrentSet] = useState({ weight: 0, reps: 0 })
-    const [lockInput, setLockInput] = useState(false)
+    const [lockInput, setLockInput] = useState(true)
 
     const inputChangeHandler = (name, text) => {
         setCurrentSet({ ...currentSet, [name]: text })
@@ -19,7 +19,7 @@ const SetForm = ({ addSet }) => {
         <View style={setFormStyles.rootWrap}>
             <View style={setFormStyles.formWrap}>
                 <TouchableOpacity onPress={() => setLockInput(!lockInput)}>
-                    <FontAwesome5 style={setFormStyles.lockStyle} name={!lockInput ? "unlock" : "lock"} size={24} color="black" />
+                    <FontAwesome5 style={setFormStyles.lockStyle} name={!lockInput ? "unlock" : "lock"} size={24} color="white" />
                 </TouchableOpacity>
                 <View style={setFormStyles.inputWrap}>
                     <Input
@@ -27,7 +27,7 @@ const SetForm = ({ addSet }) => {
                         keyboardType='number-pad'
                         numericValue
                         onChangeText={text => inputChangeHandler('weight', text)}
-                        inputStyle={{ textAlign: 'center' }}
+                        inputStyle={{ textAlign: 'center', color: "white" }}
                         value={currentSet.weight == 0 ? '' : (currentSet.weight).toString()}
                         placeholder='0' />
                 </View>
@@ -37,7 +37,7 @@ const SetForm = ({ addSet }) => {
                         keyboardType='number-pad'
                         numericValue
                         onChangeText={text => inputChangeHandler('reps', text)}
-                        inputStyle={{ textAlign: 'center' }}
+                        inputStyle={{ textAlign: 'center', color: "white" }}
                         value={currentSet.reps == 0 ? '' : (currentSet.reps).toString()}
                         style={{ width: '40%' }}
                         placeholder='0' />

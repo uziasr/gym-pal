@@ -118,7 +118,6 @@ const workoutReducer = (state = initialState, action) => {
             }
         }
         case GET_WORKOUT_IN_PROGRESS_SUCCESS: {
-            console.log(action.payload)
             return {
                 ...state,
                 loading: false,
