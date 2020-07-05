@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, ScrollView, } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Input, Overlay } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import { autoInputStyles } from '../styles/index'
 import splits from '../screens/workout/body'
@@ -15,6 +15,12 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
     const [muscleFilter, setMuscleFilter] = useState(
         Object.assign({ "All": true }, ...splits.specific.map(key => ({ [key]: false })))
     )
+    const [visible, setVisible] = useState(false)
+
+    const toggleOverlay = () => {
+        setVisible(()=>!visible);
+    };
+
     useEffect(() => {
         const exerciseArr = []
         const exerciseByMuscle2 = exerciseByMuscle
@@ -65,6 +71,20 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
         }
     }
 
+    const CompleteWorkoutOverlay = () => (
+        <View>
+            <Text style={autoInputStyles.overlayTitle}>Are you sure you want to finish your workout?</Text>
+            <View style={autoInputStyles.completeWorkoutWrap}>
+                <TouchableOpacity onPress={() => toggleOverlay()} style={{ backgroundColor: "dodgerblue", padding: 10, borderRadius: 12 }}>
+                    <Text style={autoInputStyles.workoutText}>Continue Workout</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ backgroundColor: "dodgerblue", padding: 10, borderRadius: 12 }}>
+                    <Text style={autoInputStyles.workoutText}>Finish Workout</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    )
+
 
     function ExerciseItemScroll() {
         return (
@@ -79,7 +99,7 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
                                 <Text key={index} style={autoInputStyles.textStyle}>{exercise.exercise}</Text>
                                 <Text>{exercise.muscle}</Text>
                             </View>
-                            {/* <AntDesign name="right" size={18} color="black" /> */}
+                            <AntDesign name="right" size={18} color="black" />
                         </TouchableOpacity>)
                 })}
             </ScrollView>
@@ -97,22 +117,29 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
                         placeholder='enter exercise'
                         leftIcon={<AntDesign name="search1" size={20} color="black" />}
                     />
+                    <TouchableOpacity style={autoInputStyles.completeWorkoutButton} onPress={() => {
+                        toggleOverlay()
+                    }}>
+                        <Text style={autoInputStyles.CompleteText}>Complete</Text>
+                    </TouchableOpacity>
+                    <Overlay overlayStyle={autoInputStyles.overlayStyle} isVisible={visible} onBackdropPress={toggleOverlay}>
+                        <CompleteWorkoutOverlay />
+                    </Overlay>
                 </View>
                 <View style={autoInputStyles.touchableMuscleWrapper}>
                     <ScrollView horizontal={true}>
                         {muscles.map((muscle, index) => (
                             <TouchableOpacity onPress={() => {
                                 muscleFilterPress(muscle)
-    
                             }} style={autoInputStyles.touchableMuscle} key={index}>
-                                <Text style={ muscleFilter[muscle] ? { color: "green", fontSize: 18, fontWeight: "bold" } : { color: "black", fontSize: 18}}>{muscle}</Text>
+                                <Text style={muscleFilter[muscle] ? { color: "green", fontSize: 18, fontWeight: "bold" } : { color: "black", fontSize: 18 }}>{muscle}</Text>
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
                 </View>
             </View>
             <View style={autoInputStyles.scrollWrap}>
-                <ExerciseItemScroll exercise={filteredData}/>
+                <ExerciseItemScroll exercise={filteredData} />
             </View>
         </View>
     );

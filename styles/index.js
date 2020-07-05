@@ -163,24 +163,24 @@ export const contributionViewStyles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexWrap: 'wrap'
     },
-    touchableWorkoutWrapper : {
+    touchableWorkoutWrapper: {
         marginBottom: 15
     },
     workoutCard: {
-        borderRadius: 2, 
-        width: "90%", 
-        alignContent:"center", 
-        alignItems:"center", 
-        paddingVertical: 10, 
+        borderRadius: 2,
+        width: "90%",
+        alignContent: "center",
+        alignItems: "center",
+        paddingVertical: 10,
         paddingHorizontal: 5
     },
-    iconStyle : {
+    iconStyle: {
         paddingRight: 25,
     },
-    workoutView : {
+    workoutView: {
         width: "70%"
     },
-    durationStyle : {
+    durationStyle: {
         flexDirection: 'row',
         justifyContent: 'space-between'
     }
@@ -188,7 +188,7 @@ export const contributionViewStyles = StyleSheet.create({
 
 export const workoutStatsStyles = StyleSheet.create({
     root: {
-        backgroundColor:backgroundColor,
+        backgroundColor: backgroundColor,
         height: '100%'
     },
     exerciseWrap: {
@@ -196,7 +196,7 @@ export const workoutStatsStyles = StyleSheet.create({
         justifyContent: 'space-evenly',
         flexWrap: 'wrap'
     },
-    text: { 
+    text: {
         color: "white"
     }
 
@@ -240,7 +240,7 @@ export const setFormStyles = StyleSheet.create({
     inputWrap: {
         width: '35%'
     },
-    lockStyle : {
+    lockStyle: {
         paddingRight: 25,
         paddingBottom: 15,
     },
@@ -293,7 +293,22 @@ export const autoInputStyles = StyleSheet.create({
     },
     inputWrap: {
         paddingTop: 10,
+        width: "75%",
+        flexDirection: "row",
+        alignContent: "center",
+        alignItems: "center",
+        justifyContent: "space-between"
 
+    },
+    completeWorkoutButton: {
+        padding: 5,
+        paddingLeft: 10,
+        width: "30%"
+    },
+    CompleteText: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "green"
     },
     scrollWrap: {
         flexGrow: 1,
@@ -307,21 +322,21 @@ export const autoInputStyles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignContent: "center",
+        alignItems: "center",
         paddingVertical: 30,
-        // backgroundColor: '#E6E6E6',
         borderColor: '#E6E6E6',
         borderWidth: 1,
         borderStyle: "solid",
-        paddingLeft: 15
+        paddingHorizontal: 15,
     },
     textStyle: {
         fontSize: 16,
         fontWeight: "bold"
     },
     touchableMuscleWrapper: {
-       alignContent: 'center',
-       alignItems: 'center',
-    //    paddingBottom: 20
+        alignContent: 'center',
+        alignItems: 'center',
     },
     exerciseTextWrap: {
 
@@ -329,21 +344,53 @@ export const autoInputStyles = StyleSheet.create({
     touchableMuscle: {
         paddingHorizontal: 10,
         paddingBottom: 20
+    },
+    overlayStyle: {
+        width: '90%',
+        height: 115,
+    },
+    completeWorkoutWrap: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems:"center",
+        alignContent: "center",
+        alignSelf:"center",
+        width: "90%",
+        marginTop: 15
+    },
+    workoutTextWrap: {
+
+    },
+    workoutText: {
+        fontSize: 18,
+        color: "white"
+    },
+    overlayTitle: {
+        fontSize: 18,
+        fontWeight: "bold",
+        alignSelf:"center",
     }
 })
 
 export const workoutStyles = StyleSheet.create({
-    root:{
+    root: {
         backgroundColor: colors.rootBackground,
         height: "100%"
     },
-    exerciseWrapper : {
+    exerciseWrapper: {
         marginVertical: 8,
         marginHorizontal: 10,
         flexDirection: "row",
         paddingLeft: 10,
         justifyContent: "flex-start"
 
+    },
+    loader: {
+        position: 'absolute',
+        top: 0, left: 0,
+        right: 0, bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     exerciseText: {
         color: 'white',
@@ -354,29 +401,29 @@ export const workoutStyles = StyleSheet.create({
         borderWidth: 0,
         paddingVertical: 5,
         paddingHorizontal: 12,
-        width: 150 ,
+        width: 150,
         flexDirection: 'row',
         flexWrap: "wrap",
         borderRadius: 5,
-        margin:1,
+        margin: 1,
         justifyContent: "center",
     },
     setText: {
         color: "white"
     },
     exerciseTextWrap: {
-        flexDirection: "row", 
-        flexWrap: "wrap", 
-        width: "40%", 
-        alignItems: "center", 
-        alignContent: "center" 
+        flexDirection: "row",
+        flexWrap: "wrap",
+        width: "40%",
+        alignItems: "center",
+        alignContent: "center"
     },
-    setWrapper:{
-        borderLeftWidth: 1, 
-        borderLeftColor: "white", 
-        paddingLeft: 15, 
-        justifyContent: "center", 
-        alignContent: "center", 
+    setWrapper: {
+        borderLeftWidth: 1,
+        borderLeftColor: "white",
+        paddingLeft: 15,
+        justifyContent: "center",
+        alignContent: "center",
         alignItems: "center"
     }
 })

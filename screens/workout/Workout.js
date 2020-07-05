@@ -50,10 +50,18 @@ const Workout = ({ navigation }) => {
 
     return (
         <View style={workoutStyles.root}>
-           <NavigationEvents onWillFocus={payload => state.workoutReducer.workoutInProgress ? null: navigation.navigate("Body")} />
-            {state.workoutReducer.loading ? <ActivityIndicator size="large" color="white" /> : <RecordedWorkout/>}
-            <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", marginVertical: 5 }} />
-            <Button onPress={() => completeHandler()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />
+            <NavigationEvents onWillFocus={payload => state.workoutReducer.workoutInProgress ? null : navigation.navigate("Body")} />
+            {state.workoutReducer.loading ?
+                <View style={workoutStyles.loader}>
+                    <ActivityIndicator size="large" color="white" />
+                </View>
+                :
+                <>
+                    <RecordedWorkout />
+                    <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", marginVertical: 5 }} />
+                    <Button onPress={() => completeHandler()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />
+                </>
+            }
         </View>
     );
 };
