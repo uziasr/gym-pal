@@ -100,7 +100,8 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                workoutId: action.payload.id
+                workoutId: action.payload.id,
+                workoutInProgress: true
             }
         }
         case START_WORKOUT_FAIL: {

@@ -62,7 +62,7 @@ const WorkoutPie = ({ workout }) => {
             <Text style={workoutStatsStyles.text}>{`Muscle Trained by ${isByExercise ? "Exercise" : "Reps"}`}</Text>
             <PieChart
                 data={!isByExercise && byRep.length ? byRep : byExercise}
-                width={500}
+                width={425}
                 height={220}
                 chartConfig={{
                     backgroundColor: "#e26a00",

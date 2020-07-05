@@ -32,7 +32,7 @@ const Exercise = ({ navigation }) => {
 
     return (
         <View>
-            <AutoInput data={state.exerciseReducer.exercises} listLimit={10} pressHandler={addExercise} />
+            <AutoInput navigation={navigation} data={state.exerciseReducer.exercises} listLimit={10} pressHandler={addExercise} />
         </View>
     );
 };

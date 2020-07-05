@@ -4,8 +4,11 @@ import { Input, Overlay } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import { autoInputStyles } from '../styles/index'
 import splits from '../screens/workout/body'
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { completeWorkout } from "../state/actions/workoutActions"
+import CompleteWorkoutOverlay from './CompleteWorkoutOverlay'
 
-const AutoInput = ({ data, listLimit, pressHandler }) => {
+const AutoInput = ({ data, navigation, pressHandler }) => {
     const [query, setQuery] = useState('')
     const [exercises, setExercise] = useState([])
     const [muscles, setMuscles] = useState(["All", ...splits.specific])
@@ -17,9 +20,8 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
     )
     const [visible, setVisible] = useState(false)
 
-    const toggleOverlay = () => {
-        setVisible(()=>!visible);
-    };
+    const state = useSelector(state => state, shallowEqual)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const exerciseArr = []
@@ -50,6 +52,15 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
         }
     }
 
+    const toggleOverlay = () => {
+        setVisible(() => !visible);
+    };
+
+    const completeWorkoutHandler = () => {
+        toggleOverlay()
+        dispatch(completeWorkout(state.reducer.token, state.workoutReducer.workoutId))
+        navigation.navigate("Overall Stats")
+    }
 
     const exerciseFilteredByMuscle = filterByMuscle()
 
@@ -70,21 +81,6 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
             })
         }
     }
-
-    const CompleteWorkoutOverlay = () => (
-        <View>
-            <Text style={autoInputStyles.overlayTitle}>Are you sure you want to finish your workout?</Text>
-            <View style={autoInputStyles.completeWorkoutWrap}>
-                <TouchableOpacity onPress={() => toggleOverlay()} style={{ backgroundColor: "dodgerblue", padding: 10, borderRadius: 12 }}>
-                    <Text style={autoInputStyles.workoutText}>Continue Workout</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{ backgroundColor: "dodgerblue", padding: 10, borderRadius: 12 }}>
-                    <Text style={autoInputStyles.workoutText}>Finish Workout</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    )
-
 
     function ExerciseItemScroll() {
         return (
@@ -122,9 +118,7 @@ const AutoInput = ({ data, listLimit, pressHandler }) => {
                     }}>
                         <Text style={autoInputStyles.CompleteText}>Complete</Text>
                     </TouchableOpacity>
-                    <Overlay overlayStyle={autoInputStyles.overlayStyle} isVisible={visible} onBackdropPress={toggleOverlay}>
-                        <CompleteWorkoutOverlay />
-                    </Overlay>
+                    <CompleteWorkoutOverlay completeWorkoutHandler={completeWorkoutHandler} visible={visible} toggleOverlay={toggleOverlay} />
                 </View>
                 <View style={autoInputStyles.touchableMuscleWrapper}>
                     <ScrollView horizontal={true}>

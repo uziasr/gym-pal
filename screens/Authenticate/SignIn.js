@@ -5,10 +5,10 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { login } from '../../state/actions/index'
 
 const SignIn = ({ navigation }) => {
-
+    
     const [newUser, setNewUser] = useState({
-        name:'',
-        email:''
+        name: '',
+        email: ''
     })
     const dispatch = useDispatch()
 
@@ -36,7 +36,7 @@ const SignIn = ({ navigation }) => {
                 secureTextEntry={true}
                 autoCapitalize="none"
             />
-            <Button title="Login" onPress={()=>loginHandler()}/>
+            <Button title="Login" onPress={() => loginHandler()} />
         </View>
     );
 };

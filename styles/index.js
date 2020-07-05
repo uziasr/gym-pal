@@ -363,7 +363,7 @@ export const autoInputStyles = StyleSheet.create({
     },
     workoutText: {
         fontSize: 18,
-        color: "white"
+        color: "white",
     },
     overlayTitle: {
         fontSize: 18,

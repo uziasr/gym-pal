@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Overlay } from 'react-native-elements';
 import { workoutStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getWorkoutById, completeWorkout } from "../../state/actions/workoutActions"
 import { NavigationEvents } from 'react-navigation';
+import CompleteWorkoutOverlay from "../../components/CompleteWorkoutOverlay"
 
 const Workout = ({ navigation }) => {
     const state = useSelector(state => state, shallowEqual)
     const dispatch = useDispatch()
+    const [visible, setVisible] = useState(false)
 
     useEffect(() => {
         dispatch(getWorkoutById(state.reducer.token, state.workoutReducer.workoutId))
@@ -19,7 +21,12 @@ const Workout = ({ navigation }) => {
         navigation.navigate("Exercise")
     }
 
+    const toggleOverlay = () => {
+        setVisible(() => !visible);
+    };
+
     const completeHandler = () => {
+        toggleOverlay()
         dispatch(completeWorkout(state.reducer.token, state.workoutReducer.workoutId))
         navigation.navigate("Overall Stats")
 
@@ -47,6 +54,7 @@ const Workout = ({ navigation }) => {
                 null}
         </ScrollView>
     )
+    
 
     return (
         <View style={workoutStyles.root}>
@@ -59,7 +67,8 @@ const Workout = ({ navigation }) => {
                 <>
                     <RecordedWorkout />
                     <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", marginVertical: 5 }} />
-                    <Button onPress={() => completeHandler()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />
+                    <CompleteWorkoutOverlay completeWorkoutHandler={completeHandler} visible={visible} toggleOverlay={toggleOverlay} />
+                    <Button onPress={() => toggleOverlay()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />
                 </>
             }
         </View>
