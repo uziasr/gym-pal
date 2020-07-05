@@ -4,6 +4,8 @@ import { Button, Input } from 'react-native-elements'
 import AsyncStorage from '@react-native-community/async-storage';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { register } from "../../state/actions/index"
+import  useForm  from "./useForm"
+import validate from './postValidator'
 
 
 const Register = ({ navigation }) => {
@@ -18,17 +20,18 @@ const Register = ({ navigation }) => {
         }
     }
 
-    const [newUser, setNewUser] = useState({
-        name: '',
-        email: '',
-        password: ''
-    })
+    const {
+        values,
+        errors,
+        handleChange,
+        handleSubmit,
+      } = useForm(handleRegister, validate, "register");
 
     const dispatch = useDispatch()
 
     const state = useSelector(state => state.reducer, shallowEqual)
     
-    const pressHandler = () => {
+    const handleRegister = () => {
         dispatch(register(newUser))
         if (state.token){
             navigation.navigate("Workout")
@@ -40,32 +43,33 @@ const Register = ({ navigation }) => {
         setNewUser({ ...newUser, [name]: text })
     }
 
+    console.log(errors)
 
     return (
         <View>
             <Input
                 label="Name"
-                onChangeText={(text) => inputChangeHandler("name", text)}
-                value={newUser.name}
+                onChangeText={(text) => handleChange("name", text)}
+                value={values.name}
                 leftIcon={{ type: 'font-awesome', name: 'user-o', color: "black", paddingRight: 5 }}
                 autoCapitalize="words"
             />
             <Input
                 label="Email"
-                onChangeText={(text) => inputChangeHandler("email", text)}
-                value={newUser.email}
+                onChangeText={(text) => handleChange("email", text)}
+                value={values.email}
                 leftIcon={{ type: 'font-awesome', name: 'envelope-o', color: "black", paddingRight: 5 }}
                 autoCapitalize="none"
             />
             <Input
                 label="Password"
-                onChangeText={(text) => inputChangeHandler("password", text)}
-                value={newUser.password}
+                onChangeText={(text) => handleChange("password", text)}
+                value={values.password}
                 leftIcon={{ type: 'font-awesome', name: 'key', color: "black", paddingRight: 5 }}
                 secureTextEntry={true}
                 autoCapitalize="none"
             />
-            <Button buttonStyle={{borderRadius: 20}} title="Sign Up" onPress={() => pressHandler()} />
+            <Button buttonStyle={{borderRadius: 20}} title="Sign Up" onPress={() => handleSubmit()} />
         </View>
     );
 };

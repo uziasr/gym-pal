@@ -432,7 +432,7 @@ export const authStyles = StyleSheet.create({
     loginRegisterWrap: {
         width: "95%",
         // backgroundColor: "white",
-        opacity: .97,
+        // opacity: .97,
         padding: 20,
         borderRadius: 10
     },
