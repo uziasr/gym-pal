@@ -5,6 +5,7 @@ import Register from './Register'
 import Profile from './Profile'
 import { getToken } from '../../state/actions/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { authStyles } from "../../styles/index"
 
 const Auth = ({ navigation }) => {
 
@@ -19,21 +20,21 @@ const Auth = ({ navigation }) => {
     const LoggedOut = () => {
         if (login) {
             return (
-                <View style={{width: "85%",}}>
+                <View style={authStyles.loginRegisterWrap}>
+                    <Text style={authStyles.loginRegisterText}>Login</Text>
                     <SignIn navigation={navigation} />
                     <TouchableOpacity onPress={() => setLogin(!login)}>
-                        <Text style={{ color: "dodgerblue" }}>Register Here</Text>
+                        <Text style={authStyles.loginRegisterLink}>Register Here</Text>
                     </TouchableOpacity>
                 </View>
             )
         } else {
             return (
-                <View style={{
-                    width:"80%"
-                }}>
+                <View style={authStyles.loginRegisterWrap}>
+                    <Text style={authStyles.loginRegisterText}>Register</Text>                    
                     <Register navigation={navigation} />
                     <TouchableOpacity onPress={() => setLogin(!login)}>
-                        <Text style={{ color: "dodgerblue" }}>Already a User, Sign In Here</Text>
+                        <Text style={authStyles.loginRegisterLink}>Already a User, Sign In Here</Text>
                     </TouchableOpacity>
                 </View>
             )
@@ -49,9 +50,10 @@ const Auth = ({ navigation }) => {
             top: 0, left: 0,
             right: 0, bottom: 0,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            // backgroundColor:"#1D222A"
         }}>
-            <Image
+            {/* <Image
                 style={{
                     flex: 1,
                     resizeMode: "stretch",
@@ -60,7 +62,7 @@ const Auth = ({ navigation }) => {
                     width: width,
                 }}
                 source={require("../../assets/rack.jpg")}
-            />
+            /> */}
             {state.token == null ? < LoggedOut /> : <Profile />}
         </View>
     );

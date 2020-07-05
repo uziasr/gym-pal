@@ -352,9 +352,9 @@ export const autoInputStyles = StyleSheet.create({
     completeWorkoutWrap: {
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems:"center",
+        alignItems: "center",
         alignContent: "center",
-        alignSelf:"center",
+        alignSelf: "center",
         width: "90%",
         marginTop: 15
     },
@@ -368,7 +368,7 @@ export const autoInputStyles = StyleSheet.create({
     overlayTitle: {
         fontSize: 18,
         fontWeight: "bold",
-        alignSelf:"center",
+        alignSelf: "center",
     }
 })
 
@@ -425,5 +425,28 @@ export const workoutStyles = StyleSheet.create({
         justifyContent: "center",
         alignContent: "center",
         alignItems: "center"
+    }
+})
+
+export const authStyles = StyleSheet.create({
+    loginRegisterWrap: {
+        width: "95%",
+        // backgroundColor: "white",
+        opacity: .97,
+        padding: 20,
+        borderRadius: 10
+    },
+    loginRegisterText: {
+        alignSelf: "center",
+        fontSize: 22,
+        fontWeight: "bold",
+        paddingBottom: 10,
+        // color: "white"
+    },
+    loginRegisterLink : {
+        alignSelf: "center",
+        paddingTop: 20,
+        fontSize: 16,
+        color: "dodgerblue" 
     }
 })

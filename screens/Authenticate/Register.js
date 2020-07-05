@@ -47,22 +47,25 @@ const Register = ({ navigation }) => {
                 label="Name"
                 onChangeText={(text) => inputChangeHandler("name", text)}
                 value={newUser.name}
+                leftIcon={{ type: 'font-awesome', name: 'user-o', color: "black", paddingRight: 5 }}
                 autoCapitalize="words"
             />
             <Input
                 label="Email"
                 onChangeText={(text) => inputChangeHandler("email", text)}
                 value={newUser.email}
+                leftIcon={{ type: 'font-awesome', name: 'envelope-o', color: "black", paddingRight: 5 }}
                 autoCapitalize="none"
             />
             <Input
                 label="Password"
                 onChangeText={(text) => inputChangeHandler("password", text)}
                 value={newUser.password}
+                leftIcon={{ type: 'font-awesome', name: 'key', color: "black", paddingRight: 5 }}
                 secureTextEntry={true}
                 autoCapitalize="none"
             />
-            <Button title="Sign Up" onPress={() => pressHandler()} />
+            <Button buttonStyle={{borderRadius: 20}} title="Sign Up" onPress={() => pressHandler()} />
         </View>
     );
 };
