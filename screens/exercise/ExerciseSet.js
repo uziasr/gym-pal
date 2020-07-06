@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, ScrollView, Dimensions } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { Button } from 'react-native-elements'
 import Switches from 'react-native-switches'
 import SetForm from './SetForm'
@@ -13,9 +13,8 @@ const ExerciseSet = ({ navigation }) => {
     const currentExercise = navigation.state.params.exercise
     const [switchValue, setUnit] = useState(true)
     const [exerciseSet, setExerciseSet] = useState({ [currentExercise]: [] })
-    const [workoutId, setWorkoutId] = useState()
 
-    const state = useSelector(state => state)
+    const state = useSelector(state => state, shallowEqual)
     const dispatch = useDispatch()
 
     const capitalize = (words) => {

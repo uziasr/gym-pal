@@ -16,7 +16,12 @@ const ExerciseStats = ({ navigation }) => {
             .catch(err => console.log(err))
     }, [])
 
-
+    const roundDown = (num) =>{
+        const wholeNumber = Math.round(num)
+        return  wholeNumber - (wholeNumber % 5) 
+        // {exerciseData.projected_one_rep.max_weight % 5 == 0 ? exerciseData.projected_one_rep.max_weight : roundDown(exerciseData.projected_one_rep.max_weight)}
+    }
+    
     return Object.keys(exerciseData).length > 0 ? (
         <View style={exerciseStatsStyles.root}>
             <View style={exerciseStatsStyles.titleWrap}>
@@ -24,7 +29,7 @@ const ExerciseStats = ({ navigation }) => {
             </View>
             <View style={exerciseStatsStyles.statsView}>
                 <Text style={exerciseStatsStyles.statsText}>Projected One Rep Max</Text>
-                <Text style={exerciseStatsStyles.statsText}> {exerciseData.projected_one_rep.max_weight}</Text>
+                <Text style={exerciseStatsStyles.statsText}> {Math.round(exerciseData.projected_one_rep.max_weight)}</Text>
             </View>
             <View style={exerciseStatsStyles.statsView}>
                 <Text style={exerciseStatsStyles.statsText}>Based on</Text>
@@ -44,11 +49,11 @@ const ExerciseStats = ({ navigation }) => {
             </View>
             <View style={exerciseStatsStyles.statsView}>
                 <Text style={exerciseStatsStyles.statsText}>Average Reps</Text>
-                <Text style={exerciseStatsStyles.statsText}>{exerciseData.average_reps}</Text>
+                <Text style={exerciseStatsStyles.statsText}>{Math.round(exerciseData.average_reps)}</Text>
             </View>
             <View style={exerciseStatsStyles.statsView}>
                 <Text style={exerciseStatsStyles.statsText}>Average Weight </Text>
-                <Text style={exerciseStatsStyles.statsText}>{exerciseData.average_weight}</Text>
+                <Text style={exerciseStatsStyles.statsText}>{Math.round(exerciseData.average_weight)}</Text>
             </View>
         </View>
     ) : <View><Text style={exerciseStatsStyles.statsText}>Loading...</Text></View>;

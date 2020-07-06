@@ -1,13 +1,8 @@
 import { useState, useEffect } from 'react';
 
-const useForm = (callback, validate, type="post", edit) => {
+const useForm = (callback, validate, type="post") => {
 
-    const [values, setValues] = useState(()=>{
-       return edit? {
-        description: edit? edit.description: '',
-        title: edit? edit.title: ''
-    } : {}
-    });
+    const [values, setValues] = useState({});
 
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -25,7 +20,7 @@ const useForm = (callback, validate, type="post", edit) => {
     };
 
     const handleChange = (name, text) => {
-        event.persist();
+        // event.persist();
         setValues(values => ({ ...values, [name]: text }));
     };
     return {

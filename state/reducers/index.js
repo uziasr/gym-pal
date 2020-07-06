@@ -78,6 +78,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 token: action.payload.token,
                 userId: action.payload.id,
+                name: action.payload.name,
                 loading: false
             }
         }
@@ -97,9 +98,10 @@ const reducer = (state = initialState, action) => {
         case REGISTER_SUCCESS: {
             return {
                 ...state,
-                loading: true,
+                loading: false,
                 token: action.payload.token,
-                name: action.payload.name
+                name: action.payload.name,
+                userId: action.payload.id
             }
         }
         case REGISTER_FAIL: {
