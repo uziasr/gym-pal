@@ -6,6 +6,7 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getWorkoutById, completeWorkout } from "../../state/actions/workoutActions"
 import { NavigationEvents } from 'react-navigation';
 import CompleteWorkoutOverlay from "../../components/CompleteWorkoutOverlay"
+import Spinner from "../../utils/Spinner"
 
 const Workout = ({ navigation }) => {
     const state = useSelector(state => state, shallowEqual)
@@ -60,9 +61,7 @@ const Workout = ({ navigation }) => {
         <View style={workoutStyles.root}>
             <NavigationEvents onWillFocus={payload => state.workoutReducer.workoutInProgress ? null : navigation.navigate("Body")} />
             {state.workoutReducer.loading ?
-                <View style={workoutStyles.loader}>
-                    <ActivityIndicator size="large" color="white" />
-                </View>
+                <Spinner />
                 :
                 <>
                     <RecordedWorkout />

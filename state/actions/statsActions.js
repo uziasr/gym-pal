@@ -10,6 +10,10 @@ export const GET_WORKOUT_BY_DATE_START = "GET_WORKOUT_BY_DATE_START"
 export const GET_WORKOUT_BY_DATE_SUCCESS = "GET_WORKOUT_BY_DATE_SUCCESS"
 export const GET_WORKOUT_BY_DATE_FAIL = "GET_WORKOUT_BY_DATE_FAIL"
 
+export const GET_EXERCISE_STATS_START = "GET_EXERCISE_STATS_START"
+export const GET_EXERCISE_STATS_SUCCESS = "GET_EXERCISE_STATS_SUCCESS"
+export const GET_EXERCISE_STATS_FAIL = "GET_EXERCISE_STATS_FAIL"
+
 import { axiosWithAuthorization } from "../../utils/index"
 
 export const getDashData = (token) => dispatch => {
@@ -42,5 +46,16 @@ export const getWorkoutByDate = (token, date) => dispatch => {
         })
         .catch(err => {
             dispatch({ type: GET_WORKOUT_BY_DATE_FAIL, payload: err })
+        })
+}
+
+export const getExerciseStats = (token, exerciseId) => dispatch => {
+    dispatch({ type: GET_EXERCISE_STATS_START })
+    axiosWithAuthorization(token).get(`user/exercise/${exerciseId}`)
+        .then(res => {
+            dispatch({ type: GET_EXERCISE_STATS_SUCCESS, payload: res.data })
+        })
+        .catch(err => {
+            dispatch({ type: GET_EXERCISE_STATS_FAIL, payload: err })
         })
 }

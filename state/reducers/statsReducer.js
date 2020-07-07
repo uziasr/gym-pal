@@ -8,6 +8,9 @@ import {
     GET_WORKOUT_BY_DATE_START,
     GET_WORKOUT_BY_DATE_SUCCESS,
     GET_WORKOUT_BY_DATE_FAIL,
+    GET_EXERCISE_STATS_START,
+    GET_EXERCISE_STATS_SUCCESS,
+    GET_EXERCISE_STATS_FAIL,
 } from '../actions/statsActions'
 
 const initialState = {
@@ -15,6 +18,7 @@ const initialState = {
     exercises: [],
     allWorkouts: [],
     workoutByDate: [],
+    exerciseData: {},
     totalWorkouts: 0,
     loading: false,
     error: null
@@ -84,6 +88,29 @@ const statsReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.payload
+            }
+        }
+        case GET_EXERCISE_STATS_START: {
+            return {
+                ...state,
+                error: null,
+                loading: true
+            }
+        }
+        case GET_EXERCISE_STATS_SUCCESS: {
+            console.log(action.payload)
+            return {
+                ...state,
+                error: null,
+                loading: false,
+                exerciseData: action.payload
+            }
+        }
+        case GET_EXERCISE_STATS_FAIL: {
+            return {
+                ...state,
+                error: action.payload,
+                loading: false
             }
         }
         default:
