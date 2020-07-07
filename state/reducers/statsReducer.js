@@ -98,7 +98,6 @@ const statsReducer = (state = initialState, action) => {
             }
         }
         case GET_EXERCISE_STATS_SUCCESS: {
-            console.log(action.payload)
             return {
                 ...state,
                 error: null,

@@ -4630,6 +4630,11 @@ react-native-gesture-handler@~1.6.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-histogram@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-histogram/-/react-native-histogram-0.2.0.tgz#0aa49c997546877ab7fbddd1519865f536450ced"
+  integrity sha1-CqScmXVGh3q3+93RUZhl9TZFDO0=
+
 react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
