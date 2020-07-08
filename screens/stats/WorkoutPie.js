@@ -37,10 +37,10 @@ const WorkoutPie = ({ workout }) => {
             muscleObj = {}
             index = 0
             workout.forEach((exercise, index)=>{
-                if (exercise in muscleObj) {
-                    muscleObj = {...muscleObj, [exercise]: {...muscleObj[exercise], reps: muscleObj[exercise].reps + exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0)}}
+                if (exercise.muscle in muscleObj) {
+                    muscleObj = {...muscleObj, [exercise.muscle]: {...muscleObj[exercise.muscle], reps: muscleObj[exercise.muscle].reps + exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0)}}
                 } else {
-                    muscleObj = {...muscleObj, [exercise] :{
+                    muscleObj = {...muscleObj, [exercise.muscle] :{
                         name: exercise.muscle,
                         reps: exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0),
                         color: colors[index],
@@ -57,13 +57,12 @@ const WorkoutPie = ({ workout }) => {
         }
     }
 
-
     return (
         <View>
             <Text style={workoutStatsStyles.text}>{`Muscle Trained by ${isByExercise ? "Exercise" : "Reps"}`}</Text>
             <PieChart
                 data={!isByExercise && byRep.length ? byRep : byExercise}
-                width={500}
+                width={425}
                 height={220}
                 chartConfig={{
                     backgroundColor: "#e26a00",

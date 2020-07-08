@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native'
 import { colors } from './constants'
 
+const backgroundColor = "#212121"
 export const splitStyles = StyleSheet.create({
     root: {
-        backgroundColor: colors.rootBackground,
+        backgroundColor: backgroundColor,
         height: '100%'
     },
     bodyWrap: {
@@ -58,7 +59,7 @@ export const dashBoardStyles = StyleSheet.create({
         textAlign: 'center'
     },
     rootView: {
-        backgroundColor: colors.rootBackground,
+        backgroundColor: backgroundColor,
         flexDirection: 'column',
         alignContent: 'center',
         alignItems: 'center',
@@ -107,9 +108,8 @@ export const dashBoardStyles = StyleSheet.create({
 
 export const exerciseStatsStyles = StyleSheet.create({
     root: {
-        backgroundColor: colors.rootBackground,
+        backgroundColor: backgroundColor,
         flexDirection: 'column',
-        // justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
         height: '100%',
@@ -163,24 +163,27 @@ export const contributionViewStyles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexWrap: 'wrap'
     },
-    touchableWorkoutWrapper : {
-        marginBottom: 15
+    touchableWorkoutWrapper: {
+        marginBottom: 10
     },
     workoutCard: {
-        borderRadius: 2, 
-        width: "90%", 
-        alignContent:"center", 
-        alignItems:"center", 
-        paddingVertical: 10, 
-        paddingHorizontal: 5
+        borderRadius: 2,
+        width: "100%",
+        alignSelf: "center",
+        alignContent: "center",
+        alignItems: "center",
+        paddingVertical: 12,
+        paddingHorizontal: 5,
+        margin: 0
     },
-    iconStyle : {
+    iconStyle: {
         paddingRight: 25,
+        alignSelf: "center",
     },
-    workoutView : {
-        width: "70%"
+    workoutView: {
+        width: "75%"
     },
-    durationStyle : {
+    durationStyle: {
         flexDirection: 'row',
         justifyContent: 'space-between'
     }
@@ -188,7 +191,7 @@ export const contributionViewStyles = StyleSheet.create({
 
 export const workoutStatsStyles = StyleSheet.create({
     root: {
-        backgroundColor:colors.rootBackground,
+        backgroundColor: backgroundColor,
         height: '100%'
     },
     exerciseWrap: {
@@ -196,7 +199,7 @@ export const workoutStatsStyles = StyleSheet.create({
         justifyContent: 'space-evenly',
         flexWrap: 'wrap'
     },
-    text: { 
+    text: {
         color: "white"
     }
 
@@ -240,6 +243,10 @@ export const setFormStyles = StyleSheet.create({
     inputWrap: {
         width: '35%'
     },
+    lockStyle: {
+        paddingRight: 25,
+        paddingBottom: 15,
+    },
     buttonWrap: {
         width: '25%',
         paddingBottom: 15,
@@ -248,6 +255,10 @@ export const setFormStyles = StyleSheet.create({
 })
 
 export const exerciseSetStyles = StyleSheet.create({
+    rootWrap: {
+        backgroundColor: backgroundColor,
+        color: "white"
+    },
     titleWrap: {
         marginTop: 10,
         display: 'flex',
@@ -255,7 +266,9 @@ export const exerciseSetStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     title: {
-        fontSize: 20
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "white"
     },
     unitWrap: {
         flexDirection: 'row',
@@ -265,59 +278,123 @@ export const exerciseSetStyles = StyleSheet.create({
     unit: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '90%'
+        width: '85%'
     },
     unitText: {
-        fontSize: 16
+        fontSize: 16,
+        color: "white"
     },
     scrollWrap: {
-        height: 400
+        height: 446
     }
 })
 
 export const autoInputStyles = StyleSheet.create({
     input: {
-        paddingBottom: 0,
         flex: 1,
         marginHorizontal: 'auto'
+    },
+    inputWrap: {
+        paddingTop: 10,
+        width: "75%",
+        flexDirection: "row",
+        alignContent: "center",
+        alignItems: "center",
+        justifyContent: "space-between"
+
+    },
+    completeWorkoutButton: {
+        padding: 5,
+        paddingLeft: 10,
+        width: "30%"
+    },
+    CompleteText: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "green"
     },
     scrollWrap: {
         flexGrow: 1,
         width: '100%',
-        height: '94%'
+        height: '82%'
+    },
+    muscleText: {
+        fontSize: 18
     },
     touchableStyle: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignContent: "center",
+        alignItems: "center",
         paddingVertical: 30,
-        backgroundColor: '#E6E6E6',
+        borderColor: '#E6E6E6',
+        borderWidth: 1,
+        borderStyle: "solid",
+        paddingHorizontal: 15,
     },
     textStyle: {
-        paddingHorizontal: 4
+        fontSize: 16,
+        fontWeight: "bold"
     },
     touchableMuscleWrapper: {
-       alignContent: 'center',
-       alignItems: 'center',
-       paddingVertical: 10
+        alignContent: 'center',
+        alignItems: 'center',
+    },
+    exerciseTextWrap: {
+
     },
     touchableMuscle: {
         paddingHorizontal: 10,
+        paddingBottom: 20
+    },
+    overlayStyle: {
+        width: '90%',
+        height: 115,
+    },
+    completeWorkoutWrap: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        alignContent: "center",
+        alignSelf: "center",
+        width: "90%",
+        marginTop: 15
+    },
+    workoutTextWrap: {
+
+    },
+    workoutText: {
+        fontSize: 18,
+        color: "white",
+    },
+    overlayTitle: {
+        fontSize: 18,
+        fontWeight: "bold",
+        alignSelf: "center",
     }
 })
 
 export const workoutStyles = StyleSheet.create({
-    root:{
-        backgroundColor: colors.rootBackground,
+    root: {
+        backgroundColor: backgroundColor,
         height: "100%"
     },
-    exerciseWrapper : {
+    exerciseWrapper: {
         marginVertical: 8,
         marginHorizontal: 10,
         flexDirection: "row",
         paddingLeft: 10,
         justifyContent: "flex-start"
 
+    },
+    loader: {
+        backgroundColor:backgroundColor,
+        position: 'absolute',
+        top: 0, left: 0,
+        right: 0, bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     exerciseText: {
         color: 'white',
@@ -328,29 +405,52 @@ export const workoutStyles = StyleSheet.create({
         borderWidth: 0,
         paddingVertical: 5,
         paddingHorizontal: 12,
-        width: 150 ,
+        width: 150,
         flexDirection: 'row',
         flexWrap: "wrap",
         borderRadius: 5,
-        margin:1,
+        margin: 1,
         justifyContent: "center",
     },
     setText: {
         color: "white"
     },
     exerciseTextWrap: {
-        flexDirection: "row", 
-        flexWrap: "wrap", 
-        width: "40%", 
-        alignItems: "center", 
-        alignContent: "center" 
+        flexDirection: "row",
+        flexWrap: "wrap",
+        width: "40%",
+        alignItems: "center",
+        alignContent: "center"
     },
-    setWrapper:{
-        borderLeftWidth: 1, 
-        borderLeftColor: "white", 
-        paddingLeft: 15, 
-        justifyContent: "center", 
-        alignContent: "center", 
+    setWrapper: {
+        borderLeftWidth: 1,
+        borderLeftColor: "white",
+        paddingLeft: 15,
+        justifyContent: "center",
+        alignContent: "center",
         alignItems: "center"
+    }
+})
+
+export const authStyles = StyleSheet.create({
+    loginRegisterWrap: {
+        width: "95%",
+        // backgroundColor: "white",
+        // opacity: .97,
+        padding: 20,
+        borderRadius: 10
+    },
+    loginRegisterText: {
+        alignSelf: "center",
+        fontSize: 22,
+        fontWeight: "bold",
+        paddingBottom: 10,
+        // color: "white"
+    },
+    loginRegisterLink : {
+        alignSelf: "center",
+        paddingTop: 20,
+        fontSize: 16,
+        color: "dodgerblue" 
     }
 })

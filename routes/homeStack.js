@@ -1,6 +1,5 @@
 import { createStackNavigator } from 'react-navigation-stack'
 import React from 'react'
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createAppContainer } from 'react-navigation'
 import ExerciseOptions from '../screens/workout/ExerciseOptions';
 import Exercise from '../screens/exercise/Exercise'
@@ -9,13 +8,9 @@ import Workout from '../screens/workout/Workout'
 import Dashboard from '../screens/stats/Dashboard'
 import ExerciseStats from '../screens/stats/ExerciseStats'
 import WorkoutStats from '../screens/stats/WorkoutStats'
-import SignIn from '../screens/authenticate/SignIn'
-import SignUp from '../screens/authenticate/SingUp'
 import Auth from '../screens/authenticate/Auth'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { FontAwesome5, Fontisto } from '@expo/vector-icons';
-import { loggedIn } from '../utils/index'
-import AsyncStorage from '@react-native-community/async-storage';
+import { FontAwesome5, MaterialIcons, Foundation } from '@expo/vector-icons';
 
 
 const screens = {
@@ -25,7 +20,7 @@ const screens = {
     Exercise: {
         screen: Exercise
     },
-    ExerciseSet: {
+    Sets: {
         screen: ExerciseSet
     },
     Workout: {
@@ -50,12 +45,6 @@ const authorization = {
     "On Board": {
         screen: Auth
     },
-    // "Login":{
-    //     screen:SignIn
-    // },
-    // "Sign Up": {
-    //     screen: SignUp
-    // },
 }
 
 const WorkoutStack = createStackNavigator(screens);
@@ -65,25 +54,28 @@ const AuthStack = createStackNavigator(authorization)
 
 const DashboardTabScreen = createBottomTabNavigator(
     {
-        Workout: {
-            screen: WorkoutStack,
-            navigationOptions: ({ navigation }) => ({
-                tabBarIcon: ({ tintColor }) => (
-                    <FontAwesome5 name="walking" size={20} color={tintColor} />
-                ),
-            }),
-        },
         Stats: {
             screen: StatStack,
             navigationOptions: ({ navigation }) => ({
                 tabBarIcon: ({ tintColor }) => (
-                    <Fontisto name="line-chart" size={20} color={tintColor} />
+                    <Foundation name="graph-pie" size={32} color={tintColor} />
                 )
             }),
         },
-        Account: {
-            screen: loggedIn ? AuthStack : AuthStack,
+        Workout: {
+            screen: WorkoutStack,
             navigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({ tintColor }) => (
+                    <FontAwesome5 name="walking" size={28} color={tintColor} />
+                ),
+            }),
+        },
+        Account: {
+            screen: AuthStack,
+            navigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({ tintColor }) => (
+                    <MaterialIcons name="person" size={34} color={tintColor} />
+                ),
                 tabBarVisible: false
             })
         }

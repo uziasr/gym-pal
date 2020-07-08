@@ -1,58 +1,120 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
-import axios from 'axios';
+import { View, Text, ScrollView } from 'react-native';
 import { exerciseStatsStyles } from '../../styles/index'
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { getExerciseStats } from '../../state/actions/statsActions'
+import Spinner from "../../utils/Spinner"
+import {
+    BarChart,
+} from "react-native-chart-kit";
+
 
 
 
 const ExerciseStats = ({ navigation }) => {
     const exercise = navigation.state.params
+    const [loaded, setLoaded] = useState(false)
 
-    const [exerciseData, setExerciseData] = useState({})
+    const state = useSelector(state => state, shallowEqual)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        axios.get(`http://192.168.1.3:5000/user/1/exercise/${exercise.id}`)
-            .then(res => setExerciseData(res.data))
-            .catch(err => console.log(err))
+        dispatch(getExerciseStats(state.reducer.token, exercise.id))
+        setLoaded(() => true)
     }, [])
 
+    const Bar = () => {
+        return (
+            <BarChart
+                data={{
+                    labels: [...state.statsReducer.exerciseData.weight.map(weight => `${weight} lbs`)],
+                    datasets: [{
+                        data: [...state.statsReducer.exerciseData.reps]
+                    }]
+                }}
+                chartConfig={{
+                    decimalPlaces: 2,
+                    backgroundGradientFrom: "#1E2923",
+                    backgroundGradientFromOpacity: 0,
+                    backgroundGradientTo: "#212121",
+                    backgroundGradientToOpacity: .25,
+                    color: (opacity = 1) => `rgba(	30, 144, 255, ${.9})`,
+                    labelColor: (opacity = 1) => `rgba(255, 255, 255)`,
+                    style: {
+                        borderRadius: 16
+                    },
+                    propsForDots: {
+                        r: "6",
+                        strokeWidth: "2",
+                        stroke: "#ffa726"
+                    }
+                }}
+                style={{
+                    marginBottom: 10
+                }}
+                width={410}
+                height={350}
+                showBarTops={true}
+                showValuesOnTopOfBars={true}
+                fromZero={true}
+            />
+        )
+    }
 
-    return Object.keys(exerciseData).length > 0 ? (
+    const ValidResponse = () => (
         <View style={exerciseStatsStyles.root}>
             <View style={exerciseStatsStyles.titleWrap}>
                 <Text style={exerciseStatsStyles.title}>{exercise.name}</Text>
             </View>
-            <View style={exerciseStatsStyles.statsView}>
-                <Text style={exerciseStatsStyles.statsText}>Projected One Rep Max</Text>
-                <Text style={exerciseStatsStyles.statsText}> {exerciseData.projected_one_rep.max_weight}</Text>
-            </View>
-            <View style={exerciseStatsStyles.statsView}>
-                <Text style={exerciseStatsStyles.statsText}>Based on</Text>
-                <Text style={exerciseStatsStyles.statsText}>{exerciseData.projected_one_rep.weight} LBS X {exerciseData.projected_one_rep.reps} </Text>
-            </View>
-            <View style={exerciseStatsStyles.statsView}>
-                <Text style={exerciseStatsStyles.statsText}>Max Reps</Text>
-                <Text style={exerciseStatsStyles.statsText}>{exerciseData.max_reps.repetition} Reps @ {exerciseData.max_reps.weight} LBS</Text>
-            </View>
-            <View style={exerciseStatsStyles.statsView}>
-                <Text style={exerciseStatsStyles.statsText}>Max Weight</Text>
-                <Text style={exerciseStatsStyles.statsText}>{exerciseData.max_weight.weight} LBS @ {exerciseData.max_weight.repetition} Reps</Text>
-            </View>
-            <View style={exerciseStatsStyles.statsView}>
-                <Text style={exerciseStatsStyles.statsText}>Total Sets</Text>
-                <Text style={exerciseStatsStyles.statsText}>{exerciseData.total_sets}</Text>
-            </View>
-            <View style={exerciseStatsStyles.statsView}>
-                <Text style={exerciseStatsStyles.statsText}>Average Reps</Text>
-                <Text style={exerciseStatsStyles.statsText}>{exerciseData.average_reps}</Text>
-            </View>
-            <View style={exerciseStatsStyles.statsView}>
-                <Text style={exerciseStatsStyles.statsText}>Average Weight </Text>
-                <Text style={exerciseStatsStyles.statsText}>{exerciseData.average_weight}</Text>
-            </View>
+            <Bar />
+            <ScrollView style={{ width: "100%", alignContent: "center" }}>
+                <View style={exerciseStatsStyles.statsView}>
+                    <Text style={exerciseStatsStyles.statsText}>Projected One Rep Max</Text>
+                    <Text style={exerciseStatsStyles.statsText}> {Math.round(state.statsReducer.exerciseData.projected_one_rep.max_weight)}</Text>
+                </View>
+                <View style={exerciseStatsStyles.statsView}>
+                    <Text style={exerciseStatsStyles.statsText}>Based on</Text>
+                    <Text style={exerciseStatsStyles.statsText}>{state.statsReducer.exerciseData.projected_one_rep.weight} LBS X {state.statsReducer.exerciseData.projected_one_rep.reps} </Text>
+                </View>
+                <View style={exerciseStatsStyles.statsView}>
+                    <Text style={exerciseStatsStyles.statsText}>Max Reps</Text>
+                    <Text style={exerciseStatsStyles.statsText}>{state.statsReducer.exerciseData.max_reps.repetition} Reps @ {state.statsReducer.exerciseData.max_reps.weight} LBS</Text>
+                </View>
+                <View style={exerciseStatsStyles.statsView}>
+                    <Text style={exerciseStatsStyles.statsText}>Max Weight</Text>
+                    <Text style={exerciseStatsStyles.statsText}>{state.statsReducer.exerciseData.max_weight.weight} LBS @ {state.statsReducer.exerciseData.max_weight.repetition} Reps</Text>
+                </View>
+                <View style={exerciseStatsStyles.statsView}>
+                    <Text style={exerciseStatsStyles.statsText}>Total Sets</Text>
+                    <Text style={exerciseStatsStyles.statsText}>{state.statsReducer.exerciseData.total_sets}</Text>
+                </View>
+                <View style={exerciseStatsStyles.statsView}>
+                    <Text style={exerciseStatsStyles.statsText}>Average Reps</Text>
+                    <Text style={exerciseStatsStyles.statsText}>{Math.round(state.statsReducer.exerciseData.average_reps)}</Text>
+                </View>
+                <View style={exerciseStatsStyles.statsView}>
+                    <Text style={exerciseStatsStyles.statsText}>Average Weight </Text>
+                    <Text style={exerciseStatsStyles.statsText}>{Math.round(state.statsReducer.exerciseData.average_weight)}</Text>
+                </View>
+            </ScrollView>
         </View>
-    ) : <View><Text style={exerciseStatsStyles.statsText}>Loading...</Text></View>;
-    // return <View></View>
+    )
+
+    const InvalidResponse = () => (
+        <View>
+            <Text>There is no data for this exercise</Text>
+        </View>
+    )
+
+    return (
+        <>
+            {
+                state.statsReducer.loading || loaded == false ?
+                    <Spinner /> : state.statsReducer.error !== null || Object.keys(state.statsReducer.exerciseData).length <= 0 ?
+                        <InvalidResponse /> : <ValidResponse />
+            }
+        </>
+    )
 };
 
 export default ExerciseStats;

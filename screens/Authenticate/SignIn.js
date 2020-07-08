@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { View } from 'react-native'
+import { View, } from 'react-native'
 import { Button, Input } from 'react-native-elements'
-import axios from 'axios'
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { login } from '../../state/actions/index'
 
-const SignIn = () => {
-
+const SignIn = ({ navigation }) => {
+    
     const [newUser, setNewUser] = useState({
-        name:'',
-        email:''
+        name: '',
+        email: ''
     })
-    const pressHandler = () => {
-        axios.post(`http://192.168.1.3:5000/user/signin`, newUser)
-        .then(res=>{
-            console.log(res)
-        })
-        .catch(err=>console.log(err))
+    const dispatch = useDispatch()
+
+    const loginHandler = () => {
+        dispatch(login(newUser))
+        navigation.navigate("Workout")
     }
 
     const inputChangeHandler = (name, text) => {
@@ -27,16 +27,18 @@ const SignIn = () => {
                 label="Email"
                 onChangeText={(text) => inputChangeHandler("email", text)}
                 value={newUser.email}
+                leftIcon={{ type: 'font-awesome', name: 'envelope-o', color: "black", paddingRight: 5 }}
                 autoCapitalize="none"
             />
             <Input
                 label="Password"
                 onChangeText={(text) => inputChangeHandler("password", text)}
                 value={newUser.password}
+                leftIcon={{ type: 'font-awesome', name: 'key', color: "black", paddingRight: 5 }}
                 secureTextEntry={true}
                 autoCapitalize="none"
             />
-            <Button title="Login" onPress={()=>pressHandler()}/>
+            <Button buttonStyle={{borderRadius: 20}} title="Login" onPress={() => loginHandler()} />
         </View>
     );
 };
