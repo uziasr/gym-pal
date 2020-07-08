@@ -64,7 +64,7 @@ export default function ExerciseOptions({ navigation }) {
     return (
         <>
             <NavigationEvents
-                onWillFocus={payload => state.workoutInProgress ? navigation.navigate("Exercise"): null} />
+                onWillFocus={payload => state.exerciseInProgress ? navigation.navigate("Sets", { exercise: state.currentExercise, sets:state.fullCurrentExercise }) : state.workoutInProgress ? navigation.navigate("Exercise") : null} />
             <TabView
                 navigationState={{ index, routes }}
                 renderScene={renderScene}

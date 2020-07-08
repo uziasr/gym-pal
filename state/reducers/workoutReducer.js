@@ -33,8 +33,7 @@ const initialState = {
     loading: false,
     error: null,
     currentWorkoutId: null,
-    fullCurrentExercise: {
-    },
+    fullCurrentExercise: {},
     currentWorkout: [],
     workoutInProgress: false,
     exerciseInProgress: false
@@ -144,8 +143,10 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                fullCurrentExercise: action.payload,
-                exerciseInProgress: true
+                fullCurrentExercise: { [action.payload.current_exercise]: action.payload[action.payload.current_exercise] }, 
+                exerciseInProgress: true,
+                currentExercise: action.payload.current_exercise,
+                workoutExerciseId: action.payload.workout_exercise_id
             }
         }
         case GET_EXERCISE_IN_PROGRESS_FAIL: {
@@ -165,7 +166,11 @@ const workoutReducer = (state = initialState, action) => {
         case COMPLETE_EXERCISE_SUCCESS: {
             return {
                 ...state,
-                loading: false
+                loading: false,
+                currentExercise: null,
+                exerciseInProgress: false,
+                fullCurrentExercise: {},
+                workoutExerciseId: null
             }
         }
         case COMPLETE_EXERCISE_FAIL: {

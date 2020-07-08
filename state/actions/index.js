@@ -45,7 +45,6 @@ export const login = (user) => dispatch => {
     dispatch({ type: LOGIN_USER_START })
     axiosWithAuthorization(null).post("/user/signin", user)
         .then(async (res) => {
-            console.log(res.data)
             await AsyncStorage.setItem("token", res.data.token)
             dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data })
         })

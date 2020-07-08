@@ -12,7 +12,8 @@ const ExerciseSet = ({ navigation }) => {
 
     const currentExercise = navigation.state.params.exercise
     const [switchValue, setUnit] = useState(true)
-    const [exerciseSet, setExerciseSet] = useState({ [currentExercise]: [] })
+    const [exerciseSet, setExerciseSet] = useState(navigation.state.params.sets)
+
 
     const state = useSelector(state => state, shallowEqual)
     const dispatch = useDispatch()
@@ -22,7 +23,6 @@ const ExerciseSet = ({ navigation }) => {
     }
 
     const addWorkoutSet = (set) => {
-
         const formattedSet = { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }
         dispatch(addSet(state.reducer.token, state.workoutReducer.workoutExerciseId, formattedSet))
 

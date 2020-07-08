@@ -22,6 +22,7 @@ import { NavigationEvents } from 'react-navigation';
 const Dashboard = ({ navigation }) => {
 
     const state = useSelector(state => state, shallowEqual)
+    console.log(state.workoutReducer.exerciseInProgress, state.workoutReducer.fullCurrentExercise)
 
     const dispatch = useDispatch()
 

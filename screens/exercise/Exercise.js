@@ -27,7 +27,7 @@ const Exercise = ({ navigation }) => {
         })
         setExercise(newExercise)
         dispatch(addExerciseToWorkout(state.reducer.token, state.workoutReducer.workoutId, { exercise: newExercise }))
-        navigation.navigate('Sets', { exercise: newExercise })
+        navigation.navigate('Sets', { exercise: newExercise, sets: {[newExercise] : []} })
     }
 
     return (
