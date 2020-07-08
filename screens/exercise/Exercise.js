@@ -4,12 +4,15 @@ import AutoInput from '../../components/AutoInput'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getExercises } from "../../state/actions/exerciseAction"
 import { addExerciseToWorkout } from '../../state/actions/workoutActions'
+import splitConversion from '../workout/splitHelper';
+
 
 const Exercise = ({ navigation }) => {
 
+    const muscles = navigation.state.params ? splitConversion(navigation.state.params.muscles) : null
+
     const [exercise, setExercise] = useState('')
     const [workout, setWorkout] = useState({})
-    const [isSelected, setSelected] = useState({})
     const [isActive, setActive] = useState(false)
     const dispatch = useDispatch()
 
@@ -32,7 +35,7 @@ const Exercise = ({ navigation }) => {
 
     return (
         <View>
-            <AutoInput navigation={navigation} data={state.exerciseReducer.exercises} listLimit={10} pressHandler={addExercise} />
+            <AutoInput focusedMuscles={muscles} navigation={navigation} data={state.exerciseReducer.exercises} listLimit={10} pressHandler={addExercise} />
         </View>
     );
 };

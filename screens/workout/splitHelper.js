@@ -14,10 +14,12 @@ const splitConversion = (compoundArr) => {
                 muscles = [...muscles, 'Chest', 'Shoulders', 'Triceps']
                 break
             case 'Pull':
-                muscles = [...muscles, 'Back', 'Biceps', 'Quadriceps']
+                muscles = [...muscles, 'Back', 'Biceps', 'Hamstrings']
                 break
             case 'Full body':
                 muscles = splits.specific
+            default:
+                muscles = [...muscles, compound]
         }
     })
     return [...new Set(muscles)]

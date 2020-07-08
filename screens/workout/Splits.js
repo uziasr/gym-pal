@@ -49,7 +49,7 @@ const Splits = ({ body, navigation }) => {
         const musclesTraining = Object.keys(splits).filter(split => splits[split])
         const specificMuscles = splitConversion(musclesTraining)
         dispatch(startWorkout(state.reducer.token, { muscles: specificMuscles }))
-        navigation.navigate("Exercise")
+        navigation.navigate("Exercise", { muscles: specificMuscles })
     }
 
     return (
@@ -71,11 +71,6 @@ const Splits = ({ body, navigation }) => {
                     })}
                 </View>
                 <View style={splitStyles.buttonView}>
-                    <TouchableOpacity
-                        style={splitStyles.skipButton}
-                    ><Text>Skip</Text>
-                    </TouchableOpacity>
-
                     {isSelected ? <TouchableOpacity
                         style={isSelected ? { ...splitStyles.submitButton, backgroundColor: 'green' } : { ...splitStyles.submitButton }}
                         disabled={!isSelected}

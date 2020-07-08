@@ -377,7 +377,7 @@ export const autoInputStyles = StyleSheet.create({
 
 export const workoutStyles = StyleSheet.create({
     root: {
-        backgroundColor: colors.rootBackground,
+        backgroundColor: backgroundColor,
         height: "100%"
     },
     exerciseWrapper: {

@@ -8,16 +8,27 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { completeWorkout } from "../state/actions/workoutActions"
 import CompleteWorkoutOverlay from './CompleteWorkoutOverlay'
 
-const AutoInput = ({ data, navigation, pressHandler }) => {
+const AutoInput = ({ data, navigation, pressHandler, focusedMuscles }) => {
     const [query, setQuery] = useState('')
     const [exercises, setExercise] = useState([])
     const [muscles, setMuscles] = useState(["All", ...splits.specific])
     const [exerciseByMuscle, setExerciseByMuscle] = useState(
-        Object.assign({ "All": [] }, ...splits.specific.map(key => ({ [key]: [] })))
+        Object.assign({ "All": [] }, ...splits.specific.map(key => ({
+            [key]: []
+        })))
     )
-    const [muscleFilter, setMuscleFilter] = useState(
-        Object.assign({ "All": true }, ...splits.specific.map(key => ({ [key]: false })))
-    )
+    const [muscleFilter, setMuscleFilter] = useState(() => {
+        if (focusedMuscles) {
+            return Object.assign({ "All": false }, ...splits.specific.map(key => {
+                if (focusedMuscles.includes(key)) {
+                    return { [key]: true }
+                }
+                return { [key]: false }
+            }))
+        } else {
+            return Object.assign({ "All": true }, ...splits.specific.map(key => ({ [key]: false })))
+    }
+    })
     const [visible, setVisible] = useState(false)
 
     const state = useSelector(state => state, shallowEqual)
