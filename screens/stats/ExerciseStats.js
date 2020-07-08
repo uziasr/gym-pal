@@ -13,12 +13,14 @@ import {
 
 const ExerciseStats = ({ navigation }) => {
     const exercise = navigation.state.params
+    const [loaded, setLoaded] = useState(false)
 
     const state = useSelector(state => state, shallowEqual)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getExerciseStats(state.reducer.token, exercise.id))
+        setLoaded(() => true)
     }, [])
 
     const Bar = () => {
@@ -31,16 +33,12 @@ const ExerciseStats = ({ navigation }) => {
                     }]
                 }}
                 chartConfig={{
-                    // backgroundColor: "blue",
-                    // backgroundGradientFrom: "black",
-                    // backgroundGradientTo: "black",
-                    decimalPlaces: 2, // optional, defaults to 2dp
+                    decimalPlaces: 2,
                     backgroundGradientFrom: "#1E2923",
                     backgroundGradientFromOpacity: 0,
                     backgroundGradientTo: "#212121",
                     backgroundGradientToOpacity: .25,
-                    color: (opacity = 1) => `rgba(	30, 144, 255, ${.35})`,
-                    // color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    color: (opacity = 1) => `rgba(	30, 144, 255, ${.9})`,
                     labelColor: (opacity = 1) => `rgba(255, 255, 255)`,
                     style: {
                         borderRadius: 16
@@ -55,7 +53,7 @@ const ExerciseStats = ({ navigation }) => {
                     marginBottom: 10
                 }}
                 width={410}
-                height={220}
+                height={350}
                 showBarTops={true}
                 showValuesOnTopOfBars={true}
                 fromZero={true}
@@ -111,8 +109,8 @@ const ExerciseStats = ({ navigation }) => {
     return (
         <>
             {
-                state.statsReducer.loading || Object.keys(state.statsReducer.exerciseData).length == 0 ?
-                    <Spinner /> : state.statsReducer.error == null && Object.keys(state.statsReducer.exerciseData).length < 0 ?
+                state.statsReducer.loading || loaded == false ?
+                    <Spinner /> : state.statsReducer.error !== null || Object.keys(state.statsReducer.exerciseData).length <= 0 ?
                         <InvalidResponse /> : <ValidResponse />
             }
         </>

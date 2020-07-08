@@ -27,7 +27,7 @@ const WorkoutCalendar = ({ dates, dayPressHandler, currentDate }) => {
         }
     }
     return (
-        <Calendar
+        <CalendarList
             horizontal={true}
             minDate={'2020-01-01'}
             onDayPress={(day) => dayPress(day.dateString)}

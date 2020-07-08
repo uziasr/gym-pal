@@ -164,21 +164,24 @@ export const contributionViewStyles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     touchableWorkoutWrapper: {
-        marginBottom: 15
+        marginBottom: 10
     },
     workoutCard: {
         borderRadius: 2,
-        width: "90%",
+        width: "100%",
+        alignSelf: "center",
         alignContent: "center",
         alignItems: "center",
-        paddingVertical: 10,
-        paddingHorizontal: 5
+        paddingVertical: 12,
+        paddingHorizontal: 5,
+        margin: 0
     },
     iconStyle: {
         paddingRight: 25,
+        alignSelf: "center",
     },
     workoutView: {
-        width: "70%"
+        width: "75%"
     },
     durationStyle: {
         flexDirection: 'row',

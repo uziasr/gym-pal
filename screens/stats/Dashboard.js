@@ -22,7 +22,6 @@ import { NavigationEvents } from 'react-navigation';
 const Dashboard = ({ navigation }) => {
 
     const state = useSelector(state => state, shallowEqual)
-    console.log(state.workoutReducer.exerciseInProgress, state.workoutReducer.fullCurrentExercise)
 
     const dispatch = useDispatch()
 
@@ -43,6 +42,7 @@ const Dashboard = ({ navigation }) => {
     })
 
     const [currentDate, setCurrentDate] = useState("")
+    const [rawDate, setRawDate] = useState("") // used to clear workouts
     const [workoutDisplay, setWorkoutDisplay] = useState(false)
 
 
@@ -101,8 +101,8 @@ const Dashboard = ({ navigation }) => {
     const pressHandler = (exercise) => {
         navigation.navigate('Exercise Stats', exercise)
     }
-
     const dayPressHandler = (contribution) => {
+        setRawDate(contribution)
         if (contribution.count !== 0) {
             if (contribution.date == currentDate) {
                 setWorkoutDisplay(!workoutDisplay)
@@ -125,7 +125,7 @@ const Dashboard = ({ navigation }) => {
         <View style={dashBoardStyles.rootView}>
             <NavigationEvents
                 onWillFocus={payload => dispatch(getDashData(state.reducer.token))}
-                onDidFocus={payload => dispatch(getDashData(state.reducer.token))}/>
+                onDidFocus={payload => dispatch(getDashData(state.reducer.token))} />
             <ScrollView>
                 <View style={dashBoardStyles.contributionTitleWrap}>
                     <Text style={dashBoardStyles.title}>{state.statsReducer.totalWorkouts} Total Workout{state.statsReducer.totalWorkouts ? 's' : ''}!</Text>
@@ -133,21 +133,25 @@ const Dashboard = ({ navigation }) => {
                         values={[{ date: '2020-01-01', count: 0 }, ...getExerciseFrequencyByDate(state.statsReducer.dates)]}
                         endDate={new Date()}
                         numDays={105}
+                        gutterSize={1.5}
                         height={220}
                         chartConfig={chartConfig}
                         width={screenWidth}
                         onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
+                <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                    <Button title='📅 Workouts by Date 📅' buttonStyle={{ width: "85%", alignSelf: "center", backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => toggleOverlay()} />
+                    <Button disabled={!currentDate} title="Clear Workout(s)" buttonStyle={{ alignSelf: "center", backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={()=>dayPressHandler(rawDate)} />
+                </View>
+                <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
+                    <WorkoutCalendar dates={state.statsReducer.dates} dayPressHandler={dayPressHandler} currentDate={currentDate} />
+                </Overlay>
                 {workoutDisplay && state.statsReducer.workoutByDate.length > 0 ?
                     <View>
                         <ContributionView workouts={state.statsReducer.workoutByDate} date={currentDate} navigation={navigation} />
                     </View> : null}
                 <View style={dashBoardStyles.statsDropDownWrap}>
-                    <Button title='Previous Workouts' onPress={() => toggleOverlay()} />
-                    <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
-                        <WorkoutCalendar dates={state.statsReducer.dates} dayPressHandler={dayPressHandler} currentDate={currentDate} />
-                    </Overlay>
                     <ScrollView>
                         <TouchableOpacity onPress={() => dropDownHandler('exercises')} style={dashBoardStyles.statsDropDownStyle}>
                             <Text style={dashBoardStyles.statsTitleStyle}>My Exercises</Text>
