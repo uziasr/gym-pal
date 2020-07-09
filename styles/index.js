@@ -208,14 +208,15 @@ export const workoutStatsStyles = StyleSheet.create({
 export const setStyles = StyleSheet.create({
     rootWrap: {
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'column',
+        alignItems: "center",
+        alignContent: "center"
     },
     textWrap: {
         width: '90%',
         borderRadius: 10,
         marginBottom: 10,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
+        padding: 12,
         justifyContent: 'space-between',
         flexDirection: 'row',
         backgroundColor: '#353A47'
@@ -223,6 +224,17 @@ export const setStyles = StyleSheet.create({
     textStyles: {
         fontSize: 16,
         color: 'white'
+    },
+    editWrap: {
+        backgroundColor: "whitesmoke",
+        width:"90%",
+        padding:20,
+        borderRadius: 15,
+        marginBottom: 10,
+        flexDirection: "row"
+    },
+    editText : {
+        alignSelf: "center",
     }
 })
 
