@@ -11,8 +11,12 @@ import { addSet, completeSet } from '../../state/actions/workoutActions'
 const ExerciseSet = ({ navigation }) => {
 
     const currentExercise = navigation.state.params.exercise
+    // console.log("I need this shit!!!", navigation.state.params.sets)
     const [switchValue, setUnit] = useState(true)
-    const [exerciseSet, setExerciseSet] = useState(navigation.state.params.sets)
+    const [exerciseSet, setExerciseSet] = useState(navigation.state.params.sets || {[currentExercise]: []})
+    // console.log("params",navigation.state.params)
+    // console.log("exercise",exerciseSet)
+    // console.log("I need this", currentExercise, exerciseSet,exerciseSet[currentExercise])
 
 
     const state = useSelector(state => state, shallowEqual)
@@ -32,6 +36,7 @@ const ExerciseSet = ({ navigation }) => {
     }
 
     const completeWorkout = () => {
+        setExerciseSet({[currentExercise]: []})
         dispatch(completeSet(state.reducer.token, state.workoutReducer.workoutExerciseId))
         navigation.navigate('Workout')
     }
@@ -44,7 +49,7 @@ const ExerciseSet = ({ navigation }) => {
             <View style={exerciseSetStyles.unitWrap}>
                 <View style={exerciseSetStyles.unit}>
                     <Text style={exerciseSetStyles.unitText}>Unit of Weight</Text>
-                    <Switches color='white' colorTextOff='white' colorTextOn='white' textSize={24} borderColor='#353A47' buttonColor='white' shape={'line'} textFont={'normal'} value={!switchValue} onChange={() => { setUnit(!switchValue) }} animationDuration={125} textOff={'lb'} textOn={'kg'} />
+                    <Switches color='white' colorTextOff='white' colorTextOn='white' textSize={24} borderColor='#353A47' buttonColor='white' shape={'line'} textFont={'normal'} value={!switchValue} onChange={() => { setUnit(!switchValue) }} animationDuration={125} textOff={'LB'} textOn={'KG'} />
                 </View>
             </View>
             <View>

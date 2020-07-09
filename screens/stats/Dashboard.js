@@ -18,6 +18,7 @@ import { getToken } from '../../state/actions/index'
 import { getDashData, getUserWorkout, getWorkoutByDate } from '../../state/actions/statsActions'
 import { getExerciseInProgress, getWorkoutInProgress } from "../../state/actions/workoutActions"
 import { NavigationEvents } from 'react-navigation';
+import Spinner from "../../utils/Spinner"
 
 const Dashboard = ({ navigation }) => {
 
@@ -120,8 +121,7 @@ const Dashboard = ({ navigation }) => {
         }
     }
 
-
-    return (
+    const Dash = () => (
         <View style={dashBoardStyles.rootView}>
             <NavigationEvents
                 onWillFocus={payload => dispatch(getDashData(state.reducer.token))}
@@ -142,7 +142,7 @@ const Dashboard = ({ navigation }) => {
                 </View>
                 <View style={{ flexDirection: "row", marginBottom: 10 }}>
                     <Button title='📅 Workouts by Date 📅' buttonStyle={{ width: "85%", alignSelf: "center", backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => toggleOverlay()} />
-                    <Button disabled={!currentDate} title="Clear Workout(s)" buttonStyle={{ alignSelf: "center", backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={()=>dayPressHandler(rawDate)} />
+                    <Button disabled={!currentDate} title="Clear Workout(s)" buttonStyle={{ alignSelf: "center", backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => dayPressHandler(rawDate)} />
                 </View>
                 <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
                     <WorkoutCalendar dates={state.statsReducer.dates} dayPressHandler={dayPressHandler} currentDate={currentDate} />
@@ -185,6 +185,12 @@ const Dashboard = ({ navigation }) => {
                 </View>
             </ScrollView>
         </View>
+    )
+
+    return (
+        <>
+           {state.workoutReducer.loading ? <Spinner/> : <Dash />}
+        </>
     );
 };
 
