@@ -6,6 +6,7 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { register } from "../../state/actions/index"
 import useForm from "./useForm"
 import validate from './postValidator'
+import { registerStyles } from "../../styles/index"
 
 
 const Register = ({ navigation }) => {
@@ -34,7 +35,7 @@ const Register = ({ navigation }) => {
 
     return (
         <View>
-            {errors.name ? <Text style={{ alignSelf: "flex-end", top: 20, right: 10, color: "red" }}>{errors.name}</Text> : null}
+            {errors.name ? <Text style={registerStyles.errorStyle}>{errors.name}</Text> : null}
             <Input
                 label="Name"
                 onChangeText={(text) => handleChange("name", text)}
@@ -42,7 +43,7 @@ const Register = ({ navigation }) => {
                 leftIcon={{ type: 'font-awesome', name: 'user-o', color: "black", paddingRight: 5 }}
                 autoCapitalize="words"
             />
-            {errors.email ? <Text style={{ position: "relative", alignSelf: "flex-end", top: 20, right: 10, color: "red" }}>{errors.email}</Text> : null}
+            {errors.email ? <Text style={registerStyles.errorStyle}>{errors.email}</Text> : null}
             <Input
                 label="Email"
                 onChangeText={(text) => handleChange("email", text)}
@@ -51,7 +52,7 @@ const Register = ({ navigation }) => {
                 autoCapitalize="none"
                 autoCompleteType="email"
             />
-            {errors.password ? <Text style={{ alignSelf: "flex-end", marginTop: 0, paddingTop: 0, top: 20, right: 10, color: "red" }}>{errors.password}</Text> : null}
+            {errors.password ? <Text style={registerStyles.errorStyle}>{errors.password}</Text> : null}
             <Input
                 label="Password"
                 onChangeText={(text) => handleChange("password", text)}
@@ -60,7 +61,7 @@ const Register = ({ navigation }) => {
                 secureTextEntry={true}
                 autoCapitalize="none"
             />
-            <Button buttonStyle={{ borderRadius: 20 }} title="Sign Up" onPress={() => handleSubmit()} />
+            <Button buttonStyle={registerStyles.buttonStyle} title="Sign Up" onPress={() => handleSubmit()} />
         </View>
     );
 };

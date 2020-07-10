@@ -115,7 +115,7 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles }) => {
 
     return (
         <View>
-            <View elevation={2} style={{}}>
+            <View elevation={2}>
                 <View style={autoInputStyles.inputWrap}>
                     <Input
                         style={autoInputStyles.input}
