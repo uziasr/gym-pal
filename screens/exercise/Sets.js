@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Input, Overlay } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import { setStyles } from '../../styles/index'
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
+
+
 
 const Sets = ({ exerciseSet, order }) => {
 
+    const state = useSelector(state => state, shallowEqual)
+    const dispatch = useDispatch()
+    
     const [editing, setEditing] = useState(false)
 
     const [editedValues, setEditedValues] = useState({
@@ -19,6 +24,7 @@ const Sets = ({ exerciseSet, order }) => {
 
     const toggleOverlay = () => {
         setEditing(() => !editing);
+        setDeleting(false)
     };
 
     const onChangeHandler = (name, text) => {
@@ -29,20 +35,20 @@ const Sets = ({ exerciseSet, order }) => {
         // <Overlay isVisible={editing} style={setStyles.overlayStyles} onBackdropPress={toggleOverlay}>
         <>
             {deleting ?
-                <View style={{justifyContent:"center"}}>
-                    <Text style={{alignSelf: "center", color: "white", fontSize: 17, bottom:5}}>Are you sure you want to delete?</Text>
-                    <View style={{flexDirection: "row", justifyContent: "space-between", width: "40%", alignSelf:"center",}}>
-                        <TouchableOpacity style={{ padding:12}}>
-                            <Text style={{color:"white", fontSize: 18}}>Yes</Text>
+                <View style={{ justifyContent: "center" }}>
+                    <Text style={{ alignSelf: "center", color: "white", fontSize: 20, }}>Are you sure you want to delete?</Text>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", width: "40%", alignSelf: "center", }}>
+                        <TouchableOpacity onPress={() => setDeleting(false)} style={{ padding: 12 }}>
+                            <Text style={{ color: "white", fontSize: 18 }}>Yes</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ padding:12}}>
-                            <Text style={{color:"white", fontSize: 18}}>No</Text>
+                        <TouchableOpacity onPress={() => setDeleting(false)} style={{ padding: 12 }}>
+                            <Text style={{ color: "white", fontSize: 18 }}>No</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
                 :
                 <View style={setStyles.editWrap}>
-                    <TouchableOpacity onPress={() => setDeleting(!deleting)}>
+                    <TouchableOpacity style={{ padding: 4 }} onPress={() => setDeleting(!deleting)}>
                         <FontAwesome name="trash-o" size={20} color="red" />
                     </TouchableOpacity>
                     <View style={setStyles.inputStyles}>
