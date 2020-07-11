@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Button } from "react-native-elements"
 import { splitStyles } from '../../styles/index';
 import { Ionicons } from '@expo/vector-icons';
 import splitConversion from './splitHelper';
@@ -71,13 +72,13 @@ const Splits = ({ body, navigation }) => {
                     })}
                 </View>
                 <View style={splitStyles.buttonView}>
-                    {isSelected ? <TouchableOpacity
-                        style={isSelected ? { ...splitStyles.submitButton, backgroundColor: 'green' } : { ...splitStyles.submitButton }}
+                    {isSelected ? <Button
+                        title="Start Workout"
+                        buttonStyle={{ borderRadius: 20, alignSelf: "center", width: "80%", marginVertical: 25 }}
                         disabled={!isSelected}
                         onPress={() => { pressNavigation() }}
-                    >
-                        <Text>Start Workout</Text>
-                    </TouchableOpacity> : null}
+                    />
+                        : null}
                 </View>
             </ScrollView>
         </View>

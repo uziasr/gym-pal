@@ -10,10 +10,10 @@ const CompleteWorkoutOverlay = ({ visible, toggleOverlay, completeWorkoutHandler
             <View>
                 <Text style={autoInputStyles.overlayTitle}>Are you sure you want to finish your workout?</Text>
                 <View style={autoInputStyles.completeWorkoutWrap}>
-                    <TouchableOpacity onPress={() => toggleOverlay()} style={{ backgroundColor: "dodgerblue", padding: 10, borderRadius: 12 }}>
+                    <TouchableOpacity onPress={() => toggleOverlay()} style={autoInputStyles.overlayButton}>
                         <Text style={autoInputStyles.workoutText}>Continue Workout</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => completeWorkoutHandler()} style={{ backgroundColor: "dodgerblue", padding: 10, borderRadius: 12 }}>
+                    <TouchableOpacity onPress={() => completeWorkoutHandler()} style={autoInputStyles.overlayButton}>
                         <Text style={autoInputStyles.workoutText}>Finish Workout</Text>
                     </TouchableOpacity>
                 </View>

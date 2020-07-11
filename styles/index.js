@@ -208,21 +208,43 @@ export const workoutStatsStyles = StyleSheet.create({
 export const setStyles = StyleSheet.create({
     rootWrap: {
         justifyContent: 'center',
-        flexDirection: 'row'
+        flexDirection: 'column',
+        alignItems: "center",
+        alignContent: "center"
     },
     textWrap: {
         width: '90%',
         borderRadius: 10,
         marginBottom: 10,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
+        padding: 15,
         justifyContent: 'space-between',
-        flexDirection: 'row',
+        flexDirection: 'column',
         backgroundColor: '#353A47'
     },
     textStyles: {
         fontSize: 16,
         color: 'white'
+    },
+    editWrap: {
+        // backgroundColor: "whitesmoke",
+        width: "100%",
+        padding: 0,
+        borderRadius: 15,
+        marginBottom: 10,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+
+    },
+    editText: {
+        alignSelf: "center",
+    },
+    inputStyles: {
+        width: "30%",
+        paddingTop: 15,
+    },
+    overlayStyles: {
+        width: "100%"
     }
 })
 
@@ -372,6 +394,11 @@ export const autoInputStyles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold",
         alignSelf: "center",
+    },
+    overlayButton: {
+        backgroundColor: "dodgerblue",
+        padding: 10,
+        borderRadius: 12
     }
 })
 
@@ -389,7 +416,7 @@ export const workoutStyles = StyleSheet.create({
 
     },
     loader: {
-        backgroundColor:backgroundColor,
+        backgroundColor: backgroundColor,
         position: 'absolute',
         top: 0, left: 0,
         right: 0, bottom: 0,
@@ -447,10 +474,22 @@ export const authStyles = StyleSheet.create({
         paddingBottom: 10,
         // color: "white"
     },
-    loginRegisterLink : {
+    loginRegisterLink: {
         alignSelf: "center",
         paddingTop: 20,
         fontSize: 16,
-        color: "dodgerblue" 
+        color: "dodgerblue"
+    }
+})
+
+export const registerStyles = ({
+    errorsStyle: {
+        alignSelf: "flex-end",
+        top: 20,
+        right: 10,
+        color: "red"
+    },
+    buttonStyle: {
+        borderRadius: 20
     }
 })
