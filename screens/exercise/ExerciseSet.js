@@ -12,9 +12,8 @@ const ExerciseSet = ({ navigation }) => {
 
     const currentExercise = navigation.state.params.exercise
     const [switchValue, setUnit] = useState(true)
-    const [exerciseSet, setExerciseSet] = useState(navigation.state.params.sets || {[currentExercise]: []})
-    
-
+    const [exerciseSet, setExerciseSet] = useState(navigation.state.params.sets || { [currentExercise]: [] })
+    // console.log("that one 1", currentExercise, "this one", navigation.state.params.sets, exerciseSet[currentExercise])
 
     const state = useSelector(state => state, shallowEqual)
     const dispatch = useDispatch()
@@ -27,13 +26,16 @@ const ExerciseSet = ({ navigation }) => {
         const formattedSet = { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }
         dispatch(addSet(state.reducer.token, state.workoutReducer.workoutExerciseId, formattedSet))
 
+        console.log("this is formattedSet", formattedSet, "this is the exercise set", exerciseSet)
         setExerciseSet(() => {
             return { [currentExercise]: [...exerciseSet[currentExercise], formattedSet] }
         })
     }
 
+    console.log("this is my state",state.workoutReducer.fullCurrentExercise)
+
     const completeExercise = () => {
-        setExerciseSet({[currentExercise]: []})
+        setExerciseSet({ [currentExercise]: [] })
         dispatch(completeSet(state.reducer.token, state.workoutReducer.workoutExerciseId))
         navigation.navigate('Workout')
     }
@@ -58,7 +60,7 @@ const ExerciseSet = ({ navigation }) => {
                 </ScrollView>
             </View>
             <View>
-                <Button title='Complete' disabled={!exerciseSet[currentExercise].length} onPress={() => completeExercise()} buttonStyle={{ backgroundColor: '#18A558' }} />
+                <Button title='Complete' disabled={!(exerciseSet[currentExercise] && exerciseSet[currentExercise].length > 0)} onPress={() => completeExercise()} buttonStyle={{ backgroundColor: '#18A558' }} />
             </View>
         </View>
     );

@@ -49,6 +49,8 @@ const workoutReducer = (state = initialState, action) => {
             }
         }
         case ADD_SET_SUCCESS: {
+            console.log("this is my action.payload", action.payload)
+            console.log("my state", state.fullCurrentExercise)
             return {
                 ...state,
                 fullCurrentExercise: {
