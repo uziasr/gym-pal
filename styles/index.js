@@ -222,7 +222,7 @@ export const setStyles = StyleSheet.create({
         backgroundColor: '#353A47'
     },
     textStyles: {
-        fontSize: 16,
+        fontSize: 19,
         color: 'white'
     },
     editWrap: {

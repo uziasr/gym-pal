@@ -4,7 +4,7 @@ import { Input } from 'react-native-elements';
 import { setStyles } from '../../styles/index'
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { editSet } from '../../state/actions/workoutActions'
+import { editSet, deleteSet } from '../../state/actions/workoutActions'
 
 
 
@@ -16,6 +16,7 @@ const Sets = ({ exerciseSet, order }) => {
     const [editing, setEditing] = useState(false)
 
     const [editedValues, setEditedValues] = useState({
+        id: exerciseSet.id,
         weight: exerciseSet.weight,
         repetition: exerciseSet.repetition,
         unit: exerciseSet.unit,
@@ -38,6 +39,11 @@ const Sets = ({ exerciseSet, order }) => {
         dispatch(editSet(state.reducer.token, state.workoutReducer.workoutExerciseId, editedValues))
     }
 
+    const deleteHandler = () => {
+        dispatch(deleteSet(state.reducer.token, state.workoutReducer.workoutExerciseId, exerciseSet.id ))
+        setEditing(() => false)
+    }
+
     const EditForm = () => (
         // <Overlay isVisible={editing} style={setStyles.overlayStyles} onBackdropPress={toggleOverlay}>
         <>
@@ -45,7 +51,7 @@ const Sets = ({ exerciseSet, order }) => {
                 <View style={{ justifyContent: "center" }}>
                     <Text style={{ alignSelf: "center", color: "white", fontSize: 20, }}>Are you sure you want to delete?</Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", width: "40%", alignSelf: "center", }}>
-                        <TouchableOpacity onPress={() => setDeleting(false)} style={{ padding: 12 }}>
+                        <TouchableOpacity onPress={() => deleteHandler()} style={{ padding: 12 }}>
                             <Text style={{ color: "white", fontSize: 18 }}>Yes</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => setDeleting(false)} style={{ padding: 12 }}>
@@ -55,7 +61,7 @@ const Sets = ({ exerciseSet, order }) => {
                 </View>
                 :
                 <View style={setStyles.editWrap}>
-                    <TouchableOpacity style={{ padding: 4 }} onPress={() => setDeleting(!deleting)}>
+                    <TouchableOpacity style={{ padding: 4 }} onPress={() => setDeleting(true)}>
                         <FontAwesome name="trash-o" size={20} color="red" />
                     </TouchableOpacity>
                     <View style={setStyles.inputStyles}>
@@ -65,7 +71,7 @@ const Sets = ({ exerciseSet, order }) => {
                             onChangeText={text => onChangeHandler("weight", text)}
                             inputStyle={{ textAlign: "center", color: "white" }}
                             keyboardType='number-pad'
-                        // numericValue
+                            numericValue
                         />
                     </View>
                     <View style={setStyles.inputStyles}>
@@ -77,7 +83,7 @@ const Sets = ({ exerciseSet, order }) => {
                             }
                             inputStyle={{ textAlign: "center", color: "white" }}
                             keyboardType='number-pad'
-                        // numericValue
+                            numericValue
                         />
                     </View>
                     <TouchableOpacity onPress={() => {
@@ -102,7 +108,7 @@ const Sets = ({ exerciseSet, order }) => {
                     <Text style={setStyles.textStyles}>{order}</Text>
                     <Text style={setStyles.textStyles}>{exerciseSet.weight} X {exerciseSet.repetition}</Text>
                     <Text style={setStyles.textStyles}>{exerciseSet.unit == "pounds" ? 'LBS' : 'KG'}</Text>
-                    <TouchableOpacity style={{ padding: 5 }} onPress={() => toggleOverlay()}>
+                    <TouchableOpacity style={{ padding: 7 }} onPress={() => toggleOverlay()}>
                         <FontAwesome5 name="edit" size={16} color="white" />
                     </TouchableOpacity>
                 </View>

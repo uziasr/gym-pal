@@ -14,7 +14,6 @@ const ExerciseSet = ({ navigation }) => {
     const currentExercise = navigation.state.params.exercise
     const [switchValue, setUnit] = useState(true)
     const [mainExerciseSet, setExerciseSet] = useState(navigation.state.params.sets || { [currentExercise]: [] })
-    // console.log("that one 1", currentExercise, "this one", navigation.state.params.sets, exerciseSet[currentExercise])
 
     const state = useSelector(state => state, shallowEqual)
     const dispatch = useDispatch()
@@ -26,15 +25,8 @@ const ExerciseSet = ({ navigation }) => {
     const addWorkoutSet = (set) => {
         const formattedSet = { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }
         dispatch(addSet(state.reducer.token, state.workoutReducer.workoutExerciseId, formattedSet))
-
-        console.log("this is formattedSet", formattedSet, "this is the exercise set", exerciseSet, "this is currentExercise", currentExercise)
-        setExerciseSet(() => {
-            return { [currentExercise]: [...exerciseSet[currentExercise], formattedSet] }
-        })
     }
     const exerciseSet = state.workoutReducer.fullCurrentExercise
-    // console.log("hello!@#EQDSFa", exerciseSet, "hfdsajkhfklsajdbfjkdlsaf",currentExercise)
-    console.log("this is my state", state.workoutReducer.fullCurrentExercise)
 
     const completeExercise = () => {
         setExerciseSet({ [currentExercise]: [] })
@@ -68,11 +60,11 @@ const ExerciseSet = ({ navigation }) => {
             </View>
             <View style={exerciseSetStyles.scrollWrap}>
                 <ScrollView>
-                    {exerciseSet[currentExercise] && exerciseSet[currentExercise].length > 0 ? exerciseSet[currentExercise].map((exerciseSet, index) => <Sets key={index + 1} order={index + 1} exerciseSet={exerciseSet} />) : null}
+                    {exerciseSet.length > 0 ? exerciseSet.map((exerciseSet, index) => <Sets key={exerciseSet.id} order={exerciseSet.set_order} exerciseSet={exerciseSet} />) : null}
                 </ScrollView>
             </View>
             <View>
-                <Button title='Complete' disabled={!(exerciseSet[currentExercise] && exerciseSet[currentExercise].length > 0)} onPress={() => completeExercise()} buttonStyle={{ backgroundColor: '#18A558' }} />
+                <Button title='Complete' disabled={!(exerciseSet.length > 0)} onPress={() => completeExercise()} buttonStyle={{ backgroundColor: '#18A558' }} />
             </View>
         </View>
     );

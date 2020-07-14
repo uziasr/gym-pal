@@ -34,6 +34,10 @@ export const EDIT_SET_START = "EDIT_SET_START"
 export const EDIT_SET_SUCCESS = "EDIT_SET_SUCCESS"
 export const EDIT_SET_FAIL = "EDIT_SET_FAIL"
 
+export const DELETE_SET_START = "DELETE_SET_START"
+export const DELETE_SET_SUCCESS = "DELETE_SET_SUCCESS"
+export const DELETE_SET_FAIL = "DELETE_SET_FAIL"
+
 import { axiosWithAuthorization } from '../../utils/index'
 
 export const addSet = (token, workoutExerciseId, formattedSet) => dispatch => {
@@ -135,4 +139,12 @@ export const editSet = (token, workoutExerciseId, patch) => dispatch => {
     axiosWithAuthorization(token).patch(`/workout/exercise/${workoutExerciseId}/set`, patch)
         .then(res => dispatch({ type: EDIT_SET_SUCCESS, payload: res.data }))
         .catch(err => dispatch({ type: EDIT_SET_FAIL, payload: err }))
+}
+
+export const deleteSet = (token, workoutExerciseId, setId) => dispatch => {
+    dispatch({ type: DELETE_SET_START })
+    console.log("this is setId", setId)
+    axiosWithAuthorization(token).delete(`/workout/exercise/${workoutExerciseId}/set/${setId}`, setId)
+        .then(res => dispatch({ type: DELETE_SET_SUCCESS, payload: res.data }))
+        .catch(err => dispatch({ type: DELETE_SET_FAIL, payload: err }))
 }
