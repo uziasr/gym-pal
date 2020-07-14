@@ -45,7 +45,6 @@ const Sets = ({ exerciseSet, order }) => {
     }
 
     const EditForm = () => (
-        // <Overlay isVisible={editing} style={setStyles.overlayStyles} onBackdropPress={toggleOverlay}>
         <>
             {deleting ?
                 <View style={{ justifyContent: "center" }}>
@@ -89,16 +88,14 @@ const Sets = ({ exerciseSet, order }) => {
                     <TouchableOpacity onPress={() => {
                         setEditedValues({ ...editedValues, unit: editedValues.unit == "pounds" ? "kilograms" : "pounds" })
                     }}>
-                        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#1E90FF", paddingVertical: 5, paddingHorizontal: 12, borderRadius: 60 }}>{editedValues.unit == "pounds" ? "LBS" : "KG"}</Text>
+                        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#1E90FF", paddingVertical: 5, right:6,  paddingHorizontal: 12, borderRadius: 60 }}>{editedValues.unit == "pounds" ? "LBS" : "KG"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => editHandler()}>
-                        <FontAwesome name="check-circle" size={24} color="#00FF7F" />
+                        <FontAwesome name="check-circle" size={28} color="#00FF7F" />
                     </TouchableOpacity>
                 </View>
             }
         </>
-
-        // </Overlay>
     )
 
     return (
