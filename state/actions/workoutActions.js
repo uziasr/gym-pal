@@ -30,6 +30,10 @@ export const COMPLETE_WORKOUT_START = "COMPLETE_WORKOUT_START"
 export const COMPLETE_WORKOUT_SUCCESS = "COMPLETE_WORKOUT_SUCCESS"
 export const COMPLETE_WORKOUT_FAIL = "COMPLETE_WORKOUT_FAIL"
 
+export const EDIT_SET_START = "EDIT_SET_START"
+export const EDIT_SET_SUCCESS = "EDIT_SET_SUCCESS"
+export const EDIT_SET_FAIL = "EDIT_SET_FAIL"
+
 import { axiosWithAuthorization } from '../../utils/index'
 
 export const addSet = (token, workoutExerciseId, formattedSet) => dispatch => {
@@ -124,4 +128,11 @@ export const completeWorkout = (token, workoutID) => dispatch => {
         .catch(err => {
             dispatch({ type: COMPLETE_WORKOUT_FAIL, payload: err })
         })
+}
+
+export const editSet = (token, workoutExerciseId, patch) => dispatch => {
+    dispatch({ type: EDIT_SET_START, })
+    axiosWithAuthorization(token).patch(`/workout/exercise/${workoutExerciseId}/set`, patch)
+        .then(res => dispatch({ type: EDIT_SET_SUCCESS, payload: res.data }))
+        .catch(err => dispatch({ type: EDIT_SET_FAIL, payload: err }))
 }

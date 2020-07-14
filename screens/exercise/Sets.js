@@ -4,6 +4,7 @@ import { Input } from 'react-native-elements';
 import { setStyles } from '../../styles/index'
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
+import { editSet } from '../../state/actions/workoutActions'
 
 
 
@@ -11,13 +12,14 @@ const Sets = ({ exerciseSet, order }) => {
 
     const state = useSelector(state => state, shallowEqual)
     const dispatch = useDispatch()
-    
+
     const [editing, setEditing] = useState(false)
 
     const [editedValues, setEditedValues] = useState({
         weight: exerciseSet.weight,
         repetition: exerciseSet.repetition,
-        unit: exerciseSet.unit
+        unit: exerciseSet.unit,
+        order: order
     })
 
     const [deleting, setDeleting] = useState(false)
@@ -29,6 +31,11 @@ const Sets = ({ exerciseSet, order }) => {
 
     const onChangeHandler = (name, text) => {
         setEditedValues(() => ({ ...editedValues, [name]: text }))
+    }
+
+    const editHandler = () => {
+        setEditing(() => false)
+        dispatch(editSet(state.reducer.token, state.workoutReducer.workoutExerciseId, editedValues))
     }
 
     const EditForm = () => (
@@ -78,7 +85,7 @@ const Sets = ({ exerciseSet, order }) => {
                     }}>
                         <Text style={{ fontSize: 20, fontWeight: "bold", color: "#1E90FF", paddingVertical: 5, paddingHorizontal: 12, borderRadius: 60 }}>{editedValues.unit == "pounds" ? "LBS" : "KG"}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => editHandler()}>
                         <FontAwesome name="check-circle" size={24} color="#00FF7F" />
                     </TouchableOpacity>
                 </View>
@@ -94,7 +101,7 @@ const Sets = ({ exerciseSet, order }) => {
                 <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
                     <Text style={setStyles.textStyles}>{order}</Text>
                     <Text style={setStyles.textStyles}>{exerciseSet.weight} X {exerciseSet.repetition}</Text>
-                    <Text style={setStyles.textStyles}>{exerciseSet.unit ? 'LBS' : 'KG'}</Text>
+                    <Text style={setStyles.textStyles}>{exerciseSet.unit == "pounds" ? 'LBS' : 'KG'}</Text>
                     <TouchableOpacity style={{ padding: 5 }} onPress={() => toggleOverlay()}>
                         <FontAwesome5 name="edit" size={16} color="white" />
                     </TouchableOpacity>

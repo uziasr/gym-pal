@@ -7,12 +7,13 @@ import Sets from './Sets'
 import { exerciseSetStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { addSet, completeSet } from '../../state/actions/workoutActions'
+import { NavigationEvents } from 'react-navigation';
 
 const ExerciseSet = ({ navigation }) => {
 
     const currentExercise = navigation.state.params.exercise
     const [switchValue, setUnit] = useState(true)
-    const [exerciseSet, setExerciseSet] = useState(navigation.state.params.sets || { [currentExercise]: [] })
+    const [mainExerciseSet, setExerciseSet] = useState(navigation.state.params.sets || { [currentExercise]: [] })
     // console.log("that one 1", currentExercise, "this one", navigation.state.params.sets, exerciseSet[currentExercise])
 
     const state = useSelector(state => state, shallowEqual)
@@ -26,13 +27,14 @@ const ExerciseSet = ({ navigation }) => {
         const formattedSet = { weight: set.weight, repetition: set.reps, unit: switchValue ? 'pounds' : 'kilograms' }
         dispatch(addSet(state.reducer.token, state.workoutReducer.workoutExerciseId, formattedSet))
 
-        console.log("this is formattedSet", formattedSet, "this is the exercise set", exerciseSet)
+        console.log("this is formattedSet", formattedSet, "this is the exercise set", exerciseSet, "this is currentExercise", currentExercise)
         setExerciseSet(() => {
             return { [currentExercise]: [...exerciseSet[currentExercise], formattedSet] }
         })
     }
-
-    console.log("this is my state",state.workoutReducer.fullCurrentExercise)
+    const exerciseSet = state.workoutReducer.fullCurrentExercise
+    // console.log("hello!@#EQDSFa", exerciseSet, "hfdsajkhfklsajdbfjkdlsaf",currentExercise)
+    console.log("this is my state", state.workoutReducer.fullCurrentExercise)
 
     const completeExercise = () => {
         setExerciseSet({ [currentExercise]: [] })
@@ -42,6 +44,16 @@ const ExerciseSet = ({ navigation }) => {
 
     return (
         <View style={exerciseSetStyles.rootWrap}>
+            <NavigationEvents
+                onWillFocus={payload => setExerciseSet(()=>{
+                    if (navigation.state.params.sets) {
+                        return navigation.state.params.sets
+                    } else {
+                        return { [currentExercise]: [] }
+                    }
+                })
+            }
+            />
             <View style={exerciseSetStyles.titleWrap}>
                 <Text style={exerciseSetStyles.title}>{capitalize(currentExercise)}</Text>
             </View>

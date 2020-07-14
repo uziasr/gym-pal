@@ -23,6 +23,9 @@ import {
     COMPLETE_WORKOUT_START,
     COMPLETE_WORKOUT_SUCCESS,
     COMPLETE_WORKOUT_FAIL,
+    EDIT_SET_START,
+    EDIT_SET_SUCCESS,
+    EDIT_SET_FAIL,
 } from "../actions/workoutActions"
 
 const initialState = {
@@ -36,7 +39,8 @@ const initialState = {
     fullCurrentExercise: {},
     currentWorkout: [],
     workoutInProgress: false,
-    exerciseInProgress: false
+    exerciseInProgress: false,
+    set: {}
 
 }
 
@@ -49,12 +53,10 @@ const workoutReducer = (state = initialState, action) => {
             }
         }
         case ADD_SET_SUCCESS: {
-            console.log("this is my action.payload", action.payload)
-            console.log("my state", state.fullCurrentExercise)
             return {
                 ...state,
                 fullCurrentExercise: {
-                    [state.currentExercise]: [...state.fullCurrentExercise.currentExercise, action.payload]
+                    [state.currentExercise]: [...state.fullCurrentExercise[state.currentExercise], action.payload]
                 },
                 loading: false
             }
@@ -145,7 +147,7 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                fullCurrentExercise: { [action.payload.current_exercise]: action.payload[action.payload.current_exercise] }, 
+                fullCurrentExercise: { [action.payload.current_exercise]: action.payload[action.payload.current_exercise] },
                 exerciseInProgress: true,
                 currentExercise: action.payload.current_exercise,
                 workoutExerciseId: action.payload.workout_exercise_id
@@ -223,6 +225,33 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false
+            }
+        }
+        case EDIT_SET_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case EDIT_SET_SUCCESS: {
+            console.log("this is action payload", action.payload)
+            return {
+                ...state,
+                loading: false,
+                fullCurrentExercise: {
+                    [state.currentExercise]: state.fullCurrentExercise[state.currentExercise].map(sets =>{
+                        if (action.payload.id == sets.id){
+                            return action.payload
+                        } return sets
+                    })
+                },
+            }
+        }
+        case EDIT_SET_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                err: action.payload
             }
         }
         default:
