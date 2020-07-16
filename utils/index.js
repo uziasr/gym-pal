@@ -14,7 +14,7 @@ export const getToken = async () => {
 
 export const axiosWithAuthorization = (token) => {
     return axios.create({
-        baseURL: "http://192.168.1.3:5000",
+        baseURL: "https://gym-buddy-flask.herokuapp.com",
         headers: {
             Authorization: `Bearer ${token}`
         }

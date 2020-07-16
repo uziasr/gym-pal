@@ -122,7 +122,7 @@ export const exerciseStatsStyles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 10,
         borderRadius: 15,
-        marginVertical: 5,
+        marginVertical: 10,
         backgroundColor: 'white'
     },
     statsText: {
@@ -133,7 +133,8 @@ export const exerciseStatsStyles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        color: 'white'
+        color: 'white',
+        alignSelf: 'center'
     }
 })
 
