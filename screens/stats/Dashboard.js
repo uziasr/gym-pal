@@ -71,10 +71,6 @@ const Dashboard = ({ navigation }) => {
 
     }, [state.reducer.token, state.workoutReducer.workoutInProgress])
 
-    // useEffect(
-    //     () => { navigation.addListener('blur', () => console.log('Screen was unfocused')) },
-    //     []
-    // );
 
     const getExerciseFrequencyByDate = (dateArray) => {
         dateDict = {}

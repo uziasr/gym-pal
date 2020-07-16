@@ -201,6 +201,15 @@ export const workoutStatsStyles = StyleSheet.create({
     },
     text: {
         color: "white"
+    },
+    titleWrap:{
+        paddingVertical: 15, 
+        alignSelf: "center"
+    },
+    titleText: {
+        fontSize: 20,
+        color: "white",
+        fontWeight: "bold"
     }
 
 })
@@ -408,7 +417,7 @@ export const workoutStyles = StyleSheet.create({
         height: "100%"
     },
     exerciseWrapper: {
-        marginVertical: 8,
+        marginVertical: 20,
         marginHorizontal: 10,
         flexDirection: "column",
         paddingLeft: 10,
@@ -440,8 +449,8 @@ export const workoutStyles = StyleSheet.create({
         justifyContent: "center",
     },
     setText: {
-        color: "white",
-        fontSize: 16
+        color: "black",
+        fontSize: 18,
     },
     exerciseTextWrap: {
         flexDirection: "row",
@@ -451,8 +460,8 @@ export const workoutStyles = StyleSheet.create({
         alignContent: "center"
     },
     setWrapper: {
-        borderLeftWidth: .25,
-        borderLeftColor: "white",
+        // borderLeftWidth: .25,
+        // borderLeftColor: "white",
         paddingLeft: 5,
         justifyContent: "flex-start",
         alignContent: "flex-start",

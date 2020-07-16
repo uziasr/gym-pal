@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import axios from 'axios'
 import { workoutStatsStyles } from '../../styles/index'
 import WorkoutPie from './WorkoutPie';
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { getWorkoutById } from '../../state/actions/workoutActions';
+import Spinner from '../../utils/Spinner';
 
 
 const WorkoutStats = ({ navigation }) => {
 
-    const [workout, setWorkout] = useState([])
     const workoutId = navigation.state.params.id
+    const state = useSelector(state => state, shallowEqual)
+    const dispatch = useDispatch()
+    const workout = state.workoutReducer.currentWorkout
 
     useEffect(() => {
-        axios.get(`http://192.168.1.3:5000/workout/${workoutId}/set`)
-            .then(res => {
-                setWorkout([...res.data])
-            })
-            .catch(err => console.log(err))
+        dispatch(getWorkoutById(state.reducer.token, workoutId))
     }, [])
 
 
-    return workout.length > 0 ? (
+    return state.workoutReducer.loading ?  <Spinner /> : (
         <View style={workoutStatsStyles.root}>
-            <WorkoutPie workout={workout}/>
+            <WorkoutPie workout={workout} />
             <ScrollView>
                 {workout.map((currentExercise, index) => {
                     return <View key={index}>
@@ -35,7 +36,7 @@ const WorkoutStats = ({ navigation }) => {
                 })}
             </ScrollView>
         </View>
-    ) : <Text>Loading...</Text>
+    ) 
 };
 
 export default WorkoutStats;

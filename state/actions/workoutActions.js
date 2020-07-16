@@ -113,14 +113,13 @@ export const completeSet = (token, workoutExerciseId) => dispatch => {
 }
 
 export const getWorkoutById = (token, workoutID) => dispatch => {
-    console.log(token, workoutID)
     dispatch({ type: GET_WORKOUT_BY_ID_START })
     axiosWithAuthorization(token).get(`/workout/${workoutID}/set`)
         .then(res => {
-            console.log("fhdajksf",res.data)
             dispatch({ type: GET_WORKOUT_BY_ID_SUCCESS, payload: res.data })
         })
         .catch(err => {
+            console.log(err)
             dispatch({ type: GET_WORKOUT_BY_ID_FAIL, payload: err })
         })
 }

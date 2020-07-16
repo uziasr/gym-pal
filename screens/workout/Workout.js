@@ -38,16 +38,16 @@ const Workout = ({ navigation }) => {
             {state.workoutReducer.currentWorkout.length !== 0 ? state.workoutReducer.currentWorkout.map((exercise, index) => {
                 return <View key={index} style={workoutStyles.exerciseWrapper}>
                     <View style={workoutStyles.exerciseTextWrap}>
-                        <Text style={{...workoutStyles.exerciseText, fontSize: 18}}>{`${index + 1}   ${exercise.exercise}`}</Text>
+                        <Text style={{ ...workoutStyles.exerciseText, fontSize: 20, fontWeight: "bold" }}>{`${index + 1}   ${exercise.exercise}`}</Text>
                     </View>
-                    <View style={{ flexDirection: "row", justifyContent:"center" }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: 5, backgroundColor: "whitesmoke", borderRadius: 8 }}>
                         <View>
                             <View>
                                 <View style={workoutStyles.setTextWrapper}>
                                     <Text style={workoutStyles.setText}>Sets</Text>
                                 </View>
                             </View>
-                            <View style={{borderRightWidth: .25, borderRightColor:"white", ...workoutStyles.setWrapper}}>
+                            <View style={{ ...workoutStyles.setWrapper }}>
                                 {exercise.sets.map((aSet, index) => {
                                     return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
                                         <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
@@ -56,15 +56,15 @@ const Workout = ({ navigation }) => {
                             </View>
                         </View>
                         <View>
-                            <View >
+                            <View>
                                 <View>
                                     <View style={workoutStyles.setTextWrapper}>
                                         <Text style={workoutStyles.setText}>Previous Sets</Text>
                                     </View>
                                 </View>
-                                <View style={{...workoutStyles.setWrapper, borderLeftWidth: 0}}>
+                                <View >
                                     {exercise.previous_sets.map((aSet, index) => {
-                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
+                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8, paddingHorizontal: 0, alignSelf: "center" }}>
                                             <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
                                         </View>
                                     })}
@@ -79,7 +79,7 @@ const Workout = ({ navigation }) => {
                                 <View style={workoutStyles.setWrapper}>
                                     {exercise.sets.map((aSet, index) => {
                                         return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
-                                            <Text style={workoutStyles.setText}>{Math.round(aSet.max)}</Text>
+                                            <Text style={workoutStyles.setText}>{Math.round(aSet.max)} {"LBS"}</Text>
                                         </View>
                                     })}
                                 </View>
@@ -104,9 +104,11 @@ const Workout = ({ navigation }) => {
                 :
                 <>
                     <RecordedWorkout />
-                    <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", marginVertical: 5 }} />
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center", alignContent: "center", paddingVertical: 10 }}>
+                        <Button onPress={() => toggleOverlay()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue", borderRadius: 15 }} />
+                        <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", borderRadius: 15 }} />
+                    </View>
                     <CompleteWorkoutOverlay completeWorkoutHandler={completeHandler} visible={visible} toggleOverlay={toggleOverlay} />
-                    <Button onPress={() => toggleOverlay()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue" }} />
                 </>
             }
         </View>
