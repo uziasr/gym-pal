@@ -38,24 +38,63 @@ const Workout = ({ navigation }) => {
             {state.workoutReducer.currentWorkout.length !== 0 ? state.workoutReducer.currentWorkout.map((exercise, index) => {
                 return <View key={index} style={workoutStyles.exerciseWrapper}>
                     <View style={workoutStyles.exerciseTextWrap}>
-                        <Text style={workoutStyles.exerciseText}>{exercise.exercise}</Text>
+                        <Text style={{...workoutStyles.exerciseText, fontSize: 18}}>{`${index + 1}   ${exercise.exercise}`}</Text>
                     </View>
-                    <View style={workoutStyles.setWrapper}>
-                        {exercise.sets.map((aSet, index) => {
-                            return <View key={index} style={{ ...workoutStyles.setTextWrapper, backgroundColor: aSet.unit == "pounds" ? "dodgerblue" : "green", marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
-                                <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
+                    <View style={{ flexDirection: "row", justifyContent:"center" }}>
+                        <View>
+                            <View>
+                                <View style={workoutStyles.setTextWrapper}>
+                                    <Text style={workoutStyles.setText}>Sets</Text>
+                                </View>
                             </View>
-                        })}
+                            <View style={{borderRightWidth: .25, borderRightColor:"white", ...workoutStyles.setWrapper}}>
+                                {exercise.sets.map((aSet, index) => {
+                                    return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
+                                        <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
+                                    </View>
+                                })}
+                            </View>
+                        </View>
+                        <View>
+                            <View >
+                                <View>
+                                    <View style={workoutStyles.setTextWrapper}>
+                                        <Text style={workoutStyles.setText}>Previous Sets</Text>
+                                    </View>
+                                </View>
+                                <View style={{...workoutStyles.setWrapper, borderLeftWidth: 0}}>
+                                    {exercise.previous_sets.map((aSet, index) => {
+                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
+                                            <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
+                                        </View>
+                                    })}
+                                </View>
+                            </View>
+                        </View>
+                        <View>
+                            <View >
+                                <View style={workoutStyles.setTextWrapper}>
+                                    <Text style={workoutStyles.setText}>1RM</Text>
+                                </View>
+                                <View style={workoutStyles.setWrapper}>
+                                    {exercise.sets.map((aSet, index) => {
+                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
+                                            <Text style={workoutStyles.setText}>{Math.round(aSet.max)}</Text>
+                                        </View>
+                                    })}
+                                </View>
+                            </View>
+                        </View>
                     </View>
-                    <View style={{ ...workoutStyles.exerciseTextWrap, paddingLeft: 10 }}>
+                    {/* <View style={{ ...workoutStyles.exerciseTextWrap, paddingLeft: 10 }}>
                         <Text style={workoutStyles.exerciseText}>{index + 1}</Text>
-                    </View>
+                    </View> */}
                 </View>
             }) :
                 null}
         </ScrollView>
     )
-    
+
 
     return (
         <View style={workoutStyles.root}>

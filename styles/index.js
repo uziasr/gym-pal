@@ -410,9 +410,9 @@ export const workoutStyles = StyleSheet.create({
     exerciseWrapper: {
         marginVertical: 8,
         marginHorizontal: 10,
-        flexDirection: "row",
+        flexDirection: "column",
         paddingLeft: 10,
-        justifyContent: "flex-start"
+        justifyContent: "flex-start", 
 
     },
     loader: {
@@ -432,7 +432,7 @@ export const workoutStyles = StyleSheet.create({
         borderWidth: 0,
         paddingVertical: 5,
         paddingHorizontal: 12,
-        width: 150,
+        // width: "40%",
         flexDirection: 'row',
         flexWrap: "wrap",
         borderRadius: 5,
@@ -440,22 +440,23 @@ export const workoutStyles = StyleSheet.create({
         justifyContent: "center",
     },
     setText: {
-        color: "white"
+        color: "white",
+        fontSize: 16
     },
     exerciseTextWrap: {
         flexDirection: "row",
         flexWrap: "wrap",
-        width: "40%",
+        width: "100%",
         alignItems: "center",
         alignContent: "center"
     },
     setWrapper: {
-        borderLeftWidth: 1,
+        borderLeftWidth: .25,
         borderLeftColor: "white",
-        paddingLeft: 15,
-        justifyContent: "center",
-        alignContent: "center",
-        alignItems: "center"
+        paddingLeft: 5,
+        justifyContent: "flex-start",
+        alignContent: "flex-start",
+        alignItems: "flex-start"
     }
 })
 

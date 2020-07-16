@@ -140,7 +140,7 @@ const workoutReducer = (state = initialState, action) => {
         case GET_EXERCISE_IN_PROGRESS_START: {
             return {
                 ...state,
-                loading: false,
+                loading: true,
                 error: null
             }
         }
@@ -235,7 +235,6 @@ const workoutReducer = (state = initialState, action) => {
             }
         }
         case EDIT_SET_SUCCESS: {
-            console.log("this is action payload", action.payload)
             return {
                 ...state,
                 loading: false,

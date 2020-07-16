@@ -61,7 +61,6 @@ const Dashboard = ({ navigation }) => {
     const screenWidth = Dimensions.get("window").width;
     () => navigation.addListener('focus', () => console.log('Screen was focused'))
 
-
     useEffect(() => {
         dispatch(getToken())
         dispatch(getDashData(state.reducer.token))
