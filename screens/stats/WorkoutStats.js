@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import axios from 'axios'
 import { workoutStatsStyles } from '../../styles/index'
 import WorkoutPie from './WorkoutPie';
 import { useSelector, useDispatch, shallowEqual } from "react-redux";

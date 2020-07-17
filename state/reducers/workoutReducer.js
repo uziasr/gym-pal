@@ -31,7 +31,7 @@ import {
     DELETE_SET_FAIL,
 } from "../actions/workoutActions"
 
-const initialState = {
+export const initialState = {
     currentExercise: null,
     workoutId: null,
     workoutExerciseId: null,

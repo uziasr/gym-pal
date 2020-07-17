@@ -72,6 +72,11 @@ const Dashboard = ({ navigation }) => {
     }, [state.reducer.token, state.workoutReducer.workoutInProgress])
 
 
+    console.log(!state.reducer.tokenOnLoading)
+    if(state.reducer.tokenError && !state.reducer.tokenOnLoading){
+        navigation.navigate("On Board")
+    }
+
     const getExerciseFrequencyByDate = (dateArray) => {
         dateDict = {}
         dateList = []
@@ -184,7 +189,7 @@ const Dashboard = ({ navigation }) => {
 
     return (
         <>
-           {state.workoutReducer.loading ? <Spinner/> : <Dash />}
+           {!state.reducer.tokenError && state.reducer.tokenOnLoading ? <Spinner/> : <Dash />}
         </>
     );
 };

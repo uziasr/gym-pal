@@ -23,7 +23,8 @@ const initialState = {
     loading: false,
     tokenOnLoading: true,
     exerciseArr: [],
-    error: null
+    error: null,
+    tokenError: null
 }
 
 
@@ -32,9 +33,11 @@ const reducer = (state = initialState, action) => {
         case GET_TOKEN_START: {
             return {
                 ...state,
+                error: null
             }
         }
         case GET_TOKEN_SUCCESS: {
+            console.log("hello!!")
             return {
                 ...state,
                 token: action.payload,
@@ -44,13 +47,15 @@ const reducer = (state = initialState, action) => {
         case GET_TOKEN_FAIL: {
             return {
                 ...state,
-                tokenOnLoading: false
+                tokenOnLoading: false,
+                tokenError: "something went wrong"
             }
         }
         case GET_EXERCISE_START: {
             return {
                 ...state,
-                loading: true
+                loading: true,
+                error: null
             }
         }
         case GET_EXERCISE_SUCCESS: {
@@ -70,7 +75,8 @@ const reducer = (state = initialState, action) => {
         case LOGIN_USER_START: {
             return {
                 ...state,
-                loading: true
+                loading: true,
+                error: null
             }
         }
         case LOGIN_USER_SUCCESS: {
@@ -93,6 +99,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                error: null,
             }
         }
         case REGISTER_SUCCESS: {
