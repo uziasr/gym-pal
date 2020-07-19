@@ -72,7 +72,6 @@ const Dashboard = ({ navigation }) => {
     }, [state.reducer.token, state.workoutReducer.workoutInProgress])
 
 
-    console.log(!state.reducer.tokenOnLoading)
     if(state.reducer.tokenError && !state.reducer.tokenOnLoading){
         navigation.navigate("On Board")
     }
@@ -120,6 +119,7 @@ const Dashboard = ({ navigation }) => {
             }
         }
     }
+
 
     const Dash = () => (
         <View style={dashBoardStyles.rootView}>
@@ -189,7 +189,7 @@ const Dashboard = ({ navigation }) => {
 
     return (
         <>
-           {!state.reducer.tokenError && state.reducer.tokenOnLoading ? <Spinner/> : <Dash />}
+           {state.reducer.tokenOnLoading || !state.workoutReducer.workoutFetched && !state.workoutReducer.exerciseFetched ? <Spinner/> : <Dash />}
         </>
     );
 };

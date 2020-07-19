@@ -37,7 +37,6 @@ const reducer = (state = initialState, action) => {
             }
         }
         case GET_TOKEN_SUCCESS: {
-            console.log("hello!!")
             return {
                 ...state,
                 token: action.payload,

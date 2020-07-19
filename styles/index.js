@@ -328,7 +328,7 @@ export const autoInputStyles = StyleSheet.create({
     },
     inputWrap: {
         paddingTop: 10,
-        width: "75%",
+        width: "85%",
         flexDirection: "row",
         alignContent: "center",
         alignItems: "center",
@@ -337,13 +337,14 @@ export const autoInputStyles = StyleSheet.create({
     },
     completeWorkoutButton: {
         padding: 5,
-        paddingLeft: 10,
-        width: "30%"
+        right:5,
+        bottom:12,
+        alignSelf: "flex-end",
+        // width: "30%"
     },
-    CompleteText: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "green"
+    progressMenu: {
+        left: 10,
+        alignSelf: "flex-end",
     },
     scrollWrap: {
         flexGrow: 1,
@@ -382,7 +383,7 @@ export const autoInputStyles = StyleSheet.create({
     },
     overlayStyle: {
         width: '90%',
-        height: 115,
+        height: 5,
     },
     completeWorkoutWrap: {
         flexDirection: "row",

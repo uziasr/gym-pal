@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import AutoInput from '../../components/AutoInput'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getExercises } from "../../state/actions/exerciseAction"
+import { getWorkoutById } from "../../state/actions/workoutActions"
 import { addExerciseToWorkout } from '../../state/actions/workoutActions'
 import splitConversion from '../workout/splitHelper';
 
@@ -20,6 +21,9 @@ const Exercise = ({ navigation }) => {
 
     useEffect(() => {
         dispatch(getExercises())
+        if(state.workoutReducer.workoutId) {
+            dispatch(getWorkoutById(state.reducer.token, state.workoutReducer.workoutId))
+        }
     }, [])
 
     const addExercise = (newExercise) => {
@@ -35,7 +39,7 @@ const Exercise = ({ navigation }) => {
 
     return (
         <View>
-            <AutoInput focusedMuscles={muscles} navigation={navigation} data={state.exerciseReducer.exercises} listLimit={10} pressHandler={addExercise} />
+            <AutoInput currentExercises={state.workoutReducer.exercises} focusedMuscles={muscles} navigation={navigation} data={state.exerciseReducer.exercises} listLimit={10} pressHandler={addExercise} />
         </View>
     );
 };

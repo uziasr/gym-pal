@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, ScrollView, } from 'react-native';
 import { Input, Overlay } from 'react-native-elements';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Entypo } from '@expo/vector-icons';
 import { autoInputStyles } from '../styles/index'
 import splits from '../screens/workout/body'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { completeWorkout } from "../state/actions/workoutActions"
 import CompleteWorkoutOverlay from './CompleteWorkoutOverlay'
 
-const AutoInput = ({ data, navigation, pressHandler, focusedMuscles }) => {
+const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExercises }) => {
     const [query, setQuery] = useState('')
     const [exercises, setExercise] = useState([])
     const [muscles, setMuscles] = useState(["All", ...splits.specific])
@@ -27,7 +27,7 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles }) => {
             }))
         } else {
             return Object.assign({ "All": true }, ...splits.specific.map(key => ({ [key]: false })))
-    }
+        }
     })
     const [visible, setVisible] = useState(false)
 
@@ -62,6 +62,7 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles }) => {
             return filteredArr
         }
     }
+    
 
     const toggleOverlay = () => {
         setVisible(() => !visible);
@@ -127,9 +128,9 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles }) => {
                     <TouchableOpacity style={autoInputStyles.completeWorkoutButton} onPress={() => {
                         toggleOverlay()
                     }}>
-                        <Text style={autoInputStyles.CompleteText}>Complete</Text>
+                        <Entypo name="menu" style={autoInputStyles.progressMenu} size={40} color="black" />
                     </TouchableOpacity>
-                    <CompleteWorkoutOverlay completeWorkoutHandler={completeWorkoutHandler} visible={visible} toggleOverlay={toggleOverlay} />
+                    <CompleteWorkoutOverlay currentExercises={currentExercises} navigation={navigation} completeWorkoutHandler={completeWorkoutHandler} visible={visible} toggleOverlay={toggleOverlay} />
                 </View>
                 <View style={autoInputStyles.touchableMuscleWrapper}>
                     <ScrollView horizontal={true}>

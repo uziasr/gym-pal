@@ -119,7 +119,6 @@ export const getWorkoutById = (token, workoutID) => dispatch => {
             dispatch({ type: GET_WORKOUT_BY_ID_SUCCESS, payload: res.data })
         })
         .catch(err => {
-            console.log(err)
             dispatch({ type: GET_WORKOUT_BY_ID_FAIL, payload: err })
         })
 }
@@ -144,7 +143,6 @@ export const editSet = (token, workoutExerciseId, patch) => dispatch => {
 
 export const deleteSet = (token, workoutExerciseId, setId) => dispatch => {
     dispatch({ type: DELETE_SET_START })
-    console.log("this is setId", setId)
     axiosWithAuthorization(token).delete(`/workout/exercise/${workoutExerciseId}/set/${setId}`, setId)
         .then(res => dispatch({ type: DELETE_SET_SUCCESS, payload: res.data }))
         .catch(err => dispatch({ type: DELETE_SET_FAIL, payload: err }))
