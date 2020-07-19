@@ -392,7 +392,7 @@ export const autoInputStyles = StyleSheet.create({
         alignContent: "center",
         alignSelf: "center",
         width: "90%",
-        marginTop: 25
+        marginTop: 15
     },
     workoutTextWrap: {
 

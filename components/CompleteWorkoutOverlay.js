@@ -14,16 +14,17 @@ const CompleteWorkoutOverlay = ({ visible, navigation, toggleOverlay, completeWo
     const currentExercises = state.workoutReducer.exercises
 
     return (
-        <Overlay overlayStyle={{ ...autoInputStyles.overlayStyle, height: (currentExercises.length * 50) + 250 }} isVisible={visible} onBackdropPress={toggleOverlay}>
+        <Overlay overlayStyle={{ ...autoInputStyles.overlayStyle, height: (currentExercises.length * 35) + 250 }} isVisible={visible} onBackdropPress={toggleOverlay}>
             <View>
                 <TouchableOpacity onPress={() => toggleOverlay()} style={{ paddingHorizontal: 5 }}>
                     <AntDesign style={{ alignSelf: "flex-end", textAlign: "center" }} name="closecircleo" size={24} color="black" />
                 </TouchableOpacity>
-                <View style={{ paddingBottom: 60, alignContent: "center" }}>
-                    <Text style={{ fontWeight: "bold", fontSize: 22, textAlign: "center", paddingBottom: 20 }}>Workout Progress</Text>
+                <View style={{ paddingBottom: 30, alignContent: "center" }}>
+                    <Text style={{ fontWeight: "bold", fontSize: 24, textAlign: "center", paddingBottom: 18 }}>Workout Progress</Text>
                     {currentExercises.map((exercise, index) => (
-                        <View key={index} style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-                            <Text style={{ fontSize: 16 }}>{exercise.exercise} {exercise.sets} set(s)</Text>
+                        <View key={index} style={{ paddingVertical: 5, paddingHorizontal: 10, flexDirection:"row", justifyContent: "space-between" }}>
+                            <Text style={{ fontSize: 16 }}>{exercise.exercise}</Text>
+                            <Text>{exercise.sets} set{exercise.sets > 1 ? "s" : ""}</Text>
                         </View>
                     ))}
                 </View>
@@ -34,7 +35,7 @@ const CompleteWorkoutOverlay = ({ visible, navigation, toggleOverlay, completeWo
                     }} style={autoInputStyles.overlayButton}>
                         <Text style={autoInputStyles.workoutText}>Workout Details</Text>
                     </TouchableOpacity>
-                    <View style={{ marginTop: 10 }}><Text style={autoInputStyles.overlayTitle}>{completeWorkout ? "Are you sure you want to finish your workout?" : ""}</Text></View>
+                    <View style={{ marginTop: completeWorkout ?  10 : 0 }}><Text style={autoInputStyles.overlayTitle}>{completeWorkout ? "Are you sure you want to finish your workout?" : ""}</Text></View>
                     {completeWorkout ? <View style={autoInputStyles.completeWorkoutWrap}>
                         <TouchableOpacity onPress={() => setCompleteWorkout(!completeWorkout)} style={autoInputStyles.overlayButton}>
                             <Text style={autoInputStyles.workoutText}>Cancel</Text>
