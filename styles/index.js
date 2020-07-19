@@ -392,7 +392,7 @@ export const autoInputStyles = StyleSheet.create({
         alignContent: "center",
         alignSelf: "center",
         width: "90%",
-        marginTop: 15
+        marginTop: 25
     },
     workoutTextWrap: {
 
@@ -400,6 +400,7 @@ export const autoInputStyles = StyleSheet.create({
     workoutText: {
         fontSize: 18,
         color: "white",
+        textAlign: "center"
     },
     overlayTitle: {
         fontSize: 18,
