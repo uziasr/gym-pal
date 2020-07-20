@@ -292,7 +292,6 @@ export const exerciseSetStyles = StyleSheet.create({
         color: "white"
     },
     titleWrap: {
-        marginTop: 10,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center'
@@ -300,7 +299,7 @@ export const exerciseSetStyles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold",
-        color: "white"
+        color: "white",
     },
     unitWrap: {
         flexDirection: 'row',
@@ -317,7 +316,7 @@ export const exerciseSetStyles = StyleSheet.create({
         color: "white"
     },
     scrollWrap: {
-        height: 446
+        height: 424
     }
 })
 

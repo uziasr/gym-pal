@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { Overlay } from 'react-native-elements'
 import { Button } from 'react-native-elements'
 import Switches from 'react-native-switches'
 import SetForm from './SetForm'
@@ -8,12 +9,15 @@ import { exerciseSetStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { addSet, completeSet } from '../../state/actions/workoutActions'
 import { NavigationEvents } from 'react-navigation';
+import { FontAwesome } from '@expo/vector-icons';
+
 
 const ExerciseSet = ({ navigation }) => {
 
     const currentExercise = navigation.state.params.exercise
     const [switchValue, setUnit] = useState(true)
     const [mainExerciseSet, setExerciseSet] = useState(navigation.state.params.sets || { [currentExercise]: [] })
+    const [deleting, setDeleting] = useState(false)
 
     const state = useSelector(state => state, shallowEqual)
     const dispatch = useDispatch()
@@ -34,17 +38,33 @@ const ExerciseSet = ({ navigation }) => {
         navigation.navigate('Workout')
     }
 
+
+
     return (
         <View style={exerciseSetStyles.rootWrap}>
+            <TouchableOpacity onPress={() => setDeleting(!deleting)} style={{ padding: 10, paddingBottom: 0 }}>
+                <FontAwesome name="trash-o" size={20} color="red" style={{ alignSelf: "flex-end" }} />
+            </TouchableOpacity>
+            <Overlay isVisible={deleting} onBackdropPress={() => setDeleting(false)}>
+                <Text style={{fontSize:18, fontWeight:"bold"}}>Are you sure you want to delete this exercise?</Text>
+                <View style={{flexDirection:"row", justifyContent:"space-between", alignContent:"center", alignItems:"center", alignSelf:"center"}}>
+                    <TouchableOpacity onPress={()=> setDeleting(false)} style={{margin: 8, marginHorizontal:30, backgroundColor: "dodgerblue", padding: 10, borderRadius: 12}}>
+                        <Text style={{fontSize: 16, color: "white"}}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{margin: 8, marginHorizontal:30, backgroundColor: "dodgerblue", padding: 10, borderRadius: 12}}>
+                        <Text style={{fontSize: 16, color: "white"}}>Delete</Text>
+                    </TouchableOpacity>
+                </View>
+            </Overlay>
             <NavigationEvents
-                onWillFocus={payload => setExerciseSet(()=>{
+                onWillFocus={payload => setExerciseSet(() => {
                     if (navigation.state.params.sets) {
                         return navigation.state.params.sets
                     } else {
                         return { [currentExercise]: [] }
                     }
                 })
-            }
+                }
             />
             <View style={exerciseSetStyles.titleWrap}>
                 <Text style={exerciseSetStyles.title}>{capitalize(currentExercise)}</Text>
