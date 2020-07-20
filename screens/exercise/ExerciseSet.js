@@ -46,18 +46,18 @@ const ExerciseSet = ({ navigation }) => {
 
     return (
         <View style={exerciseSetStyles.rootWrap}>
-            <TouchableOpacity onPress={() => setDeleting(!deleting)} style={{ padding: 10, paddingBottom: 0 }}>
-                <FontAwesome name="trash-o" size={20} color="red" style={{ alignSelf: "flex-end" }} />
+            <TouchableOpacity onPress={() => setDeleting(!deleting)} style={exerciseSetStyles.trashWrap}>
+                <FontAwesome name="trash-o" size={20} color="red" style={exerciseSetStyles.trashStyle} />
             </TouchableOpacity>
             <Overlay isVisible={deleting} onBackdropPress={() => setDeleting(false)}>
                 <View>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Are you sure you want to delete this exercise?</Text>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center", alignSelf: "center" }}>
-                        <TouchableOpacity onPress={() => setDeleting(false)} onPress={() => setDeleting(false)} style={{ margin: 8, marginHorizontal: 30, backgroundColor: "dodgerblue", padding: 10, borderRadius: 12 }}>
-                            <Text style={{ fontSize: 16, color: "white" }}>Cancel</Text>
+                    <Text style={exerciseSetStyles.overlayTitle}>Are you sure you want to delete this exercise?</Text>
+                    <View style={exerciseSetStyles.overlayButtonWrap}>
+                        <TouchableOpacity onPress={() => setDeleting(false)} style={exerciseSetStyles.overlayButton}>
+                            <Text style={exerciseSetStyles.overlayButtonText}>Cancel</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => deleteHandler()} style={{ margin: 8, marginHorizontal: 30, backgroundColor: "dodgerblue", padding: 10, borderRadius: 12 }}>
-                            <Text style={{ fontSize: 16, color: "white" }}>Delete</Text>
+                        <TouchableOpacity onPress={() => deleteHandler()} style={exerciseSetStyles.overlayButton}>
+                            <Text style={exerciseSetStyles.overlayButtonText}>Delete</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

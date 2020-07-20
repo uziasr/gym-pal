@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Button, Overlay } from 'react-native-elements';
-import { workoutStyles } from '../../styles/index'
+import { workoutStyles, autoInputStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getWorkoutById, completeWorkout } from "../../state/actions/workoutActions"
 import { NavigationEvents } from 'react-navigation';
@@ -40,14 +40,14 @@ const Workout = ({ navigation }) => {
                     <View style={workoutStyles.exerciseTextWrap}>
                         <Text style={{ ...workoutStyles.exerciseText, fontSize: 20, fontWeight: "bold" }}>{`${index + 1}   ${exercise.exercise}`}</Text>
                     </View>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: 5, backgroundColor: "whitesmoke", borderRadius: 8 }}>
+                    <View style={workoutStyles.workoutExerciseWrap}>
                         <View>
                             <View>
                                 <View style={workoutStyles.setTextWrapper}>
                                     <Text style={workoutStyles.setText}>Sets</Text>
                                 </View>
                             </View>
-                            <View style={{ ...workoutStyles.setWrapper }}>
+                            <View style={workoutStyles.setWrapper}>
                                 {exercise.sets.map((aSet, index) => {
                                     return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
                                         <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
@@ -104,11 +104,24 @@ const Workout = ({ navigation }) => {
                 :
                 <>
                     <RecordedWorkout />
-                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center", alignContent: "center", paddingVertical: 10 }}>
+                    <View style={workoutStyles.buttonWrap}>
                         <Button onPress={() => toggleOverlay()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue", borderRadius: 15 }} />
                         <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", borderRadius: 15 }} />
                     </View>
-                    <CompleteWorkoutOverlay completeWorkoutHandler={completeHandler} visible={visible} toggleOverlay={toggleOverlay} />
+                    <Overlay overlayStyle={{width: "90%"}} isVisible={visible} onBackdropPress={toggleOverlay}>
+                        <View>
+                            <View style={{ marginTop: 10 }}><Text style={autoInputStyles.overlayTitle}>Are you sure you want to finish your workout?</Text></View>
+                            <View style={autoInputStyles.completeWorkoutWrap}>
+                                <TouchableOpacity onPress={() => toggleOverlay()} style={autoInputStyles.overlayButton}>
+                                    <Text style={autoInputStyles.workoutText}>Cancel</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => completeHandler()} style={autoInputStyles.overlayButton}>
+                                    <Text style={autoInputStyles.workoutText}>Finish Workout</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Overlay>
+                    {/* <CompleteWorkoutOverlay completeWorkoutHandler={completeHandler} visible={visible} toggleOverlay={toggleOverlay} /> */}
                 </>
             }
         </View>

@@ -203,8 +203,8 @@ export const workoutStatsStyles = StyleSheet.create({
     text: {
         color: "white"
     },
-    titleWrap:{
-        paddingVertical: 15, 
+    titleWrap: {
+        paddingVertical: 15,
         alignSelf: "center"
     },
     titleText: {
@@ -317,6 +317,35 @@ export const exerciseSetStyles = StyleSheet.create({
     },
     scrollWrap: {
         height: 424
+    },
+    trashWrap: {
+        padding: 10,
+        paddingBottom: 0
+    },
+    trashStyle: {
+        alignSelf: "flex-end"
+    },
+    overlayTitle: {
+        fontSize: 18,
+        fontWeight: "bold"
+    },
+    overlayButtonWrap: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignContent: "center",
+        alignItems: "center",
+        alignSelf: "center"
+    },
+    overlayButton: {
+        margin: 8,
+        marginHorizontal: 30,
+        backgroundColor: "dodgerblue",
+        padding: 10,
+        borderRadius: 12
+    },
+    overlayButtonText: {
+        fontSize: 16,
+        color: "white"
     }
 })
 
@@ -336,8 +365,8 @@ export const autoInputStyles = StyleSheet.create({
     },
     completeWorkoutButton: {
         padding: 5,
-        right:5,
-        bottom:12,
+        right: 5,
+        bottom: 12,
         alignSelf: "flex-end",
         // width: "30%"
     },
@@ -423,7 +452,7 @@ export const workoutStyles = StyleSheet.create({
         marginHorizontal: 10,
         flexDirection: "column",
         paddingLeft: 10,
-        justifyContent: "flex-start", 
+        justifyContent: "flex-start",
 
     },
     loader: {
@@ -461,6 +490,13 @@ export const workoutStyles = StyleSheet.create({
         alignItems: "center",
         alignContent: "center"
     },
+    workoutExerciseWrap: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginVertical: 5,
+        backgroundColor: "whitesmoke",
+        borderRadius: 8
+    },
     setWrapper: {
         // borderLeftWidth: .25,
         // borderLeftColor: "white",
@@ -468,6 +504,13 @@ export const workoutStyles = StyleSheet.create({
         justifyContent: "flex-start",
         alignContent: "flex-start",
         alignItems: "flex-start"
+    },
+    buttonWrap: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        alignContent: "center",
+        paddingVertical: 10
     }
 })
 
