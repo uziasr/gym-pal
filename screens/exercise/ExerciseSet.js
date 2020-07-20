@@ -7,7 +7,7 @@ import SetForm from './SetForm'
 import Sets from './Sets'
 import { exerciseSetStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { addSet, completeSet } from '../../state/actions/workoutActions'
+import { addSet, completeSet, deleteExercise } from '../../state/actions/workoutActions'
 import { NavigationEvents } from 'react-navigation';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -38,7 +38,11 @@ const ExerciseSet = ({ navigation }) => {
         navigation.navigate('Workout')
     }
 
-
+    const deleteHandler = () => {
+        setDeleting(false)
+        dispatch(deleteExercise(state.reducer.token, state.workoutReducer.workoutExerciseId))
+        navigation.navigate("Exercise")
+    }
 
     return (
         <View style={exerciseSetStyles.rootWrap}>
@@ -46,14 +50,16 @@ const ExerciseSet = ({ navigation }) => {
                 <FontAwesome name="trash-o" size={20} color="red" style={{ alignSelf: "flex-end" }} />
             </TouchableOpacity>
             <Overlay isVisible={deleting} onBackdropPress={() => setDeleting(false)}>
-                <Text style={{fontSize:18, fontWeight:"bold"}}>Are you sure you want to delete this exercise?</Text>
-                <View style={{flexDirection:"row", justifyContent:"space-between", alignContent:"center", alignItems:"center", alignSelf:"center"}}>
-                    <TouchableOpacity onPress={()=> setDeleting(false)} style={{margin: 8, marginHorizontal:30, backgroundColor: "dodgerblue", padding: 10, borderRadius: 12}}>
-                        <Text style={{fontSize: 16, color: "white"}}>Cancel</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{margin: 8, marginHorizontal:30, backgroundColor: "dodgerblue", padding: 10, borderRadius: 12}}>
-                        <Text style={{fontSize: 16, color: "white"}}>Delete</Text>
-                    </TouchableOpacity>
+                <View>
+                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>Are you sure you want to delete this exercise?</Text>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignContent: "center", alignItems: "center", alignSelf: "center" }}>
+                        <TouchableOpacity onPress={() => setDeleting(false)} onPress={() => setDeleting(false)} style={{ margin: 8, marginHorizontal: 30, backgroundColor: "dodgerblue", padding: 10, borderRadius: 12 }}>
+                            <Text style={{ fontSize: 16, color: "white" }}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => deleteHandler()} style={{ margin: 8, marginHorizontal: 30, backgroundColor: "dodgerblue", padding: 10, borderRadius: 12 }}>
+                            <Text style={{ fontSize: 16, color: "white" }}>Delete</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </Overlay>
             <NavigationEvents

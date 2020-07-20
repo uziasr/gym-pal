@@ -29,6 +29,9 @@ import {
     DELETE_SET_START,
     DELETE_SET_SUCCESS,
     DELETE_SET_FAIL,
+    DELETE_EXERCISE_START,
+    DELETE_EXERCISE_SUCCESS,
+    DELETE_EXERCISE_FAIL,
 } from "../actions/workoutActions"
 
 export const initialState = {
@@ -259,7 +262,6 @@ const workoutReducer = (state = initialState, action) => {
                             return action.payload
                         } return sets
                     })
-                ,
             }
         }
         case EDIT_SET_FAIL: {
@@ -284,6 +286,29 @@ const workoutReducer = (state = initialState, action) => {
             }
         }
         case DELETE_SET_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        }
+        case DELETE_EXERCISE_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case DELETE_EXERCISE_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                exerciseInProgress: false,
+                currentExercise: null,
+                fullCurrentExercise: []
+            }
+        }
+        case DELETE_EXERCISE_FAIL: {
+            console.log("err",action.payload)
             return {
                 ...state,
                 loading: false,
