@@ -19,6 +19,7 @@ import { getDashData, getUserWorkout, getWorkoutByDate } from '../../state/actio
 import { getExerciseInProgress, getWorkoutInProgress } from "../../state/actions/workoutActions"
 import { NavigationEvents } from 'react-navigation';
 import Spinner from "../../utils/Spinner"
+import axios from 'axios'
 
 const Dashboard = ({ navigation }) => {
 
@@ -72,7 +73,7 @@ const Dashboard = ({ navigation }) => {
     }, [state.reducer.token, state.workoutReducer.workoutInProgress])
 
 
-    if(state.reducer.tokenError && !state.reducer.tokenOnLoading){
+    if (state.reducer.tokenError && !state.reducer.tokenOnLoading) {
         navigation.navigate("On Board")
     }
 
@@ -120,6 +121,13 @@ const Dashboard = ({ navigation }) => {
         }
     }
 
+    // const dateHandler= () => {
+    //     newDate = new Date()
+    //     axios.post(`http://192.168.1.3:5000/datetest`,{date: `${newDate.getMonth() + 1} ${newDate.getDate()} ${newDate.getFullYear()}`})
+    //         .then(res => console.log(res.data))
+    //         .catch(err => console.log(err))
+    // }
+
 
     const Dash = () => (
         <View style={dashBoardStyles.rootView}>
@@ -127,6 +135,9 @@ const Dashboard = ({ navigation }) => {
                 onWillFocus={payload => dispatch(getDashData(state.reducer.token))}
                 onDidFocus={payload => dispatch(getDashData(state.reducer.token))} />
             <ScrollView>
+                {/* <TouchableOpacity onPress={()=>dateHandler()}>
+                    <Text>Date Button</Text>
+                </TouchableOpacity> */}
                 <View style={dashBoardStyles.contributionTitleWrap}>
                     <Text style={dashBoardStyles.title}>{state.statsReducer.totalWorkouts} Total Workout{state.statsReducer.totalWorkouts ? 's' : ''}!</Text>
                     <ContributionGraph
@@ -189,7 +200,7 @@ const Dashboard = ({ navigation }) => {
 
     return (
         <>
-           {state.reducer.tokenOnLoading || !state.workoutReducer.workoutFetched && !state.workoutReducer.exerciseFetched ? <Spinner/> : <Dash />}
+            {state.reducer.tokenOnLoading || !state.workoutReducer.workoutFetched && !state.workoutReducer.exerciseFetched ? <Spinner /> : <Dash />}
         </>
     );
 };

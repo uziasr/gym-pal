@@ -9,8 +9,9 @@ import Dashboard from '../screens/stats/Dashboard'
 import ExerciseStats from '../screens/stats/ExerciseStats'
 import WorkoutStats from '../screens/stats/WorkoutStats'
 import Auth from '../screens/authenticate/Auth'
+import Home from '../screens/home/Home'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { FontAwesome5, MaterialIcons, Foundation } from '@expo/vector-icons';
+import { FontAwesome5, MaterialIcons, Foundation, Ionicons } from '@expo/vector-icons';
 
 
 const screens = {
@@ -29,7 +30,7 @@ const screens = {
 
 }
 
-const UserStats = {
+const userStatScreens = {
     "Overall Stats": {
         screen: Dashboard
     },
@@ -47,13 +48,28 @@ const authorization = {
     },
 }
 
+const homeScreens = {
+    Home: {
+        screen: Home
+    }
+}
+
 const WorkoutStack = createStackNavigator(screens);
-const StatStack = createStackNavigator(UserStats);
+const StatStack = createStackNavigator(userStatScreens);
 const AuthStack = createStackNavigator(authorization)
+const HomeStack = createStackNavigator(homeScreens)
 
 
 const DashboardTabScreen = createBottomTabNavigator(
     {
+        Home: {
+            screen: Home,
+            navigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({ tintColor }) => (
+                    <Ionicons name="md-home" size={34} color={tintColor} />
+                ),
+            })
+        },
         Stats: {
             screen: StatStack,
             navigationOptions: ({ navigation }) => ({
@@ -78,9 +94,8 @@ const DashboardTabScreen = createBottomTabNavigator(
                 ),
                 tabBarVisible: false
             })
-        }
+        },
     },
-
     {
         tabBarOptions: {
             inactiveTintColor: 'dodgerblue',
