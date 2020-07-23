@@ -18,7 +18,8 @@ export const splitStyles = StyleSheet.create({
     bodyText: {
         alignSelf: 'flex-start',
         fontWeight: 'bold',
-        color: 'black'
+        color: 'black',
+        fontSize: 17,
     },
     bodyView: {
         margin: 5,
@@ -49,6 +50,11 @@ export const splitStyles = StyleSheet.create({
         alignContent: 'center',
         padding: 15,
         margin: 5,
+    },
+    titleText: {
+        color: "white",
+        alignSelf: "center",
+        fontSize: 25,
     }
 })
 

@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Button } from "react-native-elements"
 import { splitStyles } from '../../styles/index';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import splitConversion from './splitHelper';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { startWorkout } from "../../state/actions/workoutActions"
-
 
 const Splits = ({ body, navigation }) => {
 
@@ -55,30 +54,30 @@ const Splits = ({ body, navigation }) => {
 
     return (
         <View style={splitStyles.root}>
+            <View style={{ flexDirection: "row", justifyContent: isSelected ? "space-between" : "center", marginHorizontal: isSelected ? 40 : 10, marginVertical: 25 }}>
+                <Text style={splitStyles.titleText}>Select Your Split</Text>
+                {isSelected ? <TouchableOpacity
+                    disabled={!isSelected}
+                    onPress={() => { pressNavigation() }}>
+                    <FontAwesome name="arrow-circle-o-right" size={40} color="dodgerblue" />
+                </TouchableOpacity> : null}
+            </View>
             <ScrollView>
                 <View style={splitStyles.bodyWrap}>
                     {body.map((split, index) => {
                         return (
-                            <View style={splits[split] ? { ...splitStyles.bodyView, backgroundColor: '#607196' } : { ...splitStyles.bodyView, backgroundColor: '#E8E9ED' }} key={index}>
+                            <View style={splits[split] ? { ...splitStyles.bodyView, backgroundColor: '#344955', color: '#CBD9E1' } : { ...splitStyles.bodyView, backgroundColor: '#E8E9ED' }} key={index}>
                                 <TouchableOpacity onPress={() => updateSplit(split)}>
                                     <View style={splitStyles.muscleWrap}>
                                         <Text
-                                            style={splitStyles.bodyText}
+                                            style={{ ...splitStyles.bodyText, color: splits[split] ? '#E8F0F6' : 'black' }}
                                         >{split.toUpperCase()}</Text>
-                                        <Ionicons name="md-add" size={24} color="black" />
+                                        {splits[split] ?
+                                            <FontAwesome name="check-circle" size={24} color="#CBD9E1" /> : <Ionicons name="md-add" size={24} color='black' />}
                                     </View>
                                 </TouchableOpacity>
                             </View>)
                     })}
-                </View>
-                <View style={splitStyles.buttonView}>
-                    {isSelected ? <Button
-                        title="Start Workout"
-                        buttonStyle={{ borderRadius: 20, alignSelf: "center", width: "80%", marginVertical: 25 }}
-                        disabled={!isSelected}
-                        onPress={() => { pressNavigation() }}
-                    />
-                        : null}
                 </View>
             </ScrollView>
         </View>

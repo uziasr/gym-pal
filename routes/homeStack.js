@@ -63,7 +63,7 @@ const HomeStack = createStackNavigator(homeScreens)
 const DashboardTabScreen = createBottomTabNavigator(
     {
         Home: {
-            screen: Home,
+            screen: HomeStack,
             navigationOptions: ({ navigation }) => ({
                 tabBarIcon: ({ tintColor }) => (
                     <Ionicons name="md-home" size={34} color={tintColor} />
@@ -98,8 +98,8 @@ const DashboardTabScreen = createBottomTabNavigator(
     },
     {
         tabBarOptions: {
-            inactiveTintColor: 'dodgerblue',
-            activeTintColor: 'green',
+            inactiveTintColor: 'grey',
+            activeTintColor: 'dodgerblue',
             // activeBackgroundColor:'black',
             style: {
                 fontSize: 32,
