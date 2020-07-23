@@ -151,9 +151,9 @@ const Dashboard = ({ navigation }) => {
                         onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 10 }}>
-                    <Button title='📅 Workouts by Date 📅' buttonStyle={{ width: "85%", alignSelf: "center", backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => toggleOverlay()} />
-                    <Button disabled={!currentDate} title="Clear Workout(s)" buttonStyle={{ alignSelf: "center", backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => dayPressHandler(rawDate)} />
+                <View style={{ flexDirection: "row", marginBottom: 10, justifyContent: currentDate ? "space-between":"center", width: currentDate ? "80%": "100%", alignSelf:"center",alignContent:"center", alignItems:"center" }}>
+                    <Button title='📅 Workouts by Date 📅' buttonStyle={{ backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => toggleOverlay()} />
+                    {currentDate ? <Button disabled={!currentDate} title="Clear Workout(s)" buttonStyle={{ backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => dayPressHandler(rawDate)} />:null}
                 </View>
                 <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
                     <WorkoutCalendar dates={state.statsReducer.dates} dayPressHandler={dayPressHandler} currentDate={currentDate} />

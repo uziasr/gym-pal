@@ -19,7 +19,7 @@ export const splitStyles = StyleSheet.create({
         alignSelf: 'flex-start',
         fontWeight: 'bold',
         color: 'black',
-        fontSize: 17,
+        fontSize: 16,
     },
     bodyView: {
         margin: 5,
@@ -60,7 +60,7 @@ export const splitStyles = StyleSheet.create({
 
 export const dashBoardStyles = StyleSheet.create({
     title: {
-        fontSize: 24,
+        fontSize: 26,
         color: 'white',
         textAlign: 'center'
     },
@@ -82,7 +82,8 @@ export const dashBoardStyles = StyleSheet.create({
         backgroundColor: 'white'
     },
     contributionTitleWrap: {
-        marginVertical: 15,
+        marginTop: 15,
+        marginBottom:3,
         color: 'white',
         justifyContent: 'center'
     },
@@ -147,14 +148,24 @@ export const exerciseStatsStyles = StyleSheet.create({
 export const contributionViewStyles = StyleSheet.create({
     rootWrap: {
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 15,
+        marginTop:10,
     },
     text: {
         color: 'black'
     },
+    titleText: {
+        color: 'black',
+        fontSize: 20
+    },
+    durationText:{
+        color:"black",
+        fontSize: 16
+    },
     headerText: {
         color: 'white',
-        fontSize: 24
+        fontSize: 26
     },
     workoutDescription: {
         flexDirection: 'row',
@@ -179,16 +190,23 @@ export const contributionViewStyles = StyleSheet.create({
         alignSelf: "center",
         alignContent: "center",
         alignItems: "center",
-        paddingVertical: 12,
+        paddingVertical: 6,
         paddingHorizontal: 5,
-        margin: 0
+        borderRadius: 35,
+        margin: 0,
+        backgroundColor:"white",
+        borderWidth:0
     },
     iconStyle: {
         paddingRight: 25,
         alignSelf: "center",
     },
     workoutView: {
-        width: "75%"
+        width: "75%",
+        flexDirection: "row",
+        alignContent:"center",
+        justifyContent: "space-between",
+        alignItems:"center"
     },
     durationStyle: {
         flexDirection: 'row',
