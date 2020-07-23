@@ -9,7 +9,7 @@ import Dashboard from '../screens/stats/Dashboard'
 import ExerciseStats from '../screens/stats/ExerciseStats'
 import WorkoutStats from '../screens/stats/WorkoutStats'
 import Auth from '../screens/authenticate/Auth'
-import Home from '../screens/home/Home'
+import { Home, WorkoutTemplate, ScheduleForm } from '../screens/home/index'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome5, MaterialIcons, Foundation, Ionicons } from '@expo/vector-icons';
 
@@ -98,7 +98,7 @@ const DashboardTabScreen = createBottomTabNavigator(
     },
     {
         tabBarOptions: {
-            inactiveTintColor: 'grey',
+            inactiveTintColor: 'darkgrey',
             activeTintColor: 'dodgerblue',
             // activeBackgroundColor:'black',
             style: {

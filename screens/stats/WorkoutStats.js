@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { workoutStatsStyles } from '../../styles/index'
 import WorkoutPie from './WorkoutPie';
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
@@ -22,6 +22,9 @@ const WorkoutStats = ({ navigation }) => {
     return state.workoutReducer.loading ?  <Spinner /> : (
         <View style={workoutStatsStyles.root}>
             <WorkoutPie workout={workout} />
+            <TouchableOpacity style={workoutStatsStyles.buttonSaveStyle}>
+                <Text style={workoutStatsStyles.buttonTextSaveStyle}>Save this Workout</Text>
+            </TouchableOpacity>
             <ScrollView>
                 {workout.map((currentExercise, index) => {
                     return <View key={index}>

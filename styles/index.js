@@ -83,7 +83,7 @@ export const dashBoardStyles = StyleSheet.create({
     },
     contributionTitleWrap: {
         marginTop: 15,
-        marginBottom:3,
+        marginBottom: 3,
         color: 'white',
         justifyContent: 'center'
     },
@@ -150,17 +150,18 @@ export const contributionViewStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: 15,
-        marginTop:10,
+        marginTop: 10,
     },
     text: {
-        color: 'black'
+        color: 'black',
+        fontSize: 14
     },
     titleText: {
         color: 'black',
         fontSize: 20
     },
-    durationText:{
-        color:"black",
+    durationText: {
+        color: "black",
         fontSize: 16
     },
     headerText: {
@@ -179,7 +180,8 @@ export const contributionViewStyles = StyleSheet.create({
     withMuscles: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        width: "92%"
     },
     touchableWorkoutWrapper: {
         marginBottom: 10
@@ -194,8 +196,8 @@ export const contributionViewStyles = StyleSheet.create({
         paddingHorizontal: 5,
         borderRadius: 35,
         margin: 0,
-        backgroundColor:"white",
-        borderWidth:0
+        backgroundColor: "white",
+        borderWidth: 0
     },
     iconStyle: {
         paddingRight: 25,
@@ -204,9 +206,9 @@ export const contributionViewStyles = StyleSheet.create({
     workoutView: {
         width: "75%",
         flexDirection: "row",
-        alignContent:"center",
+        alignContent: "center",
         justifyContent: "space-between",
-        alignItems:"center"
+        alignItems: "center"
     },
     durationStyle: {
         flexDirection: 'row',
@@ -224,12 +226,43 @@ export const workoutStatsStyles = StyleSheet.create({
         justifyContent: 'space-evenly',
         flexWrap: 'wrap'
     },
+    buttonStyleExercise: {
+        paddingHorizontal: 15,
+        paddingVertical: 6,
+        backgroundColor: "dodgerblue",
+        borderRadius: 30
+    },
+    buttonSaveStyle: {
+        width: "40%",
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        backgroundColor: "#425C6A",
+        alignSelf: "center",
+        borderRadius: 20,
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    buttonTextSaveStyle: {
+        fontSize:16,
+        alignSelf: "center",
+        color: "white"
+    },
+    buttonTextStyleExercise: {
+        color:"white", 
+        fontSize:16
+    },
     text: {
         color: "white"
     },
     titleWrap: {
         paddingVertical: 15,
-        alignSelf: "center"
+        // alignSelf: "center"
+        justifyContent: "space-between",
+        flexDirection: "row",
+        width: "90%",
+        alignSelf: "center",
+        alignItems: "center"
+
     },
     titleText: {
         fontSize: 20,

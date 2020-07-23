@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Text } from 'react-native'
+import { View, Button, Text, TouchableOpacity } from 'react-native'
 import { workoutStatsStyles } from '../../styles/index'
 import {
     PieChart,
 } from "react-native-chart-kit";
-import { NavigationEvents } from 'react-navigation'
 
 const WorkoutPie = ({ workout }) => {
     const [byExercise, setByExercise] = useState([])
@@ -59,10 +58,14 @@ const WorkoutPie = ({ workout }) => {
         }
     }
 
+
     return (
         <View>
             <View style={workoutStatsStyles.titleWrap}>
                 <Text style={workoutStatsStyles.titleText}>{`Muscles Trained by ${isByExercise ? "Exercise" : "Reps"}`}</Text>
+                <TouchableOpacity style={workoutStatsStyles.buttonStyleExercise} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} >
+                    <Text style={workoutStatsStyles.buttonTextStyleExercise}>{isByExercise ? "By Reps" : "By Exercise"}</Text>
+                </TouchableOpacity>
             </View>
             <PieChart
                 data={!isByExercise && byRep.length ? byRep : byExercise}
@@ -89,7 +92,6 @@ const WorkoutPie = ({ workout }) => {
                 paddingLeft={15}
                 absolute
             />
-            <Button title={isByExercise ? "By Reps" : "By Exercise"} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} />
         </View>
     );
 };

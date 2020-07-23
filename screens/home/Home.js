@@ -1,43 +1,32 @@
-
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { Card, Avatar } from 'react-native-paper';
-// import Typography from '../components/Typography';
 
-const timeToString = (time) => {
-    const date = new Date(time);
-    return date.toISOString().split('T')[0];
-};
 
-const Schedule = () => {
+// const timeToString = (time) => {
+//     const date = new Date(time);
+//     return date.toISOString().split('T')[0];
+// };
+
+const Schedule = ({ navigation }) => {
     const [items, setItems] = useState({});
+    const dateToday = new Date()
+    const formattedDate = `${dateToday.getFullYear()}-${dateToday.getMonth() + 1 > 9 ? '' : 0}${dateToday.getMonth() + 1}-${dateToday.getDate() > 9 ? '' : 0}${dateToday.getDate()}`
+    const [currentDate, setCurrentDate] = useState(formattedDate)
 
+    const loadItems = (day) => {
 
-
-      const loadItems = (day) => {
-        setTimeout(() => {
-          for (let i = -15; i < 85; i++) {
-            const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-            const strTime = timeToString(time);
-            if (!items[strTime]) {
-              items[strTime] = [];
-              const numItems = Math.floor(Math.random() * 3 + 1);
-              for (let j = 0; j < numItems; j++) {
-                items[strTime].push({
-                  name: 'Item for ' + strTime + ' #' + j,
-                  height: Math.max(50, Math.floor(Math.random() * 150)),
-                });
-              }
-            }
-          }
-          const newItems = {};
-          Object.keys(items).forEach((key) => {
-            newItems[key] = items[key];
-          });
-          setItems(newItems);
-        }, 1000);
-      };
+        setItems({
+            '2012-05-22': [{ name: 'item 1 - any js object' }],
+            '2012-05-23': [{ name: 'item 2 - any js object', height: 80 }],
+            '2012-05-25': [{ name: 'item 3 - any js object' }, { name: 'any js object' }],
+            '2020-07-22': [{ name: 'item 3 - any js object' }, { name: 'any js object' }],
+            '2020-07-23': [{ name: 'item 4 - hfdsahflkjjlkfda' },],
+            '2020-07-27': [{ name: 'item 5 - !!!!!!!!!!!!!!!!!!!!!!' },],
+            '2020-07-31': [{ name: 'item 5 - ***************' },],
+        })
+    };
 
 
     const renderItem = (item) => {
@@ -60,14 +49,28 @@ const Schedule = () => {
         );
     };
 
+    const createEvent = () => (
+        <View>
+            <TouchableOpacity onPress={()=>navigation.navigate('')} style={{ marginVertical:40, padding: 20, backgroundColor:"dodgerblue", width:"80%", alignItems: "center", alignSelf: "center", borderRadius: 30}}>
+                <Text style={{color:"white", fontSize:24}}>
+                    Schedule a Workout
+                </Text>
+            </TouchableOpacity>
+        </View>
+    )
+
+
     return (
         <View style={{ flex: 1, height: 400 }}>
             <Agenda
+                // items={items}
                 items={items}
+                onDayChange={day => console.log(day)}
+                onDayPress={(day) => setCurrentDate(day.dateString)}
                 loadItemsForMonth={loadItems}
-                selected={'2017-05-16'}
+                selected={formattedDate}
                 renderItem={renderItem}
-                renderEmptyData={renderItem}
+                renderEmptyData={createEvent}
             />
         </View>
     );

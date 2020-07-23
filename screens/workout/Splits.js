@@ -25,10 +25,6 @@ const Splits = ({ body, navigation }) => {
         })
     }, [body])
 
-    // **************************************************** THIS HERE
-    // navigation.navigate('Login')// remove this after redux
-    // ****************************************************
-
     const updateSplit = (split) => {
         setSplits(() => {
             const newSplit = { ...splits, [split]: !splits[split] }
