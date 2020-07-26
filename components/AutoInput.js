@@ -39,6 +39,7 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExer
         const exerciseByMuscle2 = exerciseByMuscle
         for (let i = 0; i < data.length; i++) {
             exerciseArr.push(data[i])
+            exerciseByMuscle2[data[i].muscle] ? null : console.log(data[i], exerciseByMuscle2[data[i].muscle])
             exerciseByMuscle2[data[i].muscle] = [...exerciseByMuscle2[data[i].muscle], data[i]]
         }
         setExerciseByMuscle(() => {
@@ -62,7 +63,7 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExer
             return filteredArr
         }
     }
-    
+
 
     const toggleOverlay = () => {
         setVisible(() => !visible);

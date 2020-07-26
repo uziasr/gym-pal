@@ -187,14 +187,12 @@ export const contributionViewStyles = StyleSheet.create({
         marginBottom: 10
     },
     workoutCard: {
-        borderRadius: 2,
         width: "100%",
         alignSelf: "center",
         alignContent: "center",
         alignItems: "center",
         paddingVertical: 6,
         paddingHorizontal: 5,
-        borderRadius: 35,
         margin: 0,
         backgroundColor: "white",
         borderWidth: 0
@@ -227,37 +225,41 @@ export const workoutStatsStyles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     buttonStyleExercise: {
-        paddingHorizontal: 15,
+        marginTop:10,
+        marginRight:5,
+        paddingHorizontal: 12,
         paddingVertical: 6,
-        backgroundColor: "dodgerblue",
-        borderRadius: 30
+        backgroundColor: "#425C6A",
+        borderRadius: 30,
+        alignSelf: "flex-end"
     },
     buttonSaveStyle: {
         width: "40%",
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        backgroundColor: "#425C6A",
+        paddingHorizontal: 10,
+        paddingVertical: 7,
         alignSelf: "center",
         borderRadius: 20,
         flexDirection: "row",
-        justifyContent: "space-between"
+        backgroundColor: "dodgerblue",
+        justifyContent: "center",
+        marginVertical: 25
     },
     buttonTextSaveStyle: {
         fontSize:16,
         alignSelf: "center",
-        color: "white"
+        color: "white",
     },
     buttonTextStyleExercise: {
         color:"white", 
-        fontSize:16
+        fontSize:16,
     },
     text: {
         color: "white"
     },
     titleWrap: {
-        paddingVertical: 15,
+        paddingBottom: 15,
         // alignSelf: "center"
-        justifyContent: "space-between",
+        justifyContent: "center",
         flexDirection: "row",
         width: "90%",
         alignSelf: "center",
@@ -265,7 +267,7 @@ export const workoutStatsStyles = StyleSheet.create({
 
     },
     titleText: {
-        fontSize: 20,
+        fontSize: 24,
         color: "white",
         fontWeight: "bold"
     }

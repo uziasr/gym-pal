@@ -26,6 +26,8 @@ const Exercise = ({ navigation }) => {
         }
     }, [])
 
+
+
     const addExercise = (newExercise) => {
         //this should check for the validity of an exercise => autocomplete and exercise
         setWorkout(() => {
@@ -36,6 +38,7 @@ const Exercise = ({ navigation }) => {
         dispatch(addExerciseToWorkout(state.reducer.token, state.workoutReducer.workoutId, { exercise: newExercise }))
         navigation.navigate('Sets', { exercise: newExercise, sets: {[newExercise] : []} })
     }
+
 
     return (
         <View>

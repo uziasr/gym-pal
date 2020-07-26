@@ -5,6 +5,9 @@ import WorkoutPie from './WorkoutPie';
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { getWorkoutById } from '../../state/actions/workoutActions';
 import Spinner from '../../utils/Spinner';
+import { Fontisto } from '@expo/vector-icons';
+import axios from "axios"
+
 
 
 const WorkoutStats = ({ navigation }) => {
@@ -18,13 +21,20 @@ const WorkoutStats = ({ navigation }) => {
         dispatch(getWorkoutById(state.reducer.token, workoutId))
     }, [])
 
+    console.log(workoutId)
 
-    return state.workoutReducer.loading ?  <Spinner /> : (
+    const saveHandler = () => {
+        axios.post(`http://192.168.1.3:5000/saved/workout/${workoutId}`,{name:"full body workout"})
+        .then(res=>console.log(res))
+        .catch(err=>console.log(err))
+    }
+
+    return state.workoutReducer.loading ? <Spinner /> : (
         <View style={workoutStatsStyles.root}>
-            <WorkoutPie workout={workout} />
-            <TouchableOpacity style={workoutStatsStyles.buttonSaveStyle}>
-                <Text style={workoutStatsStyles.buttonTextSaveStyle}>Save this Workout</Text>
+            <TouchableOpacity onPress={()=>saveHandler()} style={workoutStatsStyles.buttonStyleExercise}>
+                <Fontisto name="save" size={16} color="whitesmoke" />
             </TouchableOpacity>
+            <WorkoutPie workout={workout} />
             <ScrollView>
                 {workout.map((currentExercise, index) => {
                     return <View key={index}>
@@ -38,7 +48,7 @@ const WorkoutStats = ({ navigation }) => {
                 })}
             </ScrollView>
         </View>
-    ) 
+    )
 };
 
 export default WorkoutStats;

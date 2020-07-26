@@ -4,6 +4,7 @@ import { workoutStatsStyles } from '../../styles/index'
 import {
     PieChart,
 } from "react-native-chart-kit";
+import { Fontisto } from '@expo/vector-icons';
 
 const WorkoutPie = ({ workout }) => {
     const [byExercise, setByExercise] = useState([])
@@ -63,9 +64,6 @@ const WorkoutPie = ({ workout }) => {
         <View>
             <View style={workoutStatsStyles.titleWrap}>
                 <Text style={workoutStatsStyles.titleText}>{`Muscles Trained by ${isByExercise ? "Exercise" : "Reps"}`}</Text>
-                <TouchableOpacity style={workoutStatsStyles.buttonStyleExercise} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} >
-                    <Text style={workoutStatsStyles.buttonTextStyleExercise}>{isByExercise ? "By Reps" : "By Exercise"}</Text>
-                </TouchableOpacity>
             </View>
             <PieChart
                 data={!isByExercise && byRep.length ? byRep : byExercise}
@@ -92,6 +90,9 @@ const WorkoutPie = ({ workout }) => {
                 paddingLeft={15}
                 absolute
             />
+            <TouchableOpacity style={workoutStatsStyles.buttonSaveStyle} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} >
+                <Text style={workoutStatsStyles.buttonTextSaveStyle}>{isByExercise ? "By Reps" : "By Exercise"}</Text>
+            </TouchableOpacity>
         </View>
     );
 };
