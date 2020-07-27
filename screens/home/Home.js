@@ -51,7 +51,7 @@ const Schedule = ({ navigation }) => {
 
     const createEvent = () => (
         <View>
-            <TouchableOpacity onPress={()=>navigation.navigate('')} style={{ marginVertical:40, padding: 20, backgroundColor:"dodgerblue", width:"80%", alignItems: "center", alignSelf: "center", borderRadius: 30}}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Schedule')} style={{ marginVertical:40, padding: 20, backgroundColor:"dodgerblue", width:"80%", alignItems: "center", alignSelf: "center", borderRadius: 30}}>
                 <Text style={{color:"white", fontSize:24}}>
                     Schedule a Workout
                 </Text>

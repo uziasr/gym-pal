@@ -49,8 +49,11 @@ const authorization = {
 }
 
 const homeScreens = {
-    Home: {
+    Agenda: {
         screen: Home
+    },
+    Schedule: {
+        screen: ScheduleForm
     }
 }
 
