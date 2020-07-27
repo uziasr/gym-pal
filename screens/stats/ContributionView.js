@@ -26,7 +26,7 @@ const ContributionView = ({ workouts, date, navigation }) => {
                 <Text style={contributionViewStyles.headerText}>{formatDate(date)}</Text>
             </View>
             {workouts.map((workout, index) => {
-                return <TouchableOpacity style={contributionViewStyles.touchableWorkoutWrapper} key={index} onPress={() => navigation.navigate('Workout Overview', workout)}>
+                return <TouchableOpacity style={contributionViewStyles.touchableWorkoutWrapper} key={index} onPress={() => navigation.navigate('Workout Overview', { workout , muscles: workout.muscles })}>
                     <Card containerStyle={contributionViewStyles.workoutCard}>
                         <View style={contributionViewStyles.workoutDescription}>
                             <Ionicons style={contributionViewStyles.iconStyle} name="md-fitness" size={50} color="black" />

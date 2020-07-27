@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, ScrollView, } from 'react-native';
-import { Input, Overlay } from 'react-native-elements';
+import { Input } from 'react-native-elements';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import { autoInputStyles } from '../styles/index'
 import splits from '../screens/workout/body'
@@ -39,7 +39,6 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExer
         const exerciseByMuscle2 = exerciseByMuscle
         for (let i = 0; i < data.length; i++) {
             exerciseArr.push(data[i])
-            exerciseByMuscle2[data[i].muscle] ? null : console.log(data[i], exerciseByMuscle2[data[i].muscle])
             exerciseByMuscle2[data[i].muscle] = [...exerciseByMuscle2[data[i].muscle], data[i]]
         }
         setExerciseByMuscle(() => {
