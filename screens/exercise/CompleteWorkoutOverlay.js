@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { Overlay } from 'react-native-elements'
-import { autoInputStyles } from '../styles/index'
+import { autoInputStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { AntDesign } from '@expo/vector-icons';
 

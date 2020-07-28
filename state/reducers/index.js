@@ -39,7 +39,8 @@ const reducer = (state = initialState, action) => {
         case GET_TOKEN_SUCCESS: {
             return {
                 ...state,
-                token: action.payload,
+                token: action.payload.token,
+                name: action.payload.name,
                 tokenOnLoading: false
             }
         }

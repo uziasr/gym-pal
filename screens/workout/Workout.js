@@ -5,7 +5,6 @@ import { workoutStyles, autoInputStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getWorkoutById, completeWorkout } from "../../state/actions/workoutActions"
 import { NavigationEvents } from 'react-navigation';
-import CompleteWorkoutOverlay from "../../components/CompleteWorkoutOverlay"
 import Spinner from "../../utils/Spinner"
 
 const Workout = ({ navigation }) => {

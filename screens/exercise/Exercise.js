@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import AutoInput from '../../components/AutoInput'
+import AutoInput from './AutoInput'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getExercises } from "../../state/actions/exerciseAction"
 import { getWorkoutById } from "../../state/actions/workoutActions"

@@ -49,7 +49,7 @@ const authorization = {
 }
 
 const homeScreens = {
-    Home:{
+    Home: {
         screen: Home
     },
     Schedule: {
@@ -76,20 +76,20 @@ const DashboardTabScreen = createBottomTabNavigator(
                 ),
             })
         },
-        Stats: {
-            screen: StatStack,
-            navigationOptions: ({ navigation }) => ({
-                tabBarIcon: ({ tintColor }) => (
-                    <Foundation name="graph-pie" size={32} color={tintColor} />
-                )
-            }),
-        },
         Workout: {
             screen: WorkoutStack,
             navigationOptions: ({ navigation }) => ({
                 tabBarIcon: ({ tintColor }) => (
                     <FontAwesome5 name="walking" size={28} color={tintColor} />
                 ),
+            }),
+        },
+        Stats: {
+            screen: StatStack,
+            navigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({ tintColor }) => (
+                    <Foundation name="graph-pie" size={32} color={tintColor} />
+                )
             }),
         },
         Account: {

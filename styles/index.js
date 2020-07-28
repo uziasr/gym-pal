@@ -607,3 +607,10 @@ export const registerStyles = ({
         borderRadius: 20
     }
 })
+
+export const homeStyles = StyleSheet.create({
+    root:{
+        backgroundColor: backgroundColor,
+        height: "100%"
+    }
+})

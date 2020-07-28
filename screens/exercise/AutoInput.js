@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, ScrollView, } from 'react-native';
 import { Input } from 'react-native-elements';
 import { AntDesign, Entypo } from '@expo/vector-icons';
-import { autoInputStyles } from '../styles/index'
-import splits from '../screens/workout/body'
+import { autoInputStyles } from '../../styles/index'
+import splits from '../workout/body'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { completeWorkout } from "../state/actions/workoutActions"
+import { completeWorkout } from "../../state/actions/workoutActions"
 import CompleteWorkoutOverlay from './CompleteWorkoutOverlay'
 
 const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExercises }) => {

@@ -24,7 +24,8 @@ export const getToken = () => async dispatch => {
         await axiosWithAuthorization().get("/workout/exercise")
             .catch(err => console.log(err))
         const token = await AsyncStorage.getItem("token")
-        dispatch({ type: GET_TOKEN_SUCCESS, payload: token })
+        const name = await AsyncStorage.getItem("name")
+        dispatch({ type: GET_TOKEN_SUCCESS, payload: { token: token, name: name } })
     } catch {
         console.log(e)
     }
@@ -46,6 +47,7 @@ export const login = (user) => dispatch => {
     axiosWithAuthorization(null).post("/user/signin", user)
         .then(async (res) => {
             await AsyncStorage.setItem("token", res.data.token)
+            await AsyncStorage.setItem("name", res.data.name)
             dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data })
         })
         .catch(err => {
@@ -58,6 +60,7 @@ export const register = (user) => dispatch => {
     axiosWithAuthorization(null).post("/user/signup", user)
         .then(async res => {
             await AsyncStorage.setItem("token", res.data.token)
+            await AsyncStorage.setItem("name", res.data.name)
             dispatch({ type: REGISTER_SUCCESS, payload: res.data })
         })
         .catch(err => {

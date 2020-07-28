@@ -18,8 +18,6 @@ const Schedule = ({ navigation }) => {
 
 
     const loadItems = (day) => {
-
-        console.log(state.reducer.token)
         axiosWithAuthorization(state.reducer.token).get("/workout/schedule")
             .then(res => {
                 setItems(res.data)

@@ -2,24 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Overlay, Button } from 'react-native-elements'
-import {
-    // LineChart,
-    // BarChart,
-    // PieChart,
-    // ProgressChart,
-    ContributionGraph,
-    // StackedBarChart
-} from "react-native-chart-kit";
+import { ContributionGraph } from "react-native-chart-kit";
 import WorkoutCalendar from './WorkoutCalendar';
 import ContributionView from './ContributionView';
 import { dashBoardStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { getToken } from '../../state/actions/index'
 import { getDashData, getUserWorkout, getWorkoutByDate } from '../../state/actions/statsActions'
-import { getExerciseInProgress, getWorkoutInProgress } from "../../state/actions/workoutActions"
 import { NavigationEvents } from 'react-navigation';
 import Spinner from "../../utils/Spinner"
-import axios from 'axios'
+
 
 const Dashboard = ({ navigation }) => {
 
@@ -63,13 +54,7 @@ const Dashboard = ({ navigation }) => {
     () => navigation.addListener('focus', () => console.log('Screen was focused'))
 
     useEffect(() => {
-        // dispatch(getToken())
         dispatch(getDashData(state.reducer.token))
-        // these next dispatches are put in place here to update the state for the user
-        // since this is the landing screen for now
-        dispatch(getExerciseInProgress(state.reducer.token))
-        dispatch(getWorkoutInProgress(state.reducer.token))
-
     }, [state.reducer.token, state.workoutReducer.workoutInProgress])
 
 
@@ -121,25 +106,12 @@ const Dashboard = ({ navigation }) => {
         }
     }
 
-    // const dateHandler= () => {
-    //     const newDate = new Date()
-    //     const formattedDate = `${newDate.getMonth() + 1} ${newDate.getDate()} ${newDate.getFullYear()}`
-    //     console.log(formattedDate)
-    //     axios.post(`http://192.168.1.3:5000/datetest`,{date: formattedDate})
-    //         .then(res => console.log(res.data))
-    //         .catch(err => console.log(err))
-    // }
-
-
     const Dash = () => (
         <View style={dashBoardStyles.rootView}>
             <NavigationEvents
                 onWillFocus={payload => dispatch(getDashData(state.reducer.token))}
                 onDidFocus={payload => dispatch(getDashData(state.reducer.token))} />
             <ScrollView>
-                {/* <TouchableOpacity onPress={()=>dateHandler()}>
-                    <Text>Date Button</Text>
-                </TouchableOpacity> */}
                 <View style={dashBoardStyles.contributionTitleWrap}>
                     <Text style={dashBoardStyles.title}>{state.statsReducer.totalWorkouts} Total Workout{state.statsReducer.totalWorkouts ? 's' : ''}!</Text>
                     <ContributionGraph
@@ -179,7 +151,6 @@ const Dashboard = ({ navigation }) => {
                         )) : null}
                     </ScrollView>
                 </View>
-                {/* Could be its own component! */}
                 <View style={dashBoardStyles.statsDropDownWrap}>
                     <ScrollView>
                         <TouchableOpacity onPress={() => dropDownHandler('workouts')} style={dashBoardStyles.statsDropDownStyle}>
