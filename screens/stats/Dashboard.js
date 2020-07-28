@@ -63,7 +63,7 @@ const Dashboard = ({ navigation }) => {
     () => navigation.addListener('focus', () => console.log('Screen was focused'))
 
     useEffect(() => {
-        dispatch(getToken())
+        // dispatch(getToken())
         dispatch(getDashData(state.reducer.token))
         // these next dispatches are put in place here to update the state for the user
         // since this is the landing screen for now
@@ -122,8 +122,10 @@ const Dashboard = ({ navigation }) => {
     }
 
     // const dateHandler= () => {
-    //     newDate = new Date()
-    //     axios.post(`http://192.168.1.3:5000/datetest`,{date: `${newDate.getMonth() + 1} ${newDate.getDate()} ${newDate.getFullYear()}`})
+    //     const newDate = new Date()
+    //     const formattedDate = `${newDate.getMonth() + 1} ${newDate.getDate()} ${newDate.getFullYear()}`
+    //     console.log(formattedDate)
+    //     axios.post(`http://192.168.1.3:5000/datetest`,{date: formattedDate})
     //         .then(res => console.log(res.data))
     //         .catch(err => console.log(err))
     // }

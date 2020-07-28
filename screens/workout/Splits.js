@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import { Button } from "react-native-elements"
 import { splitStyles } from '../../styles/index';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import splitConversion from './splitHelper';

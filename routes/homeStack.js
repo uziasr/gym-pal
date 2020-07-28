@@ -9,7 +9,7 @@ import Dashboard from '../screens/stats/Dashboard'
 import ExerciseStats from '../screens/stats/ExerciseStats'
 import WorkoutStats from '../screens/stats/WorkoutStats'
 import Auth from '../screens/authenticate/Auth'
-import { Home, WorkoutTemplate, ScheduleForm } from '../screens/home/index'
+import { Schedule, WorkoutTemplate, ScheduleForm, Home } from '../screens/home/index'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome5, MaterialIcons, Foundation, Ionicons } from '@expo/vector-icons';
 
@@ -49,10 +49,13 @@ const authorization = {
 }
 
 const homeScreens = {
-    Agenda: {
+    Home:{
         screen: Home
     },
     Schedule: {
+        screen: Schedule
+    },
+    "Schedule Workout": {
         screen: ScheduleForm
     }
 }

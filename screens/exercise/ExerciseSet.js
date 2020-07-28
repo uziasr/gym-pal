@@ -89,7 +89,7 @@ const ExerciseSet = ({ navigation }) => {
                     {exerciseSet.length > 0 ? exerciseSet.map((exerciseSet, index) => <Sets key={exerciseSet.id} order={exerciseSet.set_order} exerciseSet={exerciseSet} />) : null}
                 </ScrollView>
             </View>
-            <View>
+            <View style={{bottom: 250}}>
                 <Button title='Complete' disabled={!(exerciseSet.length > 0)} onPress={() => completeExercise()} buttonStyle={{ backgroundColor: '#18A558' }} />
             </View>
         </View>
