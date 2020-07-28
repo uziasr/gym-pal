@@ -2,30 +2,31 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { Card, Avatar } from 'react-native-paper';
+import { axiosWithAuthorization } from '../../utils/index'
+import { useSelector, useDispatch, shallowEqual } from "react-redux"
 
 
-// const timeToString = (time) => {
-//     const date = new Date(time);
-//     return date.toISOString().split('T')[0];
-// };
+
 
 const Schedule = ({ navigation }) => {
+
     const [items, setItems] = useState({});
     const dateToday = new Date()
     const formattedDate = `${dateToday.getFullYear()}-${dateToday.getMonth() + 1 > 9 ? '' : 0}${dateToday.getMonth() + 1}-${dateToday.getDate() > 9 ? '' : 0}${dateToday.getDate()}`
     const [currentDate, setCurrentDate] = useState(formattedDate)
+    const state = useSelector(state => state, shallowEqual)
+
 
     const loadItems = (day) => {
 
-        setItems({
-            '2012-05-22': [{ name: 'item 1 - any js object' }],
-            '2012-05-23': [{ name: 'item 2 - any js object', height: 80 }],
-            '2012-05-25': [{ name: 'item 3 - any js object' }, { name: 'any js object' }],
-            '2020-07-22': [{ name: 'item 3 - any js object' }, { name: 'any js object' }],
-            '2020-07-23': [{ name: 'item 4 - hfdsahflkjjlkfda' },],
-            '2020-07-27': [{ name: 'item 5 - !!!!!!!!!!!!!!!!!!!!!!' },],
-            '2020-07-31': [{ name: 'item 5 - ***************' },],
-        })
+        console.log(state.reducer.token)
+        axiosWithAuthorization(state.reducer.token).get("/workout/schedule")
+            .then(res => {
+                setItems(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     };
 
 
@@ -40,8 +41,8 @@ const Schedule = ({ navigation }) => {
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
                             }}>
-                            <Text>{item ? item.name : null}</Text>
-                            <Avatar.Text label="J" />
+                            <Text style={{fontSize:20}}>{item ? item.name : null}</Text>
+                            <Avatar.Text label={item ? item.name[0].toUpperCase() : null} />
                         </View>
                     </Card.Content>
                 </Card>
@@ -64,7 +65,6 @@ const Schedule = ({ navigation }) => {
     return (
         <View style={{ flex: 1, height: 400 }}>
             <Agenda
-                // items={items}
                 items={items}
                 onDayChange={day => console.log(day)}
                 onDayPress={(day) => setCurrentDate(day.dateString)}
