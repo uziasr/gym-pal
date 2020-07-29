@@ -32,22 +32,47 @@ const Home = ({ navigation }) => {
 
     return (
         <View style={homeStyles.root}>
+            <View style={{ marginVertical: 15 }}>
+                <Text style={{ fontSize: 28, color: "white", alignSelf: "center" }}>Welcome {state.reducer.name ? state.reducer.name : null}</Text>
+            </View>
             <View>
-                <Text style={{ fontSize: 28, color: "white", alignSelf: "center", marginVertical: 15 }}>Welcome {state.reducer.name ? state.reducer.name : null}</Text>
+                <View style={{ marginLeft: 15, marginBottom: 15 }}>
+                    <Text style={{ fontSize: 20, color: "white" }}>Schedule</Text>
+                </View>
+                <TouchableOpacity onPress={() => navigation.navigate("Schedule")} style={{ alignSelf: "center", alignContent: "center", alignItems: "center", flexDirection: "row", justifyContent: "space-evenly", width: "95%", marginBottom: 10, backgroundColor: "mediumseagreen", borderRadius: 20, paddingVertical: 20 }}>
+                    <Text style={{ color: "white", fontSize: 20 }}>Go To Schedule</Text>
+                </TouchableOpacity>
             </View>
             {scheduledWorkout.length ?
                 <View>
-                    <Text style={{ fontSize: 20, color: "white", marginLeft: 15, marginVertical: 15 }}>Workout of the Day</Text>
+                    <View style={{ marginLeft: 15, marginVertical: 15 }}>
+                        <Text style={{ fontSize: 20, color: "white" }}>Today's workout!</Text>
+                    </View>
                     {scheduledWorkout.map((workout, index) => (
-                        <View key={index}>
-                            <Text style={{color:"white"}}>{workout.name}</Text>
-                        </View>
+                        <TouchableOpacity key={index} style={{ alignSelf: "center", alignContent: "center", alignItems: "center", flexDirection: "row", justifyContent: "space-evenly", width: "95%", marginBottom: 25, backgroundColor: "dodgerblue", borderRadius: 20, paddingVertical: 10 }}>
+                            <View>
+                                <Text style={{ color: "white", fontSize: 18 }}>{workout.name}</Text>
+                            </View>
+                            <View>
+                                <Text style={{ alignSelf: "center", color: "white", fontSize: 16 }}>Muscles Trained</Text>
+                                {workout.muscles.map((muscle, index) => (
+                                    <View key={index}>
+                                        <Text style={{ color: "white" }}>{muscle}</Text>
+                                    </View>
+                                ))}
+                            </View>
+                            <View>
+                                <Text style={{ alignSelf: "center", color: "white", fontSize: 16 }}>Exercises</Text>
+                                {workout.exercises.map((exercise, index) => (
+                                    <View key={index}>
+                                        <Text style={{ color: "white" }}>{exercise}</Text>
+                                    </View>
+                                ))}
+                            </View>
+                        </TouchableOpacity>
                     ))}
                 </View> : null
             }
-            <TouchableOpacity onPress={() => navigation.navigate("Schedule")}>
-                <Text>Go To Schedule</Text>
-            </TouchableOpacity>
         </View>
     );
 };
