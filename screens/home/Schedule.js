@@ -18,7 +18,7 @@ const Schedule = ({ navigation }) => {
 
 
     const loadItems = (day) => {
-        axiosWithAuthorization(state.reducer.token).get("/workout/schedule")
+        axiosWithAuthorization(state.reducer.token).get("/saved/schedule")
             .then(res => {
                 setItems(res.data)
             })

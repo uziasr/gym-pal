@@ -18,7 +18,7 @@ import { axiosWithAuthorization } from "../../utils/index"
 
 export const getDashData = (token) => dispatch => {
     dispatch({ type: GET_ALL_EXERCISE_START })
-    axiosWithAuthorization(token).get("/user/exercise")
+    axiosWithAuthorization(token).get("/exercise/user")
         .then(res => {
             dispatch({ type: GET_ALL_EXERCISE_SUCCESS, payload: res.data })
         })
@@ -29,7 +29,7 @@ export const getDashData = (token) => dispatch => {
 
 export const getUserWorkout = (token) => dispatch => {
     dispatch({ type: GET_USER_WORKOUT_START })
-    axiosWithAuthorization(token).get(`/user/workouts`)
+    axiosWithAuthorization(token).get(`/workout/all`)
         .then(res => {
             dispatch({ type: GET_USER_WORKOUT_SUCCESS, payload: res.data })
         })
@@ -40,7 +40,7 @@ export const getUserWorkout = (token) => dispatch => {
 
 export const getWorkoutByDate = (token, date) => dispatch => {
     dispatch({ type: GET_WORKOUT_BY_DATE_START })
-    axiosWithAuthorization(token).post("/user/workouts/date", date)
+    axiosWithAuthorization(token).post("/workout/date", date)
         .then(res => {
             dispatch({ type: GET_WORKOUT_BY_DATE_SUCCESS, payload: res.data })
         })
@@ -51,7 +51,7 @@ export const getWorkoutByDate = (token, date) => dispatch => {
 
 export const getExerciseStats = (token, exerciseId) => dispatch => {
     dispatch({ type: GET_EXERCISE_STATS_START })
-    axiosWithAuthorization(token).get(`user/exercise/${exerciseId}`)
+    axiosWithAuthorization(token).get(`/exercise/${exerciseId}`)
         .then(res => {
             dispatch({ type: GET_EXERCISE_STATS_SUCCESS, payload: res.data })
         })

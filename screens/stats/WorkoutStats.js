@@ -15,7 +15,7 @@ const WorkoutStats = ({ navigation }) => {
 
     const workoutId = navigation.state.params.workout.id
     const muscles = navigation.state.params.muscles
-    
+
     const state = useSelector(state => state, shallowEqual)
     const dispatch = useDispatch()
     const workout = state.workoutReducer.currentWorkout
@@ -37,7 +37,7 @@ const WorkoutStats = ({ navigation }) => {
 
         const saveHandler = () => {
             onToggle()
-            axiosWithAuthorization(state.reducer.token).post(`/saved/workout/${workoutId}`, { name: "Back Day" })
+            axiosWithAuthorization(state.reducer.token).post(`/saved/workout/${workoutId}`, { name: workoutName })
                 .then(res => console.log(res))
                 .catch(err => console.log(err.response))
         }
@@ -68,7 +68,7 @@ const WorkoutStats = ({ navigation }) => {
                 </View>
                 <View style={{ flexDirection: "row", alignSelf: "center", justifyContent: "space-between", width: "60%" }}>
                     <TouchableOpacity style={{ marginBottom: 10, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 10, backgroundColor: "dodgerblue" }} onPress={onToggle}><Text style={{ color: "white" }}>Cancel</Text></TouchableOpacity>
-                    <TouchableOpacity style={{ marginBottom: 10, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 10, backgroundColor: workoutName.length ? "dodgerblue" : "lightgray" }} disabled={!workoutName}><Text style={{ color: workoutName.length ? "white" : "black" }}>Save</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => saveHandler()} style={{ marginBottom: 10, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 10, backgroundColor: workoutName.length ? "dodgerblue" : "lightgray" }} disabled={!workoutName}><Text style={{ color: workoutName.length ? "white" : "black" }}>Save</Text></TouchableOpacity>
                 </View>
             </Overlay>
         )

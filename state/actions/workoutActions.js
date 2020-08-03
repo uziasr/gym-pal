@@ -46,9 +46,7 @@ import { axiosWithAuthorization } from '../../utils/index'
 
 export const addSet = (token, workoutExerciseId, formattedSet) => dispatch => {
     dispatch({ type: ADD_SET_START })
-    axiosWithAuthorization(token).post(`/workout/exercise/${workoutExerciseId}/set
-    
-    `, formattedSet)
+    axiosWithAuthorization(token).post(`/workout/exercise/${workoutExerciseId}/set`, formattedSet)
         .then(res => {
             dispatch({ type: ADD_SET_SUCCESS, payload: res.data })
         })
@@ -73,7 +71,7 @@ export const addExerciseToWorkout = (token, workoutId, exercise) => dispatch => 
 
 export const startWorkout = (token, musclesObj) => dispatch => {
     dispatch({ type: START_WORKOUT_START })
-    axiosWithAuthorization(token).post("/user/workout", musclesObj)
+    axiosWithAuthorization(token).post("/workout", musclesObj)
         .then(res => {
             dispatch({ type: START_WORKOUT_SUCCESS, payload: res.data })
         })
@@ -129,7 +127,7 @@ export const getWorkoutById = (token, workoutID) => dispatch => {
 
 export const completeWorkout = (token, workoutID) => dispatch => {
     dispatch({ type: COMPLETE_WORKOUT_START })
-    axiosWithAuthorization(token).get(`/workout/${workoutID}/end`)
+    axiosWithAuthorization(token).get(`/workout/${workoutID}/complete`)
         .then(res => {
             dispatch({ type: COMPLETE_WORKOUT_SUCCESS })
         })

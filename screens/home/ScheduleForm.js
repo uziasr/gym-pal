@@ -11,7 +11,7 @@ const ScheduleForm = ({ navigation }) => {
     const currentDate = navigation.state.params.date
 
     useEffect(()=>{
-        axiosWithAuthorization(state.reducer.token).get("/workout/saved")
+        axiosWithAuthorization(state.reducer.token).get("/saved/workout")
         .then(res=>{
             setSavedWorkouts(res.data)
         })
@@ -21,7 +21,7 @@ const ScheduleForm = ({ navigation }) => {
     },[])
 
     const saveWorkout = (id) =>{
-        axiosWithAuthorization(state.reducer.token).post(`/workout/saved/${id}/schedule`, {date: currentDate})
+        axiosWithAuthorization(state.reducer.token).post(`/saved/${id}/schedule`, {date: currentDate})
         .then(res=>{
             console.log(res.data)
         })

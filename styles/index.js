@@ -347,6 +347,7 @@ export const setFormStyles = StyleSheet.create({
 
 export const exerciseSetStyles = StyleSheet.create({
     rootWrap: {
+        height:"100%",
         backgroundColor: backgroundColor,
         color: "white"
     },

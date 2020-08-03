@@ -21,8 +21,6 @@ import { axiosWithAuthorization } from "../../utils/index"
 export const getToken = () => async dispatch => {
     dispatch({ type: GET_TOKEN_START });
     try {
-        await axiosWithAuthorization().get("/workout/exercise")
-            .catch(err => console.log(err))
         const token = await AsyncStorage.getItem("token")
         const name = await AsyncStorage.getItem("name")
         dispatch({ type: GET_TOKEN_SUCCESS, payload: { token: token, name: name } })
@@ -33,7 +31,7 @@ export const getToken = () => async dispatch => {
 
 export const getExercises = () => dispatch => {
     dispatch({ type: GET_EXERCISE_START })
-    axiosWithAuthorization().get(`/workout/exercise`)
+    axiosWithAuthorization().get(`/exercise`)
         .then(res => {
             dispatch({ type: GET_EXERCISE_SUCCESS, payload: res.data })
         })
@@ -44,7 +42,7 @@ export const getExercises = () => dispatch => {
 
 export const login = (user) => dispatch => {
     dispatch({ type: LOGIN_USER_START })
-    axiosWithAuthorization(null).post("/user/signin", user)
+    axiosWithAuthorization(null).post("/user/login", user)
         .then(async (res) => {
             await AsyncStorage.setItem("token", res.data.token)
             await AsyncStorage.setItem("name", res.data.name)
@@ -57,7 +55,7 @@ export const login = (user) => dispatch => {
 
 export const register = (user) => dispatch => {
     dispatch({ type: REGISTER_START })
-    axiosWithAuthorization(null).post("/user/signup", user)
+    axiosWithAuthorization(null).post("/user/register", user)
         .then(async res => {
             await AsyncStorage.setItem("token", res.data.token)
             await AsyncStorage.setItem("name", res.data.name)

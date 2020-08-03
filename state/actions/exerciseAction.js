@@ -6,7 +6,7 @@ import { axiosWithAuthorization } from "../../utils/index"
 
 export const getExercises = () => dispatch => {
     dispatch({ type: GET_EXERCISE_LIST_START })
-    axiosWithAuthorization(null).get("/workout/exercise")
+    axiosWithAuthorization(null).get("/exercise")
         .then(res => {
             dispatch({ type: GET_EXERCISE_LIST_SUCCESS, payload: res.data })
         })
