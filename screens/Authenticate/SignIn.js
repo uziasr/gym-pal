@@ -14,7 +14,7 @@ const SignIn = ({ navigation }) => {
 
     const loginHandler = () => {
         dispatch(login(newUser))
-        navigation.navigate("Workout")
+        navigation.navigate("Home")
     }
 
     const inputChangeHandler = (name, text) => {

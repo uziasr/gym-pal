@@ -29,7 +29,7 @@ const Register = ({ navigation }) => {
     function handleRegister() {
         dispatch(register(values))
         if (state.token) {
-            navigation.navigate("Workout")
+            navigation.navigate("Home")
         }
     }
 

@@ -50,7 +50,7 @@ const ExerciseStats = ({ navigation }) => {
                     }
                 }}
                 style={{
-                    marginBottom: 10
+                    marginBottom: 0
                 }}
                 width={410}
                 height={350}
@@ -63,11 +63,11 @@ const ExerciseStats = ({ navigation }) => {
 
     const ValidResponse = () => (
         <View style={exerciseStatsStyles.root}>
-            <View style={exerciseStatsStyles.titleWrap}>
-                <Text style={exerciseStatsStyles.title}>{exercise.name}</Text>
-            </View>
-            <Bar />
             <ScrollView style={{ width: "100%", alignContent: "center" }}>
+                <View style={exerciseStatsStyles.titleWrap}>
+                    <Text style={exerciseStatsStyles.title}>{exercise.name}</Text>
+                </View>
+                <Bar />
                 <View style={exerciseStatsStyles.statsView}>
                     <Text style={exerciseStatsStyles.statsText}>Projected One Rep Max</Text>
                     <Text style={exerciseStatsStyles.statsText}> {Math.round(state.statsReducer.exerciseData.projected_one_rep.max_weight)}</Text>

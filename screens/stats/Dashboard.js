@@ -2,23 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Overlay, Button } from 'react-native-elements'
-import {
-    // LineChart,
-    // BarChart,
-    // PieChart,
-    // ProgressChart,
-    ContributionGraph,
-    // StackedBarChart
-} from "react-native-chart-kit";
+import { ContributionGraph } from "react-native-chart-kit";
 import WorkoutCalendar from './WorkoutCalendar';
 import ContributionView from './ContributionView';
 import { dashBoardStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { getToken } from '../../state/actions/index'
 import { getDashData, getUserWorkout, getWorkoutByDate } from '../../state/actions/statsActions'
-import { getExerciseInProgress, getWorkoutInProgress } from "../../state/actions/workoutActions"
 import { NavigationEvents } from 'react-navigation';
 import Spinner from "../../utils/Spinner"
+
 
 const Dashboard = ({ navigation }) => {
 
@@ -61,21 +53,14 @@ const Dashboard = ({ navigation }) => {
     const screenWidth = Dimensions.get("window").width;
     () => navigation.addListener('focus', () => console.log('Screen was focused'))
 
-
     useEffect(() => {
-        dispatch(getToken())
         dispatch(getDashData(state.reducer.token))
-        // these next dispatches are put in place here to update the state for the user
-        // since this is the landing screen for now
-        dispatch(getExerciseInProgress(state.reducer.token))
-        dispatch(getWorkoutInProgress(state.reducer.token))
-
     }, [state.reducer.token, state.workoutReducer.workoutInProgress])
 
-    // useEffect(
-    //     () => { navigation.addListener('blur', () => console.log('Screen was unfocused')) },
-    //     []
-    // );
+
+    if (state.reducer.tokenError && !state.reducer.tokenOnLoading) {
+        navigation.navigate("On Board")
+    }
 
     const getExerciseFrequencyByDate = (dateArray) => {
         dateDict = {}
@@ -140,9 +125,9 @@ const Dashboard = ({ navigation }) => {
                         onDayPress={(contribution) => dayPressHandler(contribution)}
                     />
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 10 }}>
-                    <Button title='📅 Workouts by Date 📅' buttonStyle={{ width: "85%", alignSelf: "center", backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => toggleOverlay()} />
-                    <Button disabled={!currentDate} title="Clear Workout(s)" buttonStyle={{ alignSelf: "center", backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => dayPressHandler(rawDate)} />
+                <View style={{ flexDirection: "row", marginBottom: 10, justifyContent: currentDate ? "space-between":"center", width: currentDate ? "80%": "100%", alignSelf:"center",alignContent:"center", alignItems:"center" }}>
+                    <Button title='📅 Workouts by Date 📅' buttonStyle={{ backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => toggleOverlay()} />
+                    {currentDate ? <Button disabled={!currentDate} title="Clear Workout(s)" buttonStyle={{ backgroundColor: "#1E90FF", borderRadius: 20 }} onPress={() => dayPressHandler(rawDate)} />:null}
                 </View>
                 <Overlay overlayStyle={{ width: '90%', height: 400 }} isVisible={visible} onBackdropPress={toggleOverlay}>
                     <WorkoutCalendar dates={state.statsReducer.dates} dayPressHandler={dayPressHandler} currentDate={currentDate} />
@@ -166,7 +151,6 @@ const Dashboard = ({ navigation }) => {
                         )) : null}
                     </ScrollView>
                 </View>
-                {/* Could be its own component! */}
                 <View style={dashBoardStyles.statsDropDownWrap}>
                     <ScrollView>
                         <TouchableOpacity onPress={() => dropDownHandler('workouts')} style={dashBoardStyles.statsDropDownStyle}>
@@ -189,7 +173,7 @@ const Dashboard = ({ navigation }) => {
 
     return (
         <>
-           {state.workoutReducer.loading ? <Spinner/> : <Dash />}
+            {state.reducer.tokenOnLoading || !state.workoutReducer.workoutFetched && !state.workoutReducer.exerciseFetched ? <Spinner /> : <Dash />}
         </>
     );
 };

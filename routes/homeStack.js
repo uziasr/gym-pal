@@ -9,8 +9,9 @@ import Dashboard from '../screens/stats/Dashboard'
 import ExerciseStats from '../screens/stats/ExerciseStats'
 import WorkoutStats from '../screens/stats/WorkoutStats'
 import Auth from '../screens/authenticate/Auth'
+import { Schedule, WorkoutTemplate, ScheduleForm, Home } from '../screens/home/index'
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { FontAwesome5, MaterialIcons, Foundation } from '@expo/vector-icons';
+import { FontAwesome5, MaterialIcons, Foundation, Ionicons } from '@expo/vector-icons';
 
 
 const screens = {
@@ -29,7 +30,7 @@ const screens = {
 
 }
 
-const UserStats = {
+const userStatScreens = {
     "Overall Stats": {
         screen: Dashboard
     },
@@ -47,20 +48,33 @@ const authorization = {
     },
 }
 
+const homeScreens = {
+    Home: {
+        screen: Home
+    },
+    Schedule: {
+        screen: Schedule
+    },
+    "Schedule Workout": {
+        screen: ScheduleForm
+    }
+}
+
 const WorkoutStack = createStackNavigator(screens);
-const StatStack = createStackNavigator(UserStats);
+const StatStack = createStackNavigator(userStatScreens);
 const AuthStack = createStackNavigator(authorization)
+const HomeStack = createStackNavigator(homeScreens)
 
 
 const DashboardTabScreen = createBottomTabNavigator(
     {
-        Stats: {
-            screen: StatStack,
+        Home: {
+            screen: HomeStack,
             navigationOptions: ({ navigation }) => ({
                 tabBarIcon: ({ tintColor }) => (
-                    <Foundation name="graph-pie" size={32} color={tintColor} />
-                )
-            }),
+                    <Ionicons name="md-home" size={34} color={tintColor} />
+                ),
+            })
         },
         Workout: {
             screen: WorkoutStack,
@@ -68,6 +82,14 @@ const DashboardTabScreen = createBottomTabNavigator(
                 tabBarIcon: ({ tintColor }) => (
                     <FontAwesome5 name="walking" size={28} color={tintColor} />
                 ),
+            }),
+        },
+        Stats: {
+            screen: StatStack,
+            navigationOptions: ({ navigation }) => ({
+                tabBarIcon: ({ tintColor }) => (
+                    <Foundation name="graph-pie" size={32} color={tintColor} />
+                )
             }),
         },
         Account: {
@@ -78,13 +100,12 @@ const DashboardTabScreen = createBottomTabNavigator(
                 ),
                 tabBarVisible: false
             })
-        }
+        },
     },
-
     {
         tabBarOptions: {
-            inactiveTintColor: 'dodgerblue',
-            activeTintColor: 'green',
+            inactiveTintColor: 'darkgrey',
+            activeTintColor: 'dodgerblue',
             // activeBackgroundColor:'black',
             style: {
                 fontSize: 32,

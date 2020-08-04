@@ -30,13 +30,23 @@ export const COMPLETE_WORKOUT_START = "COMPLETE_WORKOUT_START"
 export const COMPLETE_WORKOUT_SUCCESS = "COMPLETE_WORKOUT_SUCCESS"
 export const COMPLETE_WORKOUT_FAIL = "COMPLETE_WORKOUT_FAIL"
 
+export const EDIT_SET_START = "EDIT_SET_START"
+export const EDIT_SET_SUCCESS = "EDIT_SET_SUCCESS"
+export const EDIT_SET_FAIL = "EDIT_SET_FAIL"
+
+export const DELETE_SET_START = "DELETE_SET_START"
+export const DELETE_SET_SUCCESS = "DELETE_SET_SUCCESS"
+export const DELETE_SET_FAIL = "DELETE_SET_FAIL"
+
+export const DELETE_EXERCISE_START = "DELETE_EXERCISE_START"
+export const DELETE_EXERCISE_SUCCESS = "DELETE_EXERCISE_SUCCESS"
+export const DELETE_EXERCISE_FAIL = "DELETE_EXERCISE_FAIL"
+
 import { axiosWithAuthorization } from '../../utils/index'
 
 export const addSet = (token, workoutExerciseId, formattedSet) => dispatch => {
     dispatch({ type: ADD_SET_START })
-    axiosWithAuthorization(token).post(`/workout/exercise/${workoutExerciseId}/set
-    
-    `, formattedSet)
+    axiosWithAuthorization(token).post(`/workout/exercise/${workoutExerciseId}/set`, formattedSet)
         .then(res => {
             dispatch({ type: ADD_SET_SUCCESS, payload: res.data })
         })
@@ -61,7 +71,7 @@ export const addExerciseToWorkout = (token, workoutId, exercise) => dispatch => 
 
 export const startWorkout = (token, musclesObj) => dispatch => {
     dispatch({ type: START_WORKOUT_START })
-    axiosWithAuthorization(token).post("/user/workout", musclesObj)
+    axiosWithAuthorization(token).post("/workout", musclesObj)
         .then(res => {
             dispatch({ type: START_WORKOUT_SUCCESS, payload: res.data })
         })
@@ -117,11 +127,36 @@ export const getWorkoutById = (token, workoutID) => dispatch => {
 
 export const completeWorkout = (token, workoutID) => dispatch => {
     dispatch({ type: COMPLETE_WORKOUT_START })
-    axiosWithAuthorization(token).get(`/workout/${workoutID}/end`)
+    axiosWithAuthorization(token).get(`/workout/${workoutID}/complete`)
         .then(res => {
             dispatch({ type: COMPLETE_WORKOUT_SUCCESS })
         })
         .catch(err => {
             dispatch({ type: COMPLETE_WORKOUT_FAIL, payload: err })
+        })
+}
+
+export const editSet = (token, workoutExerciseId, patch) => dispatch => {
+    dispatch({ type: EDIT_SET_START, })
+    axiosWithAuthorization(token).patch(`/workout/exercise/${workoutExerciseId}/set`, patch)
+        .then(res => dispatch({ type: EDIT_SET_SUCCESS, payload: res.data }))
+        .catch(err => dispatch({ type: EDIT_SET_FAIL, payload: err }))
+}
+
+export const deleteSet = (token, workoutExerciseId, setId) => dispatch => {
+    dispatch({ type: DELETE_SET_START })
+    axiosWithAuthorization(token).delete(`/workout/exercise/${workoutExerciseId}/set/${setId}`, setId)
+        .then(res => dispatch({ type: DELETE_SET_SUCCESS, payload: res.data }))
+        .catch(err => dispatch({ type: DELETE_SET_FAIL, payload: err }))
+}
+
+export const deleteExercise = (token, workoutExerciseId) => dispatch => {
+    dispatch({ type: DELETE_EXERCISE_START })
+    axiosWithAuthorization(token).delete(`/workout/exercise/${workoutExerciseId}`)
+        .then(res => {
+            dispatch({ type: DELETE_EXERCISE_SUCCESS, payload: res.data })
+        })
+        .catch(err => {
+            dispatch({ type: DELETE_EXERCISE_FAIL, payload: err })
         })
 }

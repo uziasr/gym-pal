@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Text } from 'react-native'
+import { View, Button, Text, TouchableOpacity } from 'react-native'
 import { workoutStatsStyles } from '../../styles/index'
 import {
     PieChart,
 } from "react-native-chart-kit";
+import { Fontisto } from '@expo/vector-icons';
 
 const WorkoutPie = ({ workout }) => {
     const [byExercise, setByExercise] = useState([])
     const [byRep, setByRep] = useState([])
-    const [byWeight, setByWeight] = useState([])
     const [isByExercise, setIsByExercise] = useState(true)
-    const colors = ['red', 'blue', 'green', 'orange']
+    const colors = ['#73A6AD', '#9B97B2', '#004346', '#F0544F', '#EDCB96', '#3E517A', '#2E5339', '#4C3549', '#0ACDFF', '#FF9FB2', '#A50104', '#E1CE7A', '#EBCFB2', '#809BCE']
 
     useEffect(() => {
         muscleGroupCount = {} // name: count
@@ -36,30 +36,35 @@ const WorkoutPie = ({ workout }) => {
         } else {
             muscleObj = {}
             index = 0
-            workout.forEach((exercise, index)=>{
+            workout.forEach((exercise, index) => {
                 if (exercise.muscle in muscleObj) {
-                    muscleObj = {...muscleObj, [exercise.muscle]: {...muscleObj[exercise.muscle], reps: muscleObj[exercise.muscle].reps + exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0)}}
+                    muscleObj = { ...muscleObj, [exercise.muscle]: { ...muscleObj[exercise.muscle], reps: muscleObj[exercise.muscle].reps + exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0) } }
                 } else {
-                    muscleObj = {...muscleObj, [exercise.muscle] :{
-                        name: exercise.muscle,
-                        reps: exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0),
-                        color: colors[index],
-                        legendFontColor: "#7F7F7F",
-                        legendFontSize: 15
-                    }}
+                    muscleObj = {
+                        ...muscleObj, [exercise.muscle]: {
+                            name: exercise.muscle,
+                            reps: exercise.sets.reduce((acc, curr) => (curr.repetition + acc), 0),
+                            color: colors[index],
+                            legendFontColor: "#7F7F7F",
+                            legendFontSize: 15
+                        }
+                    }
                     index += 1
                 }
             })
             setByRep(() => {
-               return Object.keys(muscleObj).map(muscle=>(muscleObj[muscle]))
+                return Object.keys(muscleObj).map(muscle => (muscleObj[muscle]))
             })
             setIsByExercise(!isByExercise)
         }
     }
 
+
     return (
         <View>
-            <Text style={workoutStatsStyles.text}>{`Muscle Trained by ${isByExercise ? "Exercise" : "Reps"}`}</Text>
+            <View style={workoutStatsStyles.titleWrap}>
+                <Text style={workoutStatsStyles.titleText}>{`Muscles Trained by ${isByExercise ? "Exercise" : "Reps"}`}</Text>
+            </View>
             <PieChart
                 data={!isByExercise && byRep.length ? byRep : byExercise}
                 width={425}
@@ -85,7 +90,9 @@ const WorkoutPie = ({ workout }) => {
                 paddingLeft={15}
                 absolute
             />
-            <Button title={isByExercise ? "By Reps" : "By Exercise"} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} />
+            <TouchableOpacity style={workoutStatsStyles.buttonSaveStyle} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} >
+                <Text style={workoutStatsStyles.buttonTextSaveStyle}>{isByExercise ? "By Reps" : "By Exercise"}</Text>
+            </TouchableOpacity>
         </View>
     );
 };

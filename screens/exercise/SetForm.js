@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Keyboard } from 'react-native';
 import { Input } from 'react-native-elements';
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { setFormStyles } from '../../styles/index'
+import { NavigationEvents } from 'react-navigation';
 
 const SetForm = ({ addSet }) => {
 
@@ -17,6 +18,11 @@ const SetForm = ({ addSet }) => {
 
     return (
         <View style={setFormStyles.rootWrap}>
+            <NavigationEvents
+                onWillFocus={payload =>
+                    setCurrentSet(() => ({ weight: 0, reps: 0 }))
+                }
+            />
             <View style={setFormStyles.formWrap}>
                 <TouchableOpacity onPress={() => setLockInput(!lockInput)}>
                     <FontAwesome5 style={setFormStyles.lockStyle} name={!lockInput ? "unlock" : "lock"} size={24} color="white" />

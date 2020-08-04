@@ -23,9 +23,18 @@ import {
     COMPLETE_WORKOUT_START,
     COMPLETE_WORKOUT_SUCCESS,
     COMPLETE_WORKOUT_FAIL,
+    EDIT_SET_START,
+    EDIT_SET_SUCCESS,
+    EDIT_SET_FAIL,
+    DELETE_SET_START,
+    DELETE_SET_SUCCESS,
+    DELETE_SET_FAIL,
+    DELETE_EXERCISE_START,
+    DELETE_EXERCISE_SUCCESS,
+    DELETE_EXERCISE_FAIL,
 } from "../actions/workoutActions"
 
-const initialState = {
+export const initialState = {
     currentExercise: null,
     workoutId: null,
     workoutExerciseId: null,
@@ -33,10 +42,14 @@ const initialState = {
     loading: false,
     error: null,
     currentWorkoutId: null,
-    fullCurrentExercise: {},
+    fullCurrentExercise: [],
     currentWorkout: [],
     workoutInProgress: false,
-    exerciseInProgress: false
+    workoutFetched: false,
+    exerciseInProgress: false,
+    exerciseFetched: false,
+    set: {},
+    exercises: []
 
 }
 
@@ -51,9 +64,7 @@ const workoutReducer = (state = initialState, action) => {
         case ADD_SET_SUCCESS: {
             return {
                 ...state,
-                fullCurrentExercise: {
-                    [state.currentExercise]: [...state.fullCurrentExercise.currentExercise, action.payload]
-                },
+                fullCurrentExercise: [...state.fullCurrentExercise, action.payload],
                 loading: false
             }
         }
@@ -114,7 +125,8 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
+                workoutFetched: false,
             }
         }
         case GET_WORKOUT_IN_PROGRESS_SUCCESS: {
@@ -122,38 +134,43 @@ const workoutReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 workoutId: action.payload.id,
-                workoutInProgress: true
+                workoutInProgress: true,
+                workoutFetched: true,
             }
         }
         case GET_WORKOUT_IN_PROGRESS_FAIL: {
             return {
                 ...state,
                 loading: false,
-                error: action.payload.err
+                error: action.payload.err,
+                workoutFetched: true,
             }
         }
         case GET_EXERCISE_IN_PROGRESS_START: {
             return {
                 ...state,
-                loading: false,
-                error: null
+                loading: true,
+                error: null,
+                exerciseFetched: false,
             }
         }
         case GET_EXERCISE_IN_PROGRESS_SUCCESS: {
             return {
                 ...state,
                 loading: false,
-                fullCurrentExercise: { [action.payload.current_exercise]: action.payload[action.payload.current_exercise] }, 
+                fullCurrentExercise: action.payload[action.payload.current_exercise],
                 exerciseInProgress: true,
                 currentExercise: action.payload.current_exercise,
-                workoutExerciseId: action.payload.workout_exercise_id
+                workoutExerciseId: action.payload.workout_exercise_id,
+                exerciseFetched: true,
             }
         }
         case GET_EXERCISE_IN_PROGRESS_FAIL: {
             return {
                 ...state,
                 loading: false,
-                error: action.payload.err
+                error: action.payload.err,
+                exerciseFetched: true,
             }
         }
         case COMPLETE_EXERCISE_START: {
@@ -169,7 +186,7 @@ const workoutReducer = (state = initialState, action) => {
                 loading: false,
                 currentExercise: null,
                 exerciseInProgress: false,
-                fullCurrentExercise: {},
+                fullCurrentExercise: [],
                 workoutExerciseId: null
             }
         }
@@ -191,7 +208,13 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                currentWorkout: action.payload
+                currentWorkout: action.payload,
+                exercises: action.payload.map(exercise => {
+                    return {
+                        exercise: exercise.exercise,
+                        sets: exercise.sets.length
+                    }
+                })
             }
         }
         case GET_WORKOUT_BY_ID_FAIL: {
@@ -221,6 +244,75 @@ const workoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false
+            }
+        }
+        case EDIT_SET_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case EDIT_SET_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                fullCurrentExercise:
+                    state.fullCurrentExercise.map(sets => {
+                        if (action.payload.id == sets.id) {
+                            return action.payload
+                        } return sets
+                    })
+            }
+        }
+        case EDIT_SET_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                err: action.payload
+            }
+        }
+        case DELETE_SET_START: {
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            }
+        }
+        case DELETE_SET_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                fullCurrentExercise: action.payload
+            }
+        }
+        case DELETE_SET_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        }
+        case DELETE_EXERCISE_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case DELETE_EXERCISE_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                exerciseInProgress: false,
+                currentExercise: null,
+                fullCurrentExercise: []
+            }
+        }
+        case DELETE_EXERCISE_FAIL: {
+            console.log("err",action.payload)
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
             }
         }
         default:

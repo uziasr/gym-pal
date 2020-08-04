@@ -6,8 +6,8 @@ import reducer from './state/reducers/index'
 import workoutReducer from './state/reducers/workoutReducer'
 import statsReducer from './state/reducers/statsReducer'
 import exerciseReducer from './state/reducers/exerciseReducer'
+import savedReducer from './state/reducers/savedReducer'
 import thunk from 'redux-thunk'
-import { getToken } from './utils/index'
 
 
 export default function App() {
@@ -16,7 +16,8 @@ export default function App() {
     reducer,
     workoutReducer,
     statsReducer,
-    exerciseReducer
+    exerciseReducer,
+    savedReducer
   })
 
   const store = createStore(rootReducer, applyMiddleware(thunk))

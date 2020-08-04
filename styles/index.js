@@ -18,7 +18,8 @@ export const splitStyles = StyleSheet.create({
     bodyText: {
         alignSelf: 'flex-start',
         fontWeight: 'bold',
-        color: 'black'
+        color: 'black',
+        fontSize: 16,
     },
     bodyView: {
         margin: 5,
@@ -49,12 +50,17 @@ export const splitStyles = StyleSheet.create({
         alignContent: 'center',
         padding: 15,
         margin: 5,
+    },
+    titleText: {
+        color: "white",
+        alignSelf: "center",
+        fontSize: 25,
     }
 })
 
 export const dashBoardStyles = StyleSheet.create({
     title: {
-        fontSize: 24,
+        fontSize: 26,
         color: 'white',
         textAlign: 'center'
     },
@@ -76,7 +82,8 @@ export const dashBoardStyles = StyleSheet.create({
         backgroundColor: 'white'
     },
     contributionTitleWrap: {
-        marginVertical: 15,
+        marginTop: 15,
+        marginBottom: 3,
         color: 'white',
         justifyContent: 'center'
     },
@@ -122,7 +129,7 @@ export const exerciseStatsStyles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 10,
         borderRadius: 15,
-        marginVertical: 5,
+        marginVertical: 10,
         backgroundColor: 'white'
     },
     statsText: {
@@ -133,21 +140,33 @@ export const exerciseStatsStyles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        color: 'white'
+        color: 'white',
+        alignSelf: 'center'
     }
 })
 
 export const contributionViewStyles = StyleSheet.create({
     rootWrap: {
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 15,
+        marginTop: 10,
     },
     text: {
-        color: 'black'
+        color: 'black',
+        fontSize: 14
+    },
+    titleText: {
+        color: 'black',
+        fontSize: 20
+    },
+    durationText: {
+        color: "black",
+        fontSize: 16
     },
     headerText: {
         color: 'white',
-        fontSize: 24
+        fontSize: 26
     },
     workoutDescription: {
         flexDirection: 'row',
@@ -161,27 +180,33 @@ export const contributionViewStyles = StyleSheet.create({
     withMuscles: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        width: "92%"
     },
     touchableWorkoutWrapper: {
         marginBottom: 10
     },
     workoutCard: {
-        borderRadius: 2,
         width: "100%",
         alignSelf: "center",
         alignContent: "center",
         alignItems: "center",
-        paddingVertical: 12,
+        paddingVertical: 6,
         paddingHorizontal: 5,
-        margin: 0
+        margin: 0,
+        backgroundColor: "white",
+        borderWidth: 0
     },
     iconStyle: {
         paddingRight: 25,
         alignSelf: "center",
     },
     workoutView: {
-        width: "75%"
+        width: "75%",
+        flexDirection: "row",
+        alignContent: "center",
+        justifyContent: "space-between",
+        alignItems: "center"
     },
     durationStyle: {
         flexDirection: 'row',
@@ -199,8 +224,52 @@ export const workoutStatsStyles = StyleSheet.create({
         justifyContent: 'space-evenly',
         flexWrap: 'wrap'
     },
+    buttonStyleExercise: {
+        marginTop:10,
+        marginRight:5,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        backgroundColor: "#425C6A",
+        borderRadius: 30,
+        alignSelf: "flex-end"
+    },
+    buttonSaveStyle: {
+        width: "40%",
+        paddingHorizontal: 10,
+        paddingVertical: 7,
+        alignSelf: "center",
+        borderRadius: 20,
+        flexDirection: "row",
+        backgroundColor: "dodgerblue",
+        justifyContent: "center",
+        marginVertical: 25
+    },
+    buttonTextSaveStyle: {
+        fontSize:16,
+        alignSelf: "center",
+        color: "white",
+    },
+    buttonTextStyleExercise: {
+        color:"white", 
+        fontSize:16,
+    },
     text: {
         color: "white"
+    },
+    titleWrap: {
+        paddingBottom: 15,
+        // alignSelf: "center"
+        justifyContent: "center",
+        flexDirection: "row",
+        width: "90%",
+        alignSelf: "center",
+        alignItems: "center"
+
+    },
+    titleText: {
+        fontSize: 24,
+        color: "white",
+        fontWeight: "bold"
     }
 
 })
@@ -222,7 +291,7 @@ export const setStyles = StyleSheet.create({
         backgroundColor: '#353A47'
     },
     textStyles: {
-        fontSize: 16,
+        fontSize: 19,
         color: 'white'
     },
     editWrap: {
@@ -278,11 +347,11 @@ export const setFormStyles = StyleSheet.create({
 
 export const exerciseSetStyles = StyleSheet.create({
     rootWrap: {
+        height:"100%",
         backgroundColor: backgroundColor,
         color: "white"
     },
     titleWrap: {
-        marginTop: 10,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center'
@@ -290,7 +359,7 @@ export const exerciseSetStyles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold",
-        color: "white"
+        color: "white",
     },
     unitWrap: {
         flexDirection: 'row',
@@ -307,7 +376,36 @@ export const exerciseSetStyles = StyleSheet.create({
         color: "white"
     },
     scrollWrap: {
-        height: 446
+        height: 424
+    },
+    trashWrap: {
+        padding: 10,
+        paddingBottom: 0
+    },
+    trashStyle: {
+        alignSelf: "flex-end"
+    },
+    overlayTitle: {
+        fontSize: 18,
+        fontWeight: "bold"
+    },
+    overlayButtonWrap: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignContent: "center",
+        alignItems: "center",
+        alignSelf: "center"
+    },
+    overlayButton: {
+        margin: 8,
+        marginHorizontal: 30,
+        backgroundColor: "dodgerblue",
+        padding: 10,
+        borderRadius: 12
+    },
+    overlayButtonText: {
+        fontSize: 16,
+        color: "white"
     }
 })
 
@@ -318,7 +416,7 @@ export const autoInputStyles = StyleSheet.create({
     },
     inputWrap: {
         paddingTop: 10,
-        width: "75%",
+        width: "85%",
         flexDirection: "row",
         alignContent: "center",
         alignItems: "center",
@@ -327,13 +425,14 @@ export const autoInputStyles = StyleSheet.create({
     },
     completeWorkoutButton: {
         padding: 5,
-        paddingLeft: 10,
-        width: "30%"
+        right: 5,
+        bottom: 12,
+        alignSelf: "flex-end",
+        // width: "30%"
     },
-    CompleteText: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "green"
+    progressMenu: {
+        left: 10,
+        alignSelf: "flex-end",
     },
     scrollWrap: {
         flexGrow: 1,
@@ -372,7 +471,7 @@ export const autoInputStyles = StyleSheet.create({
     },
     overlayStyle: {
         width: '90%',
-        height: 115,
+        height: 5,
     },
     completeWorkoutWrap: {
         flexDirection: "row",
@@ -389,6 +488,7 @@ export const autoInputStyles = StyleSheet.create({
     workoutText: {
         fontSize: 18,
         color: "white",
+        textAlign: "center"
     },
     overlayTitle: {
         fontSize: 18,
@@ -408,11 +508,11 @@ export const workoutStyles = StyleSheet.create({
         height: "100%"
     },
     exerciseWrapper: {
-        marginVertical: 8,
+        marginVertical: 20,
         marginHorizontal: 10,
-        flexDirection: "row",
+        flexDirection: "column",
         paddingLeft: 10,
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
 
     },
     loader: {
@@ -432,7 +532,7 @@ export const workoutStyles = StyleSheet.create({
         borderWidth: 0,
         paddingVertical: 5,
         paddingHorizontal: 12,
-        width: 150,
+        // width: "40%",
         flexDirection: 'row',
         flexWrap: "wrap",
         borderRadius: 5,
@@ -440,22 +540,37 @@ export const workoutStyles = StyleSheet.create({
         justifyContent: "center",
     },
     setText: {
-        color: "white"
+        color: "black",
+        fontSize: 18,
     },
     exerciseTextWrap: {
         flexDirection: "row",
         flexWrap: "wrap",
-        width: "40%",
+        width: "100%",
         alignItems: "center",
         alignContent: "center"
     },
+    workoutExerciseWrap: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginVertical: 5,
+        backgroundColor: "whitesmoke",
+        borderRadius: 8
+    },
     setWrapper: {
-        borderLeftWidth: 1,
-        borderLeftColor: "white",
-        paddingLeft: 15,
-        justifyContent: "center",
+        // borderLeftWidth: .25,
+        // borderLeftColor: "white",
+        paddingLeft: 5,
+        justifyContent: "flex-start",
+        alignContent: "flex-start",
+        alignItems: "flex-start"
+    },
+    buttonWrap: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center",
         alignContent: "center",
-        alignItems: "center"
+        paddingVertical: 10
     }
 })
 
@@ -491,5 +606,12 @@ export const registerStyles = ({
     },
     buttonStyle: {
         borderRadius: 20
+    }
+})
+
+export const homeStyles = StyleSheet.create({
+    root:{
+        backgroundColor: backgroundColor,
+        height: "100%"
     }
 })

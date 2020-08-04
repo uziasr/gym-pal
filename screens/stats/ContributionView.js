@@ -26,28 +26,30 @@ const ContributionView = ({ workouts, date, navigation }) => {
                 <Text style={contributionViewStyles.headerText}>{formatDate(date)}</Text>
             </View>
             {workouts.map((workout, index) => {
-                return <TouchableOpacity style={contributionViewStyles.touchableWorkoutWrapper} key={index} onPress={() => navigation.navigate('Workout Overview', workout)}>
+                return <TouchableOpacity style={contributionViewStyles.touchableWorkoutWrapper} key={index} onPress={() => navigation.navigate('Workout Overview', { workout , muscles: workout.muscles })}>
                     <Card containerStyle={contributionViewStyles.workoutCard}>
                         <View style={contributionViewStyles.workoutDescription}>
-                            <Ionicons style={contributionViewStyles.iconStyle} name="md-fitness" size={60} color="black" />
+                            <Ionicons style={contributionViewStyles.iconStyle} name="md-fitness" size={50} color="black" />
                             <View style={contributionViewStyles.workoutView}>
-                                <Text style={contributionViewStyles.text}>Workout {index + 1}</Text>
-                                <View style={contributionViewStyles.durationStyle}>
-                                    <Text style={contributionViewStyles.text}>Duration: {formatSeconds(workout.total_time)}</Text>
-                                    <AntDesign name="arrowright" size={24} color="black" />
+                                <View>
+                                    <Text style={contributionViewStyles.titleText}>Workout {index + 1}</Text>
+                                    <Text style={contributionViewStyles.durationText}>Duration: {formatSeconds(workout.total_time)}</Text>
+                                    {workout.muscles[0] == "" ?
+                                        null
+                                        :
+                                        <View style={contributionViewStyles.withMuscles}><Text style={contributionViewStyles.text}>| </Text>
+                                            {workout.muscles.map((muscle, index) => (
+                                                <View key={index} style={contributionViewStyles.withoutMuscle}>
+                                                    <Text style={contributionViewStyles.text}>{muscle}</Text><Text style={contributionViewStyles.text}> |</Text>
+                                                </View>
+                                            ))}
+                                            {/* <AntDesign name="arrowright" size={24} color="black" /> */}
+                                        </View>
+                                    }
                                 </View>
-                                {workout.muscles[0] == "" ?
-                                    null
-                                    :
-                                    <View style={contributionViewStyles.withMuscles}><Text>| </Text>
-                                        {workout.muscles.map((muscle, index) => (
-                                            <View key={index} style={contributionViewStyles.withoutMuscle}>
-                                                <Text style={contributionViewStyles.text}>{muscle}</Text><Text> |</Text>
-                                            </View>
-                                        ))}
-                                        {/* <AntDesign name="arrowright" size={24} color="black" /> */}
-                                    </View>
-                                }
+                                <View style={contributionViewStyles.durationStyle}>
+                                    <AntDesign name="arrowright" size={34} color="black" />
+                                </View>
                             </View>
                         </View>
                         {/* {workout.muscles[0] == "" ? null : <Text style={contributionViewStyles.text}>Muscles Trained:</Text>} */}
