@@ -8,7 +8,7 @@ import { saveWorkout } from '../../state/actions/savedAction'
 import Spinner from '../../utils/Spinner';
 import { Fontisto } from '@expo/vector-icons';
 import { Overlay, Input } from 'react-native-elements';
-import { axiosWithAuthorization } from "../../utils/index"
+
 
 
 
@@ -38,7 +38,8 @@ const WorkoutStats = ({ navigation }) => {
 
         const saveHandler = () => {
             onToggle()
-            dispatch(saveWorkout(state.reducer.token), { name: workoutName })
+            console.log("this is my id", workoutId)
+            dispatch(saveWorkout(state.reducer.token, workoutId, { name: workoutName }))
             // axiosWithAuthorization(state.reducer.token).post(`/saved/workout/${workoutId}`, { name: workoutName })
             //     .then(res => console.log(res.data))
             //     .catch(err => console.log(err.response))
@@ -83,14 +84,15 @@ const WorkoutStats = ({ navigation }) => {
 
     return state.workoutReducer.loading ? <Spinner /> : (
         <View style={workoutStatsStyles.root}>
+            <ScrollView>
             <TouchableOpacity onPress={() => onToggle()} style={workoutStatsStyles.buttonStyleExercise}>
-                <Fontisto name="save" size={16} color="whitesmoke" />
+                <Text style={{color: "white", fontSize: 18}}>Save</Text>
+                {/* <Fontisto name="save" size={16} color="whitesmoke" /> */}
             </TouchableOpacity>
             <WorkoutPie workout={workout} />
             <>
                 <SaveOverlay />
             </>
-            <ScrollView>
                 {workout.map((currentExercise, index) => {
                     return <View key={index}>
                         <Text style={workoutStatsStyles.text}>{currentExercise.exercise}</Text>

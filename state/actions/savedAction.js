@@ -16,15 +16,16 @@ export const SCHEDULE_WORKOUT_FAIL = "SCHEDULE_WORKOUT_FAIL"
 
 import { axiosWithAuthorization } from "../../utils/index"
 
-export const saveWorkout = (token, name) => dispatch => {
+export const saveWorkout = (token, workoutId, name) => dispatch => {
     dispatch({ type: SAVE_WORKOUT_START })
+    console.log("this is what I need", workoutId)
     axiosWithAuthorization(token).post(`/saved/workout/${workoutId}`, name)
         .then(res => dispatch({ type: SAVE_WORKOUT_SUCCESS, payload: res.data }))
         .catch(err => dispatch({ type: SAVE_WORKOUT_FAIL, payload: err }))
 }
 
 export const getSchedule = (token) => dispatch => {
-    dispatch({ GET_SCHEDULE_START })
+    dispatch({ type: GET_SCHEDULE_START })
     axiosWithAuthorization(token).get("/saved/schedule")
         .then(res => dispatch({ type: GET_SCHEDULE_SUCCESS, payload: res.data }))
         .catch(err => dispatch({ type: GET_SCHEDULE_FAIL, payload: err }))
@@ -32,16 +33,16 @@ export const getSchedule = (token) => dispatch => {
 
 export const getSavedWorkouts = (token) => dispatch => {
     dispatch({ type: GET_SAVED_WORKOUTS_START })
-    axiosWithAuthorization(state.reducer.token).get("/saved/workout")
+    axiosWithAuthorization(token).get("/saved/workout")
         .then(res => dispatch({ type: GET_SAVED_WORKOUTS_SUCCESS, payload: res.data }))
         .catch(err => {
             dispatch({ type: GET_SAVED_WORKOUTS_FAIL, payload: err })
         })
 }
 
-export const scheduleWorkout = (token) => dispatch => {
+export const scheduleWorkout = (token, id, date) => dispatch => {
     dispatch({ type: SCHEDULE_WORKOUT_START })
-    axiosWithAuthorization(state.reducer.token).post(`/saved/${id}/schedule`, { date: currentDate })
+    axiosWithAuthorization(token).post(`/saved/${id}/schedule`, date)
         .then(res => dispatch({ type: SCHEDULE_WORKOUT_SUCCESS }))
         .catch(err => dispatch({ type: SCHEDULE_WORKOUT_FAIL }))
 }

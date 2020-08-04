@@ -5,6 +5,9 @@ import {
     SAVE_WORKOUT_START,
     SAVE_WORKOUT_SUCCESS,
     SAVE_WORKOUT_FAIL,
+    GET_SAVED_WORKOUTS_START,
+    GET_SAVED_WORKOUTS_SUCCESS,
+    GET_SAVED_WORKOUTS_FAIL
 } from '../actions/savedAction'
 
 
@@ -60,7 +63,31 @@ const reducer = (state = initialState, action) => {
                 loading: false,
             }
         }
-        default : {
+        case GET_SAVED_WORKOUTS_START: {
+            return {
+                ...state,
+                loading: true,
+                error: null
+
+            }
+        }
+        case GET_SAVED_WORKOUTS_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                savedWorkouts: action.payload
+
+            }
+        }
+        case GET_SAVED_WORKOUTS_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+
+            }
+        }
+        default: {
             return state
         }
     }

@@ -30,7 +30,7 @@ const ScheduleForm = ({ navigation }) => {
         // .catch(err=>{
         //     console.log(err)
         // })
-        dispatch(scheduleWorkout(state.reducer.token, { date: currentDate }))
+        dispatch(scheduleWorkout(state.reducer.token, id, { date: currentDate }))
     }
 
     return (

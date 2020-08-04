@@ -137,7 +137,9 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExer
                         {muscles.map((muscle, index) => (
                             <TouchableOpacity onPress={() => {
                                 muscleFilterPress(muscle)
-                            }} style={autoInputStyles.touchableMuscle} key={index}>
+                            }}
+                                style={autoInputStyles.touchableMuscle}
+                                key={index}>
                                 <Text style={muscleFilter[muscle] ? { color: "green", fontSize: 18, fontWeight: "bold" } : { color: "black", fontSize: 18 }}>{muscle}</Text>
                             </TouchableOpacity>
                         ))}
