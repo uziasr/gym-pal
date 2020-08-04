@@ -54,7 +54,7 @@ const Splits = ({ body, navigation }) => {
                 {isSelected ? <TouchableOpacity
                     disabled={!isSelected}
                     onPress={() => { pressNavigation() }}>
-                    <FontAwesome name="arrow-circle-o-right" size={40} color="dodgerblue" />
+                    <FontAwesome name="arrow-circle-o-right" size={40} color="mediumseagreen" />
                 </TouchableOpacity> : null}
             </View>
             <ScrollView>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Overlay } from 'react-native-elements'
 import { Button } from 'react-native-elements'
 import Switches from 'react-native-switches'
@@ -47,7 +47,7 @@ const ExerciseSet = ({ navigation }) => {
     return (
         <View style={exerciseSetStyles.rootWrap}>
             <TouchableOpacity onPress={() => setDeleting(!deleting)} style={exerciseSetStyles.trashWrap}>
-                <FontAwesome name="trash-o" size={20} color="red" style={exerciseSetStyles.trashStyle} />
+                <FontAwesome name="trash-o" size={20} color="white" style={exerciseSetStyles.trashStyle} />
             </TouchableOpacity>
             <Overlay isVisible={deleting} onBackdropPress={() => setDeleting(false)}>
                 <View>
@@ -87,6 +87,7 @@ const ExerciseSet = ({ navigation }) => {
             <View style={exerciseSetStyles.scrollWrap}>
                 <ScrollView>
                     {exerciseSet.length > 0 ? exerciseSet.map((exerciseSet, index) => <Sets key={exerciseSet.id} order={exerciseSet.set_order} exerciseSet={exerciseSet} />) : null}
+                    {state.workoutReducer.loading ? <ActivityIndicator size="large" color="white" /> : null}
                 </ScrollView>
             </View>
             <View>

@@ -20,7 +20,6 @@ const Home = ({ navigation }) => {
         dispatch(getToken())
         dispatch(getExerciseInProgress(state.reducer.token))
         dispatch(getWorkoutInProgress(state.reducer.token))
-        console.log("this is token!", state.reducer.token)
         axiosWithAuthorization(state.reducer.token).post("/saved/today", { date: currentDate })
             .then(res => {
                 setScheduledWorkout(res.data)
@@ -49,7 +48,7 @@ const Home = ({ navigation }) => {
                         <Text style={{ fontSize: 20, color: "white" }}>Start Today's Workout!</Text>
                     </View>
                     {scheduledWorkout.map((workout, index) => (
-                        <TouchableOpacity key={index} onPress={()=>navigation.navigate("Workout")} style={{ alignSelf: "center", alignContent: "center", alignItems: "center", flexDirection: "row", justifyContent: "space-evenly", width: "95%", marginBottom: 25, backgroundColor: "dodgerblue", borderRadius: 20, paddingVertical: 10 }}>
+                        <TouchableOpacity key={index} onPress={() => navigation.navigate("Workout")} style={{ alignSelf: "center", alignContent: "center", alignItems: "center", flexDirection: "row", justifyContent: "space-evenly", width: "95%", marginBottom: 25, backgroundColor: "dodgerblue", borderRadius: 20, paddingVertical: 10 }}>
                             <View>
                                 <Text style={{ color: "white", fontSize: 18 }}>{workout.name}</Text>
                             </View>
@@ -79,6 +78,10 @@ const Home = ({ navigation }) => {
             <View style={{ marginLeft: 15, marginBottom: 15 }}>
                 <Text style={{ fontSize: 20, color: "white" }}>Latest Workout Overview</Text>
             </View>
+            {state.workoutReducer.workoutInProgress ?
+                <TouchableOpacity onPress={() => navigation.navigate("Workout")} style={{ alignSelf: "center", alignContent: "center", alignItems: "center", flexDirection: "row", justifyContent: "space-evenly", width: "95%", marginBottom: 10, backgroundColor: "mediumseagreen", borderRadius: 20, paddingVertical: 20 }}>
+                <Text style={{ color: "white", fontSize: 20 }}>Resume Workout</Text>
+            </TouchableOpacity> : null}
         </View>
     );
 };

@@ -105,7 +105,7 @@ const Workout = ({ navigation }) => {
                     <RecordedWorkout />
                     <View style={workoutStyles.buttonWrap}>
                         <Button onPress={() => toggleOverlay()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue", borderRadius: 15 }} />
-                        <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "green", borderRadius: 15 }} />
+                        <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "mediumseagreen", borderRadius: 15 }} />
                     </View>
                     <Overlay overlayStyle={{ width: "90%" }} isVisible={visible} onBackdropPress={toggleOverlay}>
                         <View>
