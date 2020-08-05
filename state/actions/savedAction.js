@@ -14,6 +14,10 @@ export const SCHEDULE_WORKOUT_START = "SCHEDULE_WORKOUT_START"
 export const SCHEDULE_WORKOUT_SUCCESS = "SCHEDULE_WORKOUT_SUCCESS"
 export const SCHEDULE_WORKOUT_FAIL = "SCHEDULE_WORKOUT_FAIL"
 
+export const GET_WORKOUT_OF_THE_DAY_START = "GET_WORKOUT_OF_THE_DAY_START"
+export const GET_WORKOUT_OF_THE_DAY_SUCCESS = "GET_WORKOUT_OF_THE_DAY_SUCCESS"
+export const GET_WORKOUT_OF_THE_DAY_FAIL = "GET_WORKOUT_OF_THE_DAY_FAIL"
+
 import { axiosWithAuthorization } from "../../utils/index"
 
 export const saveWorkout = (token, workoutId, name) => dispatch => {
@@ -45,4 +49,11 @@ export const scheduleWorkout = (token, id, date) => dispatch => {
     axiosWithAuthorization(token).post(`/saved/${id}/schedule`, date)
         .then(res => dispatch({ type: SCHEDULE_WORKOUT_SUCCESS }))
         .catch(err => dispatch({ type: SCHEDULE_WORKOUT_FAIL }))
+}
+
+export const getWorkoutOfTheDay = (token, date) => dispatch => {
+    dispatch({ type: GET_WORKOUT_OF_THE_DAY_START })
+    axiosWithAuthorization(token).post('/saved/today', date)
+        .then(res => dispatch({ type: GET_WORKOUT_OF_THE_DAY_SUCCESS, payload: res.data }))
+        .catch(err => dispatch({ type: GET_WORKOUT_OF_THE_DAY_FAIL, payload: err }))
 }

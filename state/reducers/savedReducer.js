@@ -7,7 +7,10 @@ import {
     SAVE_WORKOUT_FAIL,
     GET_SAVED_WORKOUTS_START,
     GET_SAVED_WORKOUTS_SUCCESS,
-    GET_SAVED_WORKOUTS_FAIL
+    GET_SAVED_WORKOUTS_FAIL,
+    GET_WORKOUT_OF_THE_DAY_START,
+    GET_WORKOUT_OF_THE_DAY_SUCCESS,
+    GET_WORKOUT_OF_THE_DAY_FAIL,
 } from '../actions/savedAction'
 
 
@@ -16,6 +19,7 @@ const initialState = {
     exercises: [],
     exerciseLeft: [],
     savedWorkouts: [],
+    scheduledWorkout: [],
     agenda: {},
     loading: false,
     err: null
@@ -85,6 +89,27 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload
 
+            }
+        }
+        case GET_WORKOUT_OF_THE_DAY_START: {
+            return {
+                ...state,
+                loading: true,
+                err: null
+            }
+        }
+        case GET_WORKOUT_OF_THE_DAY_SUCCESS: {
+            return {
+                ...state,
+                loading: false,
+                scheduledWorkout: action.payload
+            }
+        }
+        case GET_WORKOUT_OF_THE_DAY_FAIL: {
+            return {
+                ...state,
+                loading: false,
+                err: action.payload
             }
         }
         default: {
