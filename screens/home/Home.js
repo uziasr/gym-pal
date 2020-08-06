@@ -24,6 +24,7 @@ const Home = ({ navigation }) => {
         dispatch(getWorkoutOfTheDay(state.reducer.token, { date: currentDate }))
     }, [state.reducer.token])
 
+
     const startWorkoutHandler = (scheduledWorkout) => {
         dispatch(startWorkout(state.reducer.token, scheduledWorkout))
         navigation.navigate('Sets', { exercise: scheduledWorkout.exercise, sets: { [scheduledWorkout.exercise]: [] } })
@@ -42,7 +43,7 @@ const Home = ({ navigation }) => {
                     <Text style={{ color: "white", fontSize: 20 }}>Go To Schedule</Text>
                 </TouchableOpacity>
             </View>
-            {state.savedReducer.scheduledWorkout.length ?
+            {state.savedReducer.scheduledWorkout.length && !state.workoutReducer.workoutInProgress ?
                 <View>
                     <View style={{ marginLeft: 15, marginVertical: 15 }}>
                         <Text style={{ fontSize: 20, color: "white" }}>Start Today's Workout!</Text>

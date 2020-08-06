@@ -3,7 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Button, Overlay } from 'react-native-elements';
 import { workoutStyles, autoInputStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { getWorkoutById, completeWorkout } from "../../state/actions/workoutActions"
+import { getWorkoutById, completeWorkout, addExerciseToWorkout } from "../../state/actions/workoutActions"
 import { NavigationEvents } from 'react-navigation';
 import Spinner from "../../utils/Spinner"
 
@@ -18,7 +18,14 @@ const Workout = ({ navigation }) => {
 
 
     const nextExerciseHandler = () => {
-        navigation.navigate("Exercise")
+        if (state.workoutReducer.templateExercises.length) {
+            const nextExercise = state.workoutReducer.templateExercises[state.workoutReducer.exercises.length]
+            dispatch(addExerciseToWorkout(state.reducer.token, state.workoutReducer.workoutId, { exercise: nextExercise }))
+            navigation.navigate('Sets', { exercise: nextExercise, sets: { [nextExercise]: [] } })
+        }
+        else {
+            navigation.navigate("Exercise")
+        }
     }
 
     const toggleOverlay = () => {
@@ -97,7 +104,10 @@ const Workout = ({ navigation }) => {
 
     return (
         <View style={workoutStyles.root}>
-            <NavigationEvents onWillFocus={payload => state.workoutReducer.workoutInProgress ? null : navigation.navigate("Body")} />
+            <NavigationEvents onWillFocus={payload => {
+                console.log("hello", state.workoutReducer.exercises)
+                dispatch(getWorkoutById(state.reducer.token, state.workoutReducer.workoutId))
+            }} />
             {state.workoutReducer.loading ?
                 <Spinner />
                 :
@@ -105,7 +115,7 @@ const Workout = ({ navigation }) => {
                     <RecordedWorkout />
                     <View style={workoutStyles.buttonWrap}>
                         <Button onPress={() => toggleOverlay()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue", borderRadius: 15 }} />
-                        <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "mediumseagreen", borderRadius: 15 }} />
+                        {state.workoutReducer.templateExercises.length != 0 && state.workoutReducer.templateExercises.length != state.workoutReducer.exercises.length ? <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "mediumseagreen", borderRadius: 15 }} /> : null}
                     </View>
                     <Overlay overlayStyle={{ width: "90%" }} isVisible={visible} onBackdropPress={toggleOverlay}>
                         <View>

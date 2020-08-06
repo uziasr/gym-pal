@@ -38,11 +38,7 @@ const WorkoutStats = ({ navigation }) => {
 
         const saveHandler = () => {
             onToggle()
-            console.log("this is my id", workoutId)
             dispatch(saveWorkout(state.reducer.token, workoutId, { name: workoutName }))
-            // axiosWithAuthorization(state.reducer.token).post(`/saved/workout/${workoutId}`, { name: workoutName })
-            //     .then(res => console.log(res.data))
-            //     .catch(err => console.log(err.response))
         }
 
         return (
