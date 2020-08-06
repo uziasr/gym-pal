@@ -105,7 +105,6 @@ const Workout = ({ navigation }) => {
     return (
         <View style={workoutStyles.root}>
             <NavigationEvents onWillFocus={payload => {
-                console.log("hello", state.workoutReducer.exercises)
                 dispatch(getWorkoutById(state.reducer.token, state.workoutReducer.workoutId))
             }} />
             {state.workoutReducer.loading ?

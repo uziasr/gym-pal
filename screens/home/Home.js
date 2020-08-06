@@ -30,6 +30,14 @@ const Home = ({ navigation }) => {
         navigation.navigate('Sets', { exercise: scheduledWorkout.exercise, sets: { [scheduledWorkout.exercise]: [] } })
     }
 
+    const resumeWorkoutHandler = () => {
+        if (state.workoutReducer.templateId) {
+            navigation.navigate("Exercise")
+        } else {
+            navigation.navigate("Workout")
+        }
+    }
+
     return (
         <View style={homeStyles.root}>
             <View style={{ marginVertical: 15 }}>
@@ -82,7 +90,7 @@ const Home = ({ navigation }) => {
                 <Text style={{ fontSize: 20, color: "white" }}>Latest Workout Overview</Text>
             </View>
             {state.workoutReducer.workoutInProgress ?
-                <TouchableOpacity onPress={() => navigation.navigate("Workout")} style={{ alignSelf: "center", alignContent: "center", alignItems: "center", flexDirection: "row", justifyContent: "space-evenly", width: "95%", marginBottom: 10, backgroundColor: "mediumseagreen", borderRadius: 20, paddingVertical: 20 }}>
+                <TouchableOpacity onPress={() => resumeWorkoutHandler()} style={{ alignSelf: "center", alignContent: "center", alignItems: "center", flexDirection: "row", justifyContent: "space-evenly", width: "95%", marginBottom: 10, backgroundColor: "mediumseagreen", borderRadius: 20, paddingVertical: 20 }}>
                     <Text style={{ color: "white", fontSize: 20 }}>Resume Workout</Text>
                 </TouchableOpacity> : null}
         </View>
