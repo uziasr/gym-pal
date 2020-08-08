@@ -23,14 +23,8 @@ const ScheduleForm = ({ navigation }) => {
     }, [])
 
     const saveWorkout = (id) => {
-        // axiosWithAuthorization(state.reducer.token).post(`/saved/${id}/schedule`, {date: currentDate})
-        // .then(res=>{
-        //     console.log(res.data)
-        // })
-        // .catch(err=>{
-        //     console.log(err)
-        // })
         dispatch(scheduleWorkout(state.reducer.token, id, { date: currentDate }))
+        navigation.navigate("Schedule")
     }
 
     return (

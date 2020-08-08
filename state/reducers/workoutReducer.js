@@ -112,6 +112,8 @@ const workoutReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 workoutId: action.payload.id,
+                currentExercise: action.payload.exercise ? action.payload.exercise : null,
+                currentWorkoutId: action.payload["workout_exercise_id"] ? action.payload["workout_exercise_id"] : null,
                 workoutInProgress: true
             }
         }
@@ -136,7 +138,7 @@ const workoutReducer = (state = initialState, action) => {
                 loading: false,
                 workoutId: action.payload.id,
                 templateId: action.payload.template_id ? action.payload.template_id : null,
-                templateExercises: action.payload.exercises ? action.payload.exercises : null, 
+                templateExercises: action.payload.exercises ? action.payload.exercises : null,
                 workoutInProgress: true,
                 workoutFetched: true,
             }

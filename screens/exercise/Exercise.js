@@ -24,6 +24,9 @@ const Exercise = ({ navigation }) => {
         if(state.workoutReducer.workoutId) {
             dispatch(getWorkoutById(state.reducer.token, state.workoutReducer.workoutId))
         }
+        if (state.workoutReducer.templateId) {
+            navigation.navigate('Workout')
+        }
     }, [])
 
 

@@ -4,6 +4,7 @@ import { Agenda } from 'react-native-calendars';
 import { Card, Avatar } from 'react-native-paper';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getSchedule } from '../../state/actions/savedAction'
+import { NavigationEvents } from 'react-navigation';
 
 
 const Schedule = ({ navigation }) => {
@@ -55,6 +56,9 @@ const Schedule = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1, height: 400 }}>
+            <NavigationEvents
+            onWillFocus={payload => dispatch(getSchedule(state.reducer.token))}
+            />
             <Agenda
                 items={state.savedReducer.agenda}
                 onDayChange={day => console.log(day)}

@@ -31,10 +31,12 @@ const Home = ({ navigation }) => {
     }
 
     const resumeWorkoutHandler = () => {
-        if (state.workoutReducer.templateId) {
-            navigation.navigate("Exercise")
-        } else {
+        if (state.workoutReducer.workoutExerciseId) {
+            navigation.navigate("Sets")
+        } else if (state.workoutReducer.templateId) {
             navigation.navigate("Workout")
+        } else {
+            navigation.navigate("Exercise")
         }
     }
 
