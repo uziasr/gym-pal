@@ -1,16 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { splitStyles } from '../../styles/index';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import splitConversion from './splitHelper';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { startWorkout } from "../../state/actions/workoutActions"
+// import { deadlift2 } from '../../assets/splits'
 
 const Splits = ({ body, navigation }) => {
 
     const [splits, setSplits] = useState({})
     const [isSelected, setSelected] = useState(false)
     const state = useSelector(state => state, shallowEqual)
+    const [imageMap, setImageMap] = useState({
+        Chest: require(`../../assets/splits/push.jpg`), 
+        Hamstrings: require(`../../assets/splits/deadlift2.jpg`), 
+        Triceps: require(`../../assets/splits/triceps.jpg`), 
+        Push: require(`../../assets/splits/push.jpg`), 
+        Chest: require(`../../assets/splits/push.jpg`), 
+        Arms: require(`../../assets/splits/biceps.jpg`), 
+        Biceps: require(`../../assets/splits/biceps.jpg`),
+        Forearms: require(`../../assets/splits/arms.jpg`), 
+        Quadriceps: require(`../../assets/splits/squat.jpg`), 
+        Calves: require(`../../assets/splits/calves.jpg`), 
+        Abs: require(`../../assets/splits/abs.jpg`),
+        Shoulders: require(`../../assets/splits/shoulders.jpg`),
+        Pull: require(`../../assets/splits/pull1.jpg`),
+        Back: require(`../../assets/splits/pull1.jpg`),
+        Legs: require(`../../assets/splits/squat.jpg`),
+        "Full body": require(`../../assets/splits/fullBody.jpg`),
+        Trapezius: require(`../../assets/splits/traps.jpg`)
+    })
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -64,9 +84,8 @@ const Splits = ({ body, navigation }) => {
                             <View style={splits[split] ? { ...splitStyles.bodyView, backgroundColor: '#344955', color: '#CBD9E1' } : { ...splitStyles.bodyView, backgroundColor: '#E8E9ED' }} key={index}>
                                 <TouchableOpacity onPress={() => updateSplit(split)}>
                                     <View style={splitStyles.muscleWrap}>
-                                        <Text
-                                            style={{ ...splitStyles.bodyText, color: splits[split] ? '#E8F0F6' : 'black' }}
-                                        >{split.toUpperCase()}</Text>
+                                        <Text style={{ ...splitStyles.bodyText, color: splits[split] ? '#E8F0F6' : 'black' }}>{split.toUpperCase()}</Text>
+                                        <Image style={{ width: 180, height: 200, borderRadius: 15 }} source={imageMap[split]} />
                                         {splits[split] ?
                                             <FontAwesome name="check-circle" size={24} color="#CBD9E1" /> : <Ionicons name="md-add" size={24} color='black' />}
                                     </View>

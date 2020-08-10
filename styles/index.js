@@ -16,14 +16,14 @@ export const splitStyles = StyleSheet.create({
         alignItems: 'center'
     },
     bodyText: {
-        alignSelf: 'flex-start',
+        alignSelf: 'center',
         fontWeight: 'bold',
         color: 'black',
         fontSize: 16,
     },
     bodyView: {
         margin: 5,
-        width: "98%",
+        width: "45%",
         borderRadius: 15
     },
     buttonView: {
@@ -44,11 +44,12 @@ export const splitStyles = StyleSheet.create({
     },
     muscleWrap: {
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
         alignContent: 'center',
-        padding: 15,
+        alignSelf: "center",
+        padding: 5,
         margin: 5,
     },
     titleText: {
