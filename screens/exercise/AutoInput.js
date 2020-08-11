@@ -105,7 +105,7 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExer
                         >
                             <View>
                                 <Text key={index} style={autoInputStyles.textStyle}>{exercise.exercise}</Text>
-                                <Text>{exercise.muscle}</Text>
+                                <Text style={autoInputStyles.muscleText}>{exercise.muscle}</Text>
                             </View>
                             <AntDesign name="right" size={18} color="black" />
                         </TouchableOpacity>)

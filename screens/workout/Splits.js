@@ -13,22 +13,22 @@ const Splits = ({ body, navigation }) => {
     const [isSelected, setSelected] = useState(false)
     const state = useSelector(state => state, shallowEqual)
     const [imageMap, setImageMap] = useState({
-        Chest: require(`../../assets/splits/push.jpg`), 
-        Hamstrings: require(`../../assets/splits/deadlift2.jpg`), 
-        Triceps: require(`../../assets/splits/triceps.jpg`), 
-        Push: require(`../../assets/splits/push.jpg`), 
-        Chest: require(`../../assets/splits/push.jpg`), 
-        Arms: require(`../../assets/splits/biceps.jpg`), 
+        Chest: require(`../../assets/splits/push.jpg`),
+        Hamstrings: require(`../../assets/splits/deadlift2.jpg`),
+        Triceps: require(`../../assets/splits/triceps.jpg`),
+        Push: require(`../../assets/splits/push.jpg`),
+        Chest: require(`../../assets/splits/push.jpg`),
+        Arms: require(`../../assets/splits/biceps.jpg`),
         Biceps: require(`../../assets/splits/biceps.jpg`),
-        Forearms: require(`../../assets/splits/arms.jpg`), 
-        Quadriceps: require(`../../assets/splits/squat.jpg`), 
-        Calves: require(`../../assets/splits/calves.jpg`), 
+        Forearms: require(`../../assets/splits/arms.jpg`),
+        Quadriceps: require(`../../assets/splits/squat.jpg`),
+        Calves: require(`../../assets/splits/calves.jpg`),
         Abs: require(`../../assets/splits/abs.jpg`),
         Shoulders: require(`../../assets/splits/shoulders.jpg`),
         Pull: require(`../../assets/splits/pull1.jpg`),
         Back: require(`../../assets/splits/pull1.jpg`),
         Legs: require(`../../assets/splits/squat.jpg`),
-        "Full body": require(`../../assets/splits/fullBody.jpg`),
+        "Full body": require(`../../assets/splits/fullBody1.jpg`),
         Trapezius: require(`../../assets/splits/traps.jpg`)
     })
     const dispatch = useDispatch()
@@ -69,7 +69,7 @@ const Splits = ({ body, navigation }) => {
 
     return (
         <View style={splitStyles.root}>
-            <View style={{ flexDirection: "row", justifyContent: isSelected ? "space-between" : "center", marginHorizontal: isSelected ? 40 : 10, marginVertical: 25 }}>
+            <View style={{ flexDirection: "row", justifyContent: isSelected ? "space-between" : "center", marginHorizontal: isSelected ? 40 : 10, marginVertical: 20 }}>
                 <Text style={splitStyles.titleText}>Select Your Split</Text>
                 {isSelected ? <TouchableOpacity
                     disabled={!isSelected}

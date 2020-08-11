@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigator from './routes/homeStack'
 import { createStore, applyMiddleware, combineReducers } from "redux"
 import { Provider } from "react-redux"
@@ -8,9 +8,22 @@ import statsReducer from './state/reducers/statsReducer'
 import exerciseReducer from './state/reducers/exerciseReducer'
 import savedReducer from './state/reducers/savedReducer'
 import thunk from 'redux-thunk'
+import * as Font from 'expo-font'
+import { AppLoading } from 'expo'
 
+
+const getFonts = () => (Font.loadAsync({
+  'nunito-regular': require('./assets/fonts/Nunito-Regular.ttf'),
+  'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf'),
+  'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+  'open-sans-regular': require('./assets/fonts/OpenSans-Regular.ttf'),
+})
+)
 
 export default function App() {
+
+  const [fontsLoaded, setFontsLoaded] = useState(false)
+
 
   const rootReducer = combineReducers({
     reducer,
@@ -25,7 +38,7 @@ export default function App() {
   return (
     <>
       <Provider store={store}>
-        <Navigator />
+        {fontsLoaded ? <Navigator /> : <AppLoading startAsync={getFonts} onFinish={() => setFontsLoaded(true)} />}
       </Provider>
     </>
   );
