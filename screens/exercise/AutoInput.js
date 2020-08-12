@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, Text, ScrollView, } from 'react-native';
+import { View, TouchableOpacity, Text, ScrollView, ActivityIndicator } from 'react-native';
 import { Input } from 'react-native-elements';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import { autoInputStyles } from '../../styles/index'
@@ -7,6 +7,7 @@ import splits from '../workout/body'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { completeWorkout } from "../../state/actions/workoutActions"
 import CompleteWorkoutOverlay from './CompleteWorkoutOverlay'
+import  Spinner from '../../utils/Spinner'
 
 const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExercises }) => {
     const [query, setQuery] = useState('')
@@ -95,7 +96,7 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExer
     }
 
     function ExerciseItemScroll() {
-        return (
+        return state.exerciseReducer.loading ? <Spinner style={{backgroundColor: null}} color={"#212121"}/> : (
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 {filteredData.map((exercise, index) => {
                     return (
@@ -140,7 +141,7 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExer
                             }}
                                 style={autoInputStyles.touchableMuscle}
                                 key={index}>
-                                <Text style={muscleFilter[muscle] ? { color: "green", fontSize: 18, fontWeight: "bold" } : { color: "black", fontSize: 18 }}>{muscle}</Text>
+                                <Text style={muscleFilter[muscle] ? autoInputStyles.muscleFilterTextActive : autoInputStyles.muscleFilterText }>{muscle}</Text>
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
@@ -150,7 +151,7 @@ const AutoInput = ({ data, navigation, pressHandler, focusedMuscles, currentExer
                 <ExerciseItemScroll exercise={filteredData} />
             </View>
         </View>
-    );
+    )
 };
 
 export default AutoInput;

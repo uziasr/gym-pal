@@ -127,10 +127,10 @@ export const exerciseStatsStyles = StyleSheet.create({
         alignItems: 'center',
         height: '100%',
         flex: 1,
-        backgroundColor: '#2d2d2d',
+        // backgroundColor: '#2d2d2d',
     },
     statsView: {
-        width: "95%",
+        width: "99.5%",
         alignSelf: "center",
         height: 200,
         flexDirection: 'column',
@@ -141,31 +141,34 @@ export const exerciseStatsStyles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 15,
         marginVertical: 10,
-        backgroundColor: 'white'
+        backgroundColor: '#2d2d2db5'
     },
     statsText: {
         // fontWeight: 'bold'
         fontSize: 30,
-        fontFamily: fontBold
+        fontFamily: fontBold,
+        color:"white"
     },
     statsTextNum: {
         fontSize: 36,
         fontFamily: fontBold,
-        marginBottom: 30
+        marginBottom: 30,
+        color:"white"
     },
     statsTextNumber: {
         fontFamily: fontBold,
         fontSize: 45,
-        marginBottom: 30
+        marginBottom: 30,
+        color:"white"
     },
     titleWrap: {
         marginVertical: 15
     },
     title: {
-        fontSize: 24,
+        fontSize: 26,
         color: 'white',
         alignSelf: 'center',
-        fontFamily: font
+        fontFamily: fontBold
     }
 })
 
@@ -479,6 +482,16 @@ export const autoInputStyles = StyleSheet.create({
         justifyContent: "space-between"
 
     },
+    muscleFilterTextActive: {
+        color: "green",
+        fontSize: 18,
+        fontFamily: fontBold
+    },
+    muscleFilterText: {
+        color: "black",
+        fontSize: 18,
+        fontFamily: font
+    },
     completeWorkoutButton: {
         padding: 5,
         right: 5,
@@ -569,13 +582,23 @@ export const workoutStyles = StyleSheet.create({
         backgroundColor: backgroundColor,
         height: "100%"
     },
+    titleText:{
+        fontSize: 24,
+        fontFamily: fontBold,
+        alignSelf: "center",
+        marginVertical: 10,
+        color: "white"
+    },
     exerciseWrapper: {
-        marginVertical: 20,
+        marginBottom: 10,
+        marginTop: 10,
+        paddingBottom: 10,
         marginHorizontal: 10,
         flexDirection: "column",
         paddingLeft: 10,
         justifyContent: "flex-start",
-
+        borderBottomWidth: 1.5,
+        borderBottomColor: "whitesmoke"
     },
     loader: {
         backgroundColor: backgroundColor,
@@ -603,22 +626,23 @@ export const workoutStyles = StyleSheet.create({
         justifyContent: "center",
     },
     setText: {
-        color: "black",
+        color: "white",
         fontSize: 18,
-        fontFamily: font
+        fontFamily: font,
+        alignSelf: "flex-end"
     },
     exerciseTextWrap: {
         flexDirection: "row",
         flexWrap: "wrap",
         width: "100%",
         alignItems: "center",
-        alignContent: "center"
+        alignContent: "center",
     },
     workoutExerciseWrap: {
         flexDirection: "row",
         justifyContent: "space-between",
         marginVertical: 5,
-        backgroundColor: "whitesmoke",
+        // backgroundColor: "whitesmoke",
         borderRadius: 8
     },
     setWrapper: {

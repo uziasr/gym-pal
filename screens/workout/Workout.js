@@ -41,6 +41,7 @@ const Workout = ({ navigation }) => {
 
     const RecordedWorkout = () => (
         <ScrollView>
+            <Text style={workoutStyles.titleText}>Workout Overview</Text>
             {state.workoutReducer.currentWorkout.length !== 0 ? state.workoutReducer.currentWorkout.map((exercise, index) => {
                 return <View key={index} style={workoutStyles.exerciseWrapper}>
                     <View style={workoutStyles.exerciseTextWrap}>
@@ -55,7 +56,7 @@ const Workout = ({ navigation }) => {
                             </View>
                             <View style={workoutStyles.setWrapper}>
                                 {exercise.sets.map((aSet, index) => {
-                                    return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
+                                    return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8, alignSelf:"flex-end" }}>
                                         <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
                                     </View>
                                 })}
@@ -70,7 +71,7 @@ const Workout = ({ navigation }) => {
                                 </View>
                                 <View >
                                     {exercise.previous_sets.map((aSet, index) => {
-                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8, paddingHorizontal: 0, alignSelf: "center" }}>
+                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8, paddingHorizontal: 0, alignSelf: "flex-end" }}>
                                             <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
                                         </View>
                                     })}
@@ -84,7 +85,7 @@ const Workout = ({ navigation }) => {
                                 </View>
                                 <View style={workoutStyles.setWrapper}>
                                     {exercise.sets.map((aSet, index) => {
-                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
+                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8, alignSelf: "flex-end" }}>
                                             <Text style={workoutStyles.setText}>{Math.round(aSet.max)} {"LBS"}</Text>
                                         </View>
                                     })}
