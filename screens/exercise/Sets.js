@@ -48,13 +48,13 @@ const Sets = ({ exerciseSet, order }) => {
         <>
             {deleting ?
                 <View style={{ justifyContent: "center" }}>
-                    <Text style={{ alignSelf: "center", color: "white", fontSize: 20, }}>Are you sure you want to delete?</Text>
+                    <Text style={setStyles.deleteText}>Are you sure you want to delete?</Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", width: "40%", alignSelf: "center", }}>
                         <TouchableOpacity onPress={() => deleteHandler()} style={{ padding: 12 }}>
-                            <Text style={{ color: "white", fontSize: 18 }}>Yes</Text>
+                            <Text style={setStyles.deleteConfirmation}>Yes</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => setDeleting(false)} style={{ padding: 12 }}>
-                            <Text style={{ color: "white", fontSize: 18 }}>No</Text>
+                            <Text style={setStyles.deleteConfirmation}>No</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -88,7 +88,7 @@ const Sets = ({ exerciseSet, order }) => {
                     <TouchableOpacity onPress={() => {
                         setEditedValues({ ...editedValues, unit: editedValues.unit == "pounds" ? "kilograms" : "pounds" })
                     }}>
-                        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#1E90FF", paddingVertical: 5, right:6,  paddingHorizontal: 12, borderRadius: 60 }}>{editedValues.unit == "pounds" ? "LBS" : "KG"}</Text>
+                        <Text style={setStyles.unitText}>{editedValues.unit == "pounds" ? "LBS" : "KG"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => editHandler()}>
                         <FontAwesome name="check-circle" size={28} color="#00FF7F" />

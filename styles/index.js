@@ -126,12 +126,17 @@ export const exerciseStatsStyles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         height: '100%',
-        backgroundColor: '#2d2d2d'
+        flex: 1,
+        backgroundColor: '#2d2d2d',
     },
     statsView: {
-        width: '98%',
-        flexDirection: 'row',
+        width: "95%",
+        alignSelf: "center",
+        height: 200,
+        flexDirection: 'column',
         justifyContent: 'space-between',
+        alignContent: "center",
+        alignItems: "center",
         paddingVertical: 20,
         paddingHorizontal: 10,
         borderRadius: 15,
@@ -140,7 +145,18 @@ export const exerciseStatsStyles = StyleSheet.create({
     },
     statsText: {
         // fontWeight: 'bold'
+        fontSize: 30,
         fontFamily: fontBold
+    },
+    statsTextNum: {
+        fontSize: 36,
+        fontFamily: fontBold,
+        marginBottom: 30
+    },
+    statsTextNumber: {
+        fontFamily: fontBold,
+        fontSize: 45,
+        marginBottom: 30
     },
     titleWrap: {
         marginVertical: 15
@@ -173,7 +189,7 @@ export const contributionViewStyles = StyleSheet.create({
     durationText: {
         color: "black",
         fontSize: 16,
-        fontFamily: font 
+        fontFamily: font
     },
     headerText: {
         color: 'white',
@@ -237,8 +253,8 @@ export const workoutStatsStyles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     buttonStyleExercise: {
-        marginTop:10,
-        marginRight:5,
+        marginTop: 10,
+        marginRight: 5,
         paddingHorizontal: 12,
         paddingVertical: 6,
         backgroundColor: "#425C6A",
@@ -257,14 +273,14 @@ export const workoutStatsStyles = StyleSheet.create({
         marginVertical: 25
     },
     buttonTextSaveStyle: {
-        fontSize:16,
+        fontSize: 16,
         alignSelf: "center",
         color: "white",
         fontFamily: font
     },
     buttonTextStyleExercise: {
-        color:"white", 
-        fontSize:16,
+        color: "white",
+        fontSize: 16,
         fontFamily: font,
     },
     text: {
@@ -320,7 +336,26 @@ export const setStyles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-
+    },
+    deleteText: {
+        alignSelf: "center",
+        color: "white",
+        fontSize: 20,
+        fontFamily: font
+    },
+    deleteConfirmation: {
+        fontFamily: font,
+        color: "white",
+        fontSize: 18
+    },
+    unitText: {
+        fontSize: 20,
+        color: "#1E90FF",
+        paddingVertical: 5,
+        right: 6,
+        paddingHorizontal: 12,
+        borderRadius: 60,
+        fontFamily: fontBold
     },
     editText: {
         alignSelf: "center",
@@ -365,7 +400,7 @@ export const setFormStyles = StyleSheet.create({
 
 export const exerciseSetStyles = StyleSheet.create({
     rootWrap: {
-        height:"100%",
+        height: "100%",
         backgroundColor: backgroundColor,
         color: "white"
     },
@@ -376,7 +411,6 @@ export const exerciseSetStyles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        // fontWeight: "bold",
         fontFamily: fontBold,
         color: "white",
     },
@@ -434,7 +468,7 @@ export const exerciseSetStyles = StyleSheet.create({
 export const autoInputStyles = StyleSheet.create({
     input: {
         flex: 1,
-        marginHorizontal: 'auto', 
+        marginHorizontal: 'auto',
     },
     inputWrap: {
         paddingTop: 10,
@@ -482,7 +516,7 @@ export const autoInputStyles = StyleSheet.create({
         // fontWeight: "bold",
         fontFamily: fontBold
     },
-    muscleText:{
+    muscleText: {
         fontFamily: font
     },
     touchableMuscleWrapper: {
@@ -642,7 +676,7 @@ export const registerStyles = ({
 })
 
 export const homeStyles = StyleSheet.create({
-    root:{
+    root: {
         backgroundColor: backgroundColor,
         height: "100%"
     }

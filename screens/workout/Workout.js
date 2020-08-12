@@ -101,7 +101,6 @@ const Workout = ({ navigation }) => {
         </ScrollView>
     )
 
-
     return (
         <View style={workoutStyles.root}>
             <NavigationEvents onWillFocus={payload => {
@@ -114,7 +113,7 @@ const Workout = ({ navigation }) => {
                     <RecordedWorkout />
                     <View style={workoutStyles.buttonWrap}>
                         <Button onPress={() => toggleOverlay()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue", borderRadius: 15 }} />
-                        {state.workoutReducer.templateExercises.length != 0 && state.workoutReducer.templateExercises.length != state.workoutReducer.exercises.length ? <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "mediumseagreen", borderRadius: 15 }} /> : null}
+                        {state.workoutReducer.templateExercises.length != 0 && state.workoutReducer.templateExercises.length != state.workoutReducer.exercises.length ?  null : <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "mediumseagreen", borderRadius: 15 }} />}
                     </View>
                     <Overlay overlayStyle={{ width: "90%" }} isVisible={visible} onBackdropPress={toggleOverlay}>
                         <View>

@@ -138,7 +138,7 @@ const workoutReducer = (state = initialState, action) => {
                 loading: false,
                 workoutId: action.payload.id,
                 templateId: action.payload.template_id ? action.payload.template_id : null,
-                templateExercises: action.payload.exercises ? action.payload.exercises : null,
+                templateExercises: action.payload.exercises ? action.payload.exercises : [],
                 workoutInProgress: true,
                 workoutFetched: true,
             }
@@ -315,7 +315,6 @@ const workoutReducer = (state = initialState, action) => {
             }
         }
         case DELETE_EXERCISE_FAIL: {
-            console.log("err", action.payload)
             return {
                 ...state,
                 loading: false,

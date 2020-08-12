@@ -32,7 +32,7 @@ const Home = ({ navigation }) => {
 
     const resumeWorkoutHandler = () => {
         if (state.workoutReducer.workoutExerciseId) {
-            navigation.navigate("Sets")
+            navigation.navigate("Sets", { exercise: state.workoutReducer.currentExercise })
         } else if (state.workoutReducer.templateId) {
             navigation.navigate("Workout")
         } else {

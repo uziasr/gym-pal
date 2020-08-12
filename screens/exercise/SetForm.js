@@ -33,7 +33,7 @@ const SetForm = ({ addSet }) => {
                         keyboardType='number-pad'
                         numericValue
                         onChangeText={text => inputChangeHandler('weight', text)}
-                        inputStyle={{ textAlign: 'center', color: "white" }}
+                        inputStyle={{ textAlign: 'center', color: "white", fontFamily: "open-sans-regular" }}
                         value={currentSet.weight == 0 ? '' : (currentSet.weight).toString()}
                         placeholder='0' />
                 </View>
@@ -43,7 +43,7 @@ const SetForm = ({ addSet }) => {
                         keyboardType='number-pad'
                         numericValue
                         onChangeText={text => inputChangeHandler('reps', text)}
-                        inputStyle={{ textAlign: 'center', color: "white" }}
+                        inputStyle={{ textAlign: 'center', color: "white", fontFamily: "open-sans-regular" }}
                         value={currentSet.reps == 0 ? '' : (currentSet.reps).toString()}
                         style={{ width: '40%' }}
                         placeholder='0' />

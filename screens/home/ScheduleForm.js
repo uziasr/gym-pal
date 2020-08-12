@@ -12,13 +12,6 @@ const ScheduleForm = ({ navigation }) => {
     const currentDate = navigation.state.params.date
 
     useEffect(() => {
-        // axiosWithAuthorization(state.reducer.token).get("/saved/workout")
-        // .then(res=>{
-        //     setSavedWorkouts(res.data)
-        // })
-        // .catch(err=>{
-        //     console.log(err.response)
-        // })
         dispatch(getSavedWorkouts(state.reducer.token))
     }, [])
 

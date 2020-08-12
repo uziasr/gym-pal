@@ -63,38 +63,42 @@ const ExerciseStats = ({ navigation }) => {
 
     const ValidResponse = () => (
         <View style={exerciseStatsStyles.root}>
-            <ScrollView style={{ width: "100%", alignContent: "center" }}>
+            <ScrollView style={{ flex: 1, alignContent: "center", }}>
                 <View style={exerciseStatsStyles.titleWrap}>
                     <Text style={exerciseStatsStyles.title}>{exercise.name}</Text>
                 </View>
                 <Bar />
-                <View style={exerciseStatsStyles.statsView}>
-                    <Text style={exerciseStatsStyles.statsText}>Projected One Rep Max</Text>
-                    <Text style={exerciseStatsStyles.statsText}> {Math.round(state.statsReducer.exerciseData.projected_one_rep.max_weight)}</Text>
-                </View>
-                <View style={exerciseStatsStyles.statsView}>
-                    <Text style={exerciseStatsStyles.statsText}>Based on</Text>
-                    <Text style={exerciseStatsStyles.statsText}>{state.statsReducer.exerciseData.projected_one_rep.weight} LBS X {state.statsReducer.exerciseData.projected_one_rep.reps} </Text>
-                </View>
-                <View style={exerciseStatsStyles.statsView}>
-                    <Text style={exerciseStatsStyles.statsText}>Max Reps</Text>
-                    <Text style={exerciseStatsStyles.statsText}>{state.statsReducer.exerciseData.max_reps.repetition} Reps @ {state.statsReducer.exerciseData.max_reps.weight} LBS</Text>
-                </View>
-                <View style={exerciseStatsStyles.statsView}>
-                    <Text style={exerciseStatsStyles.statsText}>Max Weight</Text>
-                    <Text style={exerciseStatsStyles.statsText}>{state.statsReducer.exerciseData.max_weight.weight} LBS @ {state.statsReducer.exerciseData.max_weight.repetition} Reps</Text>
-                </View>
-                <View style={exerciseStatsStyles.statsView}>
-                    <Text style={exerciseStatsStyles.statsText}>Total Sets</Text>
-                    <Text style={exerciseStatsStyles.statsText}>{state.statsReducer.exerciseData.total_sets}</Text>
-                </View>
-                <View style={exerciseStatsStyles.statsView}>
-                    <Text style={exerciseStatsStyles.statsText}>Average Reps</Text>
-                    <Text style={exerciseStatsStyles.statsText}>{Math.round(state.statsReducer.exerciseData.average_reps)}</Text>
-                </View>
-                <View style={exerciseStatsStyles.statsView}>
-                    <Text style={exerciseStatsStyles.statsText}>Average Weight </Text>
-                    <Text style={exerciseStatsStyles.statsText}>{Math.round(state.statsReducer.exerciseData.average_weight)}</Text>
+                <View style={{ flexDirection: "column", flexWrap: "wrap", alignContent: "center" }}>
+                    <View style={exerciseStatsStyles.statsView}>
+                        <Text style={exerciseStatsStyles.statsText}>Projected One Rep Max</Text>
+                        <Text style={exerciseStatsStyles.statsTextNumber}> {Math.round(state.statsReducer.exerciseData.projected_one_rep.max_weight)}</Text>
+                    </View>
+                    <View style={exerciseStatsStyles.statsView}>
+                        <Text style={exerciseStatsStyles.statsText}>Based on</Text>
+                        <Text style={exerciseStatsStyles.statsTextNumber}>{state.statsReducer.exerciseData.projected_one_rep.weight}  X {state.statsReducer.exerciseData.projected_one_rep.reps} </Text>
+                    </View>
+                    <View style={exerciseStatsStyles.statsView}>
+                        <Text style={exerciseStatsStyles.statsText}>Max Reps</Text>
+                        <Text style={exerciseStatsStyles.statsTextNum}>{state.statsReducer.exerciseData.max_reps.repetition} Reps @ {state.statsReducer.exerciseData.max_reps.weight} {state.statsReducer.exerciseData.max_reps.unit == "pounds" ? "LBS" : "KG"}</Text>
+                    </View>
+                    <View style={exerciseStatsStyles.statsView}>
+                        <Text style={exerciseStatsStyles.statsText}>Max Weight</Text>
+                        <Text style={exerciseStatsStyles.statsTextNum}>{state.statsReducer.exerciseData.max_weight.weight} {state.statsReducer.exerciseData.max_weight.unit == "pounds" ? "LBS" : "KG"} @ {state.statsReducer.exerciseData.max_weight.repetition} Reps</Text>
+                    </View>
+
+                    <View style={exerciseStatsStyles.statsView}>
+                        <Text style={exerciseStatsStyles.statsText}>Total Sets</Text>
+                        <Text style={exerciseStatsStyles.statsTextNumber}>{state.statsReducer.exerciseData.total_sets}</Text>
+                    </View>
+                    <View style={exerciseStatsStyles.statsView}>
+                        <Text style={exerciseStatsStyles.statsText}>Average Reps</Text>
+                        <Text style={exerciseStatsStyles.statsTextNumber}>{Math.round(state.statsReducer.exerciseData.average_reps)}</Text>
+                    </View>
+
+                    <View style={exerciseStatsStyles.statsView}>
+                        <Text style={exerciseStatsStyles.statsText}>Average Weight </Text>
+                        <Text style={exerciseStatsStyles.statsTextNumber}>{Math.round(state.statsReducer.exerciseData.average_weight)} {state.statsReducer.exerciseData.unit}</Text>
+                    </View>
                 </View>
             </ScrollView>
         </View>

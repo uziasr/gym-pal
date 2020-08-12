@@ -22,7 +22,6 @@ import { axiosWithAuthorization } from "../../utils/index"
 
 export const saveWorkout = (token, workoutId, name) => dispatch => {
     dispatch({ type: SAVE_WORKOUT_START })
-    console.log("this is what I need", workoutId)
     axiosWithAuthorization(token).post(`/saved/workout/${workoutId}`, name)
         .then(res => dispatch({ type: SAVE_WORKOUT_SUCCESS, payload: res.data }))
         .catch(err => dispatch({ type: SAVE_WORKOUT_FAIL, payload: err }))
