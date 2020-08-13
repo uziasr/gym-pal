@@ -6,7 +6,7 @@ import {
 } from "react-native-chart-kit";
 import { Fontisto } from '@expo/vector-icons';
 
-const WorkoutPie = ({ workout }) => {
+const WorkoutPie = ({ workout, onToggle }) => {
     const [byExercise, setByExercise] = useState([])
     const [byRep, setByRep] = useState([])
     const [isByExercise, setIsByExercise] = useState(true)
@@ -90,9 +90,15 @@ const WorkoutPie = ({ workout }) => {
                 paddingLeft={15}
                 absolute
             />
-            <TouchableOpacity style={workoutStatsStyles.buttonSaveStyle} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} >
-                <Text style={workoutStatsStyles.buttonTextSaveStyle}>{isByExercise ? "By Reps" : "By Exercise"}</Text>
-            </TouchableOpacity>
+            <View style={{ flexDirection: "row", alignSelf: "center", width: "90%", justifyContent: "space-between" }}>
+                <TouchableOpacity onPress={() => onToggle()} style={workoutStatsStyles.buttonStyleExercise}>
+                    <Text style={{ color: "white", fontSize: 18 }}>Create Template</Text>
+                    {/* <Fontisto name="save" size={16} color="whitesmoke" /> */}
+                </TouchableOpacity>
+                <TouchableOpacity style={workoutStatsStyles.buttonSaveStyle} onPress={() => isByExercise ? weightView() : setIsByExercise(!isByExercise)} >
+                    <Text style={workoutStatsStyles.buttonTextSaveStyle}>{isByExercise ? "By Reps" : "By Exercise"}</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };

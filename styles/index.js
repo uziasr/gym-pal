@@ -248,7 +248,7 @@ export const contributionViewStyles = StyleSheet.create({
 export const workoutStatsStyles = StyleSheet.create({
     root: {
         backgroundColor: backgroundColor,
-        height: '100%'
+        height: '100%',
     },
     exerciseWrap: {
         flexDirection: 'row',
@@ -256,8 +256,7 @@ export const workoutStatsStyles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     buttonStyleExercise: {
-        marginTop: 10,
-        marginRight: 5,
+        marginVertical: 25,
         paddingHorizontal: 12,
         paddingVertical: 6,
         backgroundColor: "#425C6A",
@@ -279,7 +278,7 @@ export const workoutStatsStyles = StyleSheet.create({
         fontSize: 16,
         alignSelf: "center",
         color: "white",
-        fontFamily: font
+        fontFamily: font        
     },
     buttonTextStyleExercise: {
         color: "white",
@@ -288,10 +287,11 @@ export const workoutStatsStyles = StyleSheet.create({
     },
     text: {
         color: "white",
-        fontFamily: font
+        fontFamily: font,
     },
     titleWrap: {
         paddingBottom: 15,
+        marginTop:20,
         // alignSelf: "center"
         justifyContent: "center",
         flexDirection: "row",
@@ -305,6 +305,13 @@ export const workoutStatsStyles = StyleSheet.create({
         color: "white",
         fontFamily: fontBold
         // fontWeight: "bold"
+    },
+    workoutTitle: {
+        fontFamily: fontBold,
+        fontSize: 24,
+        color: "white",
+        alignSelf: "center",
+        marginVertical: 10
     }
 
 })

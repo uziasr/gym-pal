@@ -44,8 +44,8 @@ const WorkoutStats = ({ navigation }) => {
         return (
             <Overlay onBackdropPress={onToggle} isVisible={visible} overlayStyle={{ width: "90%" }}>
                 <View>
-                    <View style={{marginVertical:5}}>
-                        <Text style={{fontSize: 24, alignSelf: "center"}}>Save</Text>
+                    <View style={{ marginVertical: 5 }}>
+                        <Text style={{ fontSize: 24, alignSelf: "center" }}>Save</Text>
                     </View>
                     <View style={{ alignSelf: "center" }}>
                         <Text style={{ fontSize: 18 }}>Name this Workout</Text>
@@ -81,24 +81,31 @@ const WorkoutStats = ({ navigation }) => {
     return state.workoutReducer.loading ? <Spinner /> : (
         <View style={workoutStatsStyles.root}>
             <ScrollView>
-            <TouchableOpacity onPress={() => onToggle()} style={workoutStatsStyles.buttonStyleExercise}>
-                <Text style={{color: "white", fontSize: 18}}>Save</Text>
-                {/* <Fontisto name="save" size={16} color="whitesmoke" /> */}
-            </TouchableOpacity>
-            <WorkoutPie workout={workout} />
-            <>
-                <SaveOverlay />
-            </>
-                {workout.map((currentExercise, index) => {
-                    return <View key={index}>
-                        <Text style={workoutStatsStyles.text}>{currentExercise.exercise}</Text>
-                        <View>
-                            {currentExercise.sets.map((currentSet, index) => (
-                                <Text key={index} style={workoutStatsStyles.text}>{currentSet.repetition} X {currentSet.weight}</Text>
-                            ))}
+                <WorkoutPie workout={workout} onToggle={onToggle} />
+                <>
+                    <SaveOverlay />
+                </>
+                <View style={{ width: "90%", alignSelf: "center", marginBottom: 15 }}>
+                    <Text style={workoutStatsStyles.workoutTitle}>Workout</Text>
+                    {workout.map((currentExercise, index) => {
+                        return <View key={index} style={{marginVertical:10}}>
+                            <Text style={{ ...workoutStatsStyles.text, fontSize: 20, marginBottom:15 }}>{currentExercise.exercise}</Text>
+                            <View style={{ alignSelf: "flex-end", width: "70%" }}>
+                                <View key={index} style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 5 }}>
+                                    <Text style={{ ...workoutStatsStyles.text, alignSelf: "center", fontSize: 18 }}>Sets</Text>
+                                    <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-start", fontSize: 18 }}>1RM</Text>
+                                </View>
+                                {currentExercise.sets.map((currentSet, index) => {
+                                    console.log("this is currentSet", currentSet)
+                                    return <View key={index} style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                        <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 16 }}>{currentSet.repetition} X {currentSet.weight} {currentSet.unit == "pounds" ? "LBS" : "KG"}</Text>
+                                        <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 16 }}>{currentSet.max} {currentSet.unit == "pounds" ? "LBS" : "KG"}</Text>
+                                    </View>
+                                })}
+                            </View>
                         </View>
-                    </View>
-                })}
+                    })}
+                </View>
             </ScrollView>
         </View>
     )
