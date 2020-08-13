@@ -88,20 +88,37 @@ const WorkoutStats = ({ navigation }) => {
                 <View style={{ width: "90%", alignSelf: "center", marginBottom: 15 }}>
                     <Text style={workoutStatsStyles.workoutTitle}>Workout</Text>
                     {workout.map((currentExercise, index) => {
-                        return <View key={index} style={{marginVertical:10}}>
-                            <Text style={{ ...workoutStatsStyles.text, fontSize: 20, marginBottom:15 }}>{currentExercise.exercise}</Text>
-                            <View style={{ alignSelf: "flex-end", width: "70%" }}>
+                        return <View key={index} style={{ marginVertical: 10 }}>
+                            <Text style={{ ...workoutStatsStyles.text, fontSize: 20, marginBottom: 15 }}>{currentExercise.exercise}</Text>
+                            <View style={{ alignSelf: "flex-end", width: "90%" }}>
                                 <View key={index} style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 5 }}>
                                     <Text style={{ ...workoutStatsStyles.text, alignSelf: "center", fontSize: 18 }}>Sets</Text>
+                                    <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-start", fontSize: 18 }}>Previous</Text>                                    
                                     <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-start", fontSize: 18 }}>1RM</Text>
                                 </View>
-                                {currentExercise.sets.map((currentSet, index) => {
-                                    console.log("this is currentSet", currentSet)
-                                    return <View key={index} style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                        <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 16 }}>{currentSet.repetition} X {currentSet.weight} {currentSet.unit == "pounds" ? "LBS" : "KG"}</Text>
-                                        <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 16 }}>{currentSet.max} {currentSet.unit == "pounds" ? "LBS" : "KG"}</Text>
+                                <View style={{flexDirection:"row",justifyContent: "space-between"}}>
+                                    <View style={{}}>
+                                        {currentExercise.sets.map((currentSet, index) => {
+                                            return <View key={index} style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                                <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 16 }}>{currentSet.repetition} X {currentSet.weight} {currentSet.unit == "pounds" ? "LBS" : "KG"}</Text>
+                                            </View>
+                                        })}
                                     </View>
-                                })}
+                                    <View>
+                                        {currentExercise.previous_sets.map((previousSet, index) => (
+                                            <View key={index} style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                                <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 16 }}>{previousSet.repetition} X {previousSet.weight} {previousSet.unit == "pounds" ? "LBS" : "KG"}</Text>
+                                            </View>
+                                        ))}
+                                    </View>
+                                    <View>
+                                        {currentExercise.sets.map((currentSet, index) => {
+                                            return <View key={index} style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                                <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 16 }}>{currentSet.max} {currentSet.unit == "pounds" ? "LBS" : "KG"}</Text>
+                                            </View>
+                                        })}
+                                    </View>
+                                </View>
                             </View>
                         </View>
                     })}
