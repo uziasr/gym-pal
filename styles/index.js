@@ -743,10 +743,15 @@ export const scheduleStyles = StyleSheet.create({
         color: "white"
     },
     savedWorkoutsWrap: {
-
+        width: "95%",
+        backgroundColor:"dodgerblue",
+        borderRadius:10,
+        marginVertical:5,
+        padding:15,
     },
     savedWorkoutsText: {
-
+        fontSize: 16,
+        color:"white"
     }
 
 })

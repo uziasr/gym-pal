@@ -25,14 +25,14 @@ const ScheduleForm = ({ navigation }) => {
         <View style={scheduleStyles.root}>
             <Text style={scheduleStyles.rootTitle}>Welcome to the Gym Pal Schedule Tool</Text>
             <View style={scheduleStyles.toolDescriptionWrap}>
-                <Text style={scheduleStyles.toolDescriptionText}>Looking for workouts? This tool supports creating schedules using Workout Templates.</Text>
+                <Text style={scheduleStyles.toolDescriptionText}>Looking for workouts? This tool supports scheduling workouts using Workout Templates.</Text>
                 <Text style={scheduleStyles.toolDescriptionText}>Go to your favorite workout and create and template of it and you will find it here!</Text>
             </View>
             <Text style={scheduleStyles.savedTitle}>Saved Workouts</Text>
             <View style={{ marginLeft: 15 }}>
                 {state.savedReducer.savedWorkouts.map((savedWorkout, index) => (
-                    <TouchableOpacity key={index} onPress={() => saveWorkout(savedWorkout.id)}>
-                        <Text>{savedWorkout.name}</Text>
+                    <TouchableOpacity style={scheduleStyles.savedWorkoutsWrap} key={index} onPress={() => saveWorkout(savedWorkout.id)}>
+                        <Text style={scheduleStyles.savedWorkoutsText}>{savedWorkout.name}</Text>
                     </TouchableOpacity>
                 ))}
             </View>
