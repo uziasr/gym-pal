@@ -147,19 +147,19 @@ export const exerciseStatsStyles = StyleSheet.create({
         // fontWeight: 'bold'
         fontSize: 30,
         fontFamily: fontBold,
-        color:"white"
+        color: "white"
     },
     statsTextNum: {
         fontSize: 36,
         fontFamily: fontBold,
         marginBottom: 30,
-        color:"white"
+        color: "white"
     },
     statsTextNumber: {
         fontFamily: fontBold,
         fontSize: 45,
         marginBottom: 30,
-        color:"white"
+        color: "white"
     },
     titleWrap: {
         marginVertical: 15
@@ -278,7 +278,7 @@ export const workoutStatsStyles = StyleSheet.create({
         fontSize: 16,
         alignSelf: "center",
         color: "white",
-        fontFamily: font        
+        fontFamily: font
     },
     buttonTextStyleExercise: {
         color: "white",
@@ -291,7 +291,7 @@ export const workoutStatsStyles = StyleSheet.create({
     },
     titleWrap: {
         paddingBottom: 15,
-        marginTop:20,
+        marginTop: 20,
         // alignSelf: "center"
         justifyContent: "center",
         flexDirection: "row",
@@ -440,7 +440,7 @@ export const exerciseSetStyles = StyleSheet.create({
         fontFamily: font
     },
     scrollWrap: {
-        height: 424
+        height: "52.25%"
     },
     trashWrap: {
         padding: 10,
@@ -589,7 +589,7 @@ export const workoutStyles = StyleSheet.create({
         backgroundColor: backgroundColor,
         height: "100%"
     },
-    titleText:{
+    titleText: {
         fontSize: 24,
         fontFamily: fontBold,
         alignSelf: "center",
@@ -711,4 +711,42 @@ export const homeStyles = StyleSheet.create({
         backgroundColor: backgroundColor,
         height: "100%"
     }
+})
+
+export const scheduleStyles = StyleSheet.create({
+    root: {
+        backgroundColor: backgroundColor,
+        height: "100%"
+    },
+    rootTitle: {
+        alignSelf: "center",
+        fontSize: 20,
+        marginVertical: 10,
+        color: "white",
+    },
+    toolDescriptionWrap: {
+        width: "90%",
+        padding:15,
+        backgroundColor: "black",
+        borderRadius:10,
+        alignSelf: "center",
+    },
+    toolDescriptionText: {
+        color:"white",
+        fontSize: 16,
+        alignSelf:"center"
+    },
+    savedTitle: {
+        alignSelf: "center", 
+        fontSize: 28, 
+        marginVertical: 10,
+        color: "white"
+    },
+    savedWorkoutsWrap: {
+
+    },
+    savedWorkoutsText: {
+
+    }
+
 })

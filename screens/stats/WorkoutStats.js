@@ -90,11 +90,11 @@ const WorkoutStats = ({ navigation }) => {
                     {workout.map((currentExercise, index) => {
                         return <View key={index} style={{ marginVertical: 10 }}>
                             <Text style={{ ...workoutStatsStyles.text, fontSize: 20, marginBottom: 15 }}>{currentExercise.exercise}</Text>
-                            <View style={{ alignSelf: "flex-end", width: "90%" }}>
-                                <View key={index} style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 5 }}>
-                                    <Text style={{ ...workoutStatsStyles.text, alignSelf: "center", fontSize: 18 }}>Sets</Text>
-                                    <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-start", fontSize: 18 }}>Previous</Text>                                    
-                                    <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-start", fontSize: 18 }}>1RM</Text>
+                            <View style={{ alignSelf: "center", width: "100%" }}>
+                                <View key={index} style={{ width:"100%", flexDirection: "row", justifyContent: "space-between", marginBottom: 5, alignSelf: "center"}}>
+                                    <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 18 }}>Sets</Text>
+                                    <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 18 }}>Previous</Text>                                    
+                                    <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 18 }}>1RM</Text>
                                 </View>
                                 <View style={{flexDirection:"row",justifyContent: "space-between"}}>
                                     <View style={{}}>
@@ -114,7 +114,7 @@ const WorkoutStats = ({ navigation }) => {
                                     <View>
                                         {currentExercise.sets.map((currentSet, index) => {
                                             return <View key={index} style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                                <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 16 }}>{currentSet.max} {currentSet.unit == "pounds" ? "LBS" : "KG"}</Text>
+                                                <Text style={{ ...workoutStatsStyles.text, alignSelf: "flex-end", fontSize: 16 }}>{Math.round(currentSet.max)} {currentSet.unit == "pounds" ? "LBS" : "KG"}</Text>
                                             </View>
                                         })}
                                     </View>

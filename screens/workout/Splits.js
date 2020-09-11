@@ -69,14 +69,17 @@ const Splits = ({ body, navigation }) => {
 
     return (
         <View style={splitStyles.root}>
-            <View style={{ flexDirection: "row", justifyContent: isSelected ? "space-between" : "center", marginHorizontal: isSelected ? 40 : 10, marginVertical: 20 }}>
-                <Text style={splitStyles.titleText}>Select Your Split</Text>
-                {isSelected ? <TouchableOpacity
+            {isSelected ? <TouchableOpacity onPress={() => { pressNavigation() }} style={{ flexDirection: "row", justifyContent: "center", marginHorizontal: 10, marginVertical: 20, backgroundColor: "dodgerblue", borderRadius: 10, padding: 10, }}>
+                <Text style={splitStyles.titleText}>Start Workout</Text>
+            </TouchableOpacity> :
+                <View style={{ flexDirection: "row", justifyContent: "center", marginHorizontal: 10, marginVertical: 20 }}>
+                    <Text style={splitStyles.titleText}>Select Your Split</Text>
+                    {/* {isSelected ? <TouchableOpacity
                     disabled={!isSelected}
                     onPress={() => { pressNavigation() }}>
                     <FontAwesome name="arrow-circle-o-right" size={40} color="mediumseagreen" />
-                </TouchableOpacity> : null}
-            </View>
+                </TouchableOpacity> : null} */}
+                </View>}
             <ScrollView>
                 <View style={splitStyles.bodyWrap}>
                     {body.map((split, index) => {
