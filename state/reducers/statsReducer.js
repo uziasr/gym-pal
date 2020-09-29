@@ -110,7 +110,7 @@ const statsReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
                 loading: false,
-                exerciseData:{}
+                exerciseData: {}
             }
         }
         default:

@@ -25,7 +25,8 @@ export const getToken = () => async dispatch => {
         const name = await AsyncStorage.getItem("name")
         dispatch({ type: GET_TOKEN_SUCCESS, payload: { token: token, name: name } })
     } catch {
-        console.log(e)
+        null
+        // console.log(e)
     }
 }
 

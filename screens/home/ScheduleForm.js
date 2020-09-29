@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { axiosWithAuthorization } from '../../utils/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { getSavedWorkouts, scheduleWorkout } from '../../state/actions/savedAction'
-
+import { scheduleStyles } from '../../styles/index'
 
 const ScheduleForm = ({ navigation }) => {
 
@@ -12,34 +12,27 @@ const ScheduleForm = ({ navigation }) => {
     const currentDate = navigation.state.params.date
 
     useEffect(() => {
-        // axiosWithAuthorization(state.reducer.token).get("/saved/workout")
-        // .then(res=>{
-        //     setSavedWorkouts(res.data)
-        // })
-        // .catch(err=>{
-        //     console.log(err.response)
-        // })
         dispatch(getSavedWorkouts(state.reducer.token))
     }, [])
 
     const saveWorkout = (id) => {
-        // axiosWithAuthorization(state.reducer.token).post(`/saved/${id}/schedule`, {date: currentDate})
-        // .then(res=>{
-        //     console.log(res.data)
-        // })
-        // .catch(err=>{
-        //     console.log(err)
-        // })
         dispatch(scheduleWorkout(state.reducer.token, id, { date: currentDate }))
+        navigation.navigate("Schedule")
     }
+    console.log(state.savedReducer.savedWorkouts)
 
     return (
-        <View>
-            <Text style={{ alignSelf: "center", fontSize: 20, marginVertical: 10 }}>Saved Workouts</Text>
+        <View style={scheduleStyles.root}>
+            <Text style={scheduleStyles.rootTitle}>Welcome to the Gym Pal Schedule Tool</Text>
+            <View style={scheduleStyles.toolDescriptionWrap}>
+                <Text style={scheduleStyles.toolDescriptionText}>Looking for workouts? This tool supports scheduling workouts using Workout Templates.</Text>
+                <Text style={scheduleStyles.toolDescriptionText}>Go to your favorite workout and create and template of it and you will find it here!</Text>
+            </View>
+            <Text style={scheduleStyles.savedTitle}>Saved Workouts</Text>
             <View style={{ marginLeft: 15 }}>
                 {state.savedReducer.savedWorkouts.map((savedWorkout, index) => (
-                    <TouchableOpacity key={index} onPress={() => saveWorkout(savedWorkout.id)}>
-                        <Text>{savedWorkout.name}</Text>
+                    <TouchableOpacity style={scheduleStyles.savedWorkoutsWrap} key={index} onPress={() => saveWorkout(savedWorkout.id)}>
+                        <Text style={scheduleStyles.savedWorkoutsText}>{savedWorkout.name}</Text>
                     </TouchableOpacity>
                 ))}
             </View>

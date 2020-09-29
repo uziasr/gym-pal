@@ -59,3 +59,4 @@ export const getExerciseStats = (token, exerciseId) => dispatch => {
             dispatch({ type: GET_EXERCISE_STATS_FAIL, payload: err })
         })
 }
+

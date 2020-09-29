@@ -3,7 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Button, Overlay } from 'react-native-elements';
 import { workoutStyles, autoInputStyles } from '../../styles/index'
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
-import { getWorkoutById, completeWorkout } from "../../state/actions/workoutActions"
+import { getWorkoutById, completeWorkout, addExerciseToWorkout } from "../../state/actions/workoutActions"
 import { NavigationEvents } from 'react-navigation';
 import Spinner from "../../utils/Spinner"
 
@@ -18,7 +18,14 @@ const Workout = ({ navigation }) => {
 
 
     const nextExerciseHandler = () => {
-        navigation.navigate("Exercise")
+        if (state.workoutReducer.templateExercises.length) {
+            const nextExercise = state.workoutReducer.templateExercises[state.workoutReducer.exercises.length]
+            dispatch(addExerciseToWorkout(state.reducer.token, state.workoutReducer.workoutId, { exercise: nextExercise }))
+            navigation.navigate('Sets', { exercise: nextExercise, sets: { [nextExercise]: [] } })
+        }
+        else {
+            navigation.navigate("Exercise")
+        }
     }
 
     const toggleOverlay = () => {
@@ -34,6 +41,7 @@ const Workout = ({ navigation }) => {
 
     const RecordedWorkout = () => (
         <ScrollView>
+            <Text style={workoutStyles.titleText}>Workout Overview</Text>
             {state.workoutReducer.currentWorkout.length !== 0 ? state.workoutReducer.currentWorkout.map((exercise, index) => {
                 return <View key={index} style={workoutStyles.exerciseWrapper}>
                     <View style={workoutStyles.exerciseTextWrap}>
@@ -48,7 +56,7 @@ const Workout = ({ navigation }) => {
                             </View>
                             <View style={workoutStyles.setWrapper}>
                                 {exercise.sets.map((aSet, index) => {
-                                    return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
+                                    return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8, alignSelf:"flex-end" }}>
                                         <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
                                     </View>
                                 })}
@@ -63,7 +71,7 @@ const Workout = ({ navigation }) => {
                                 </View>
                                 <View >
                                     {exercise.previous_sets.map((aSet, index) => {
-                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8, paddingHorizontal: 0, alignSelf: "center" }}>
+                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8, paddingHorizontal: 0, alignSelf: "flex-end" }}>
                                             <Text style={workoutStyles.setText}>{aSet.weight} X {aSet.repetition} ({aSet.unit == "pounds" ? "LBS" : "KG"})</Text>
                                         </View>
                                     })}
@@ -77,7 +85,7 @@ const Workout = ({ navigation }) => {
                                 </View>
                                 <View style={workoutStyles.setWrapper}>
                                     {exercise.sets.map((aSet, index) => {
-                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8 }}>
+                                        return <View key={index} style={{ ...workoutStyles.setTextWrapper, marginBottom: index + 1 == exercise.sets.length ? 0 : 8, alignSelf: "flex-end" }}>
                                             <Text style={workoutStyles.setText}>{Math.round(aSet.max)} {"LBS"}</Text>
                                         </View>
                                     })}
@@ -94,10 +102,11 @@ const Workout = ({ navigation }) => {
         </ScrollView>
     )
 
-
     return (
         <View style={workoutStyles.root}>
-            <NavigationEvents onWillFocus={payload => state.workoutReducer.workoutInProgress ? null : navigation.navigate("Body")} />
+            <NavigationEvents onWillFocus={payload => {
+                dispatch(getWorkoutById(state.reducer.token, state.workoutReducer.workoutId))
+            }} />
             {state.workoutReducer.loading ?
                 <Spinner />
                 :
@@ -105,7 +114,7 @@ const Workout = ({ navigation }) => {
                     <RecordedWorkout />
                     <View style={workoutStyles.buttonWrap}>
                         <Button onPress={() => toggleOverlay()} title="Complete Workout" buttonStyle={{ backgroundColor: "dodgerblue", borderRadius: 15 }} />
-                        <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "mediumseagreen", borderRadius: 15 }} />
+                        {state.workoutReducer.templateExercises.length != 0 && state.workoutReducer.templateExercises.length != state.workoutReducer.exercises.length ?  null : <Button onPress={() => nextExerciseHandler()} title="Next Exercise" buttonStyle={{ backgroundColor: "mediumseagreen", borderRadius: 15 }} />}
                     </View>
                     <Overlay overlayStyle={{ width: "90%" }} isVisible={visible} onBackdropPress={toggleOverlay}>
                         <View>

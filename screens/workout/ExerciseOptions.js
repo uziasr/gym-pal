@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Dimensions } from 'react-native';
 import bodyData from './body'
 import Splits from './Splits'
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useSelector, useDispatch, shallowEqual } from "react-redux"
 import { NavigationEvents } from 'react-navigation';
 
@@ -47,31 +47,26 @@ export default function ExerciseOptions({ navigation }) {
 
     const initialLayout = { width: Dimensions.get('window').width };
 
-
-    const [body, setBody] = useState(bodyData['simple'])
-
-    const switchHandler = (name) => {
-        setOptions(() => {
-            let newOptions = {}
-            Object.keys(options).forEach((key) => {
-                newOptions[key] = false
-            })
-            return { ...newOptions, [name]: true }
-        })
-        setBody(bodyData[name])
-    }
+    const renderTabBar = props => (
+        <TabBar
+            {...props}
+            indicatorStyle={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: 'dodgerblue' }}
+        />
+    )
 
     return (
         <>
             <NavigationEvents
-                onWillFocus={payload => state.exerciseInProgress ? navigation.navigate("Sets", { exercise: state.currentExercise, sets:state.fullCurrentExercise }) : state.workoutInProgress ? navigation.navigate("Exercise") : null} />
+                onWillFocus={payload => state.exerciseInProgress ? navigation.navigate("Sets", { exercise: state.currentExercise, sets: state.fullCurrentExercise }) : state.workoutInProgress ? navigation.navigate("Exercise") : null} />
             <TabView
                 navigationState={{ index, routes }}
                 renderScene={renderScene}
                 onIndexChange={setIndex}
                 initialLayout={initialLayout}
-                indicatorStyle={{ backgroundColor: 'blue', height: 2 }}
-                style={{ background: 'black' }}
+                renderTabBar={renderTabBar}
+                // indicatorStyle={{ backgroundColor: 'black', height: 2 }}
+                // style={{ background: 'black' }}
             />
         </>
 

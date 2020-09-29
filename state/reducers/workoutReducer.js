@@ -38,6 +38,7 @@ export const initialState = {
     currentExercise: null,
     workoutId: null,
     workoutExerciseId: null,
+    templateId: null,
     exercise: null,
     loading: false,
     error: null,
@@ -49,8 +50,8 @@ export const initialState = {
     exerciseInProgress: false,
     exerciseFetched: false,
     set: {},
-    exercises: []
-
+    exercises: [],
+    templateExercises: []
 }
 
 const workoutReducer = (state = initialState, action) => {
@@ -111,6 +112,8 @@ const workoutReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 workoutId: action.payload.id,
+                currentExercise: action.payload.exercise ? action.payload.exercise : null,
+                currentWorkoutId: action.payload["workout_exercise_id"] ? action.payload["workout_exercise_id"] : null,
                 workoutInProgress: true
             }
         }
@@ -134,6 +137,8 @@ const workoutReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 workoutId: action.payload.id,
+                templateId: action.payload.template_id ? action.payload.template_id : null,
+                templateExercises: action.payload.exercises ? action.payload.exercises : [],
                 workoutInProgress: true,
                 workoutFetched: true,
             }
@@ -237,7 +242,9 @@ const workoutReducer = (state = initialState, action) => {
                 currentWorkoutId: null,
                 currentWorkout: [],
                 workoutInProgress: false,
-                exerciseInProgress: false
+                exerciseInProgress: false,
+                templateExercises: [],
+                templateId: null
             }
         }
         case COMPLETE_WORKOUT_FAIL: {
@@ -308,7 +315,6 @@ const workoutReducer = (state = initialState, action) => {
             }
         }
         case DELETE_EXERCISE_FAIL: {
-            console.log("err",action.payload)
             return {
                 ...state,
                 loading: false,

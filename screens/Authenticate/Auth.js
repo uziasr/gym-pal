@@ -63,7 +63,8 @@ const Auth = ({ navigation }) => {
                 }}
                 source={require("../../assets/rack.jpg")}
             /> */}
-            {state.token == null ? < LoggedOut /> : <Profile />}
+            {console.log("hello",state.reducer.token)}
+            {state.reducer.token == null ? < LoggedOut /> : <Profile />}
         </View>
     );
 };
